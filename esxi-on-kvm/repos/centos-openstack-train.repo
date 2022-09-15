@@ -1,0 +1,6 @@
+[centos-openstack-train]
+name = CentOS- $releasever - OpenStack train
+baseurl = http://vault.centos.org/$contentdir/$releasever/cloud/$basearch/openstack-train/
+gpgcheck = 1
+enabled = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud

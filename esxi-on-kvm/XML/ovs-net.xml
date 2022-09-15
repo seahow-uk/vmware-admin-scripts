@@ -1,0 +1,22 @@
+<network>
+  <name>ovs-net</name>
+  <forward mode='bridge'/>
+  <bridge name='ovs-br0'/>
+  <virtualport type='openvswitch'/>
+  <portgroup name='management'>
+    <vlan>
+      <tag id='20' nativeMode='untagged'/>
+    </vlan>
+  </portgroup>
+  <portgroup name='traffic'>
+    <vlan>
+      <tag id='20'/>
+      <tag id='30'/>
+      <tag id='40'/>
+      <tag id='50'/>
+      <tag id='60'/>
+      <tag id='70'/>
+      <tag id='80'/>
+    </vlan>
+  </portgroup>
+</network>

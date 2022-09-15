@@ -1,0 +1,4 @@
+THISDIRPLACEHOLDER *(ro,no_subtree_check,fsid=0,crossmnt)
+THISDIRPLACEHOLDER/ISO *(rw,no_subtree_check,no_root_squash,sync)
+THISDIRPLACEHOLDER/VMs *(rw,no_subtree_check,no_root_squash,sync)
+THISDIRPLACEHOLDER/OVA *(rw,no_subtree_check,no_root_squash,sync)

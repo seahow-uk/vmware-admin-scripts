@@ -1,0 +1,11 @@
+DEVICE=eth0
+NAME=eth0
+BOOTPROTO=none
+ONBOOT=yes
+TYPE=OVSPort
+NM_CONTROLLED=yes
+EC2SYNC=no
+DEVICETYPE=ovs
+OVS_BRIDGE=ovs-br0
+ETHTOOL_OPTS="-K ${DEVICE} gso off; -K ${DEVICE} gro off; -K ${DEVICE} tso off; -K ${DEVICE} txvlan off; -K ${DEVICE} sg off; -K ${DEVICE} ufo off; -K ${DEVICE} lro off"
+MTU=9000

@@ -1,0 +1,14 @@
+DEVICE=ovs-vlan50
+DEVICETYPE=ovs
+TYPE=OVSIntPort
+OVS_BRIDGE=ovs-br0
+BOOTPROTO=static
+IPADDR=192.168.50.1
+NETMASK=255.255.255.0
+ONBOOT=yes
+NM_CONTROLLED=yes
+EC2SYNC=no
+OVS_OPTIONS="tag=50"
+OVS_EXTRA="set Interface $DEVICE external-ids:iface-id=$(hostname -s)-$DEVICE-vif"
+ETHTOOL_OPTS="-K ${DEVICE} gso off; -K ${DEVICE} gro off; -K ${DEVICE} tso off; -K ${DEVICE} txvlan off; -K ${DEVICE} sg off; -K ${DEVICE} ufo off; -K ${DEVICE} lro off"
+MTU=9000

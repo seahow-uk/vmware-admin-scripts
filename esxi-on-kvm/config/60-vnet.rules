@@ -1,0 +1,4 @@
+KERNEL=="ovs*", RUN+="/sbin/ip link set %k txqueuelen 5000"
+KERNEL=="esxi*", RUN+="/sbin/ip link set %k txqueuelen 5000"
+KERNEL=="eth0", RUN+="/sbin/ip link set %k txqueuelen 5000" 
+KERNEL=="lo", RUN+="/sbin/ip link set %k txqueuelen 5000"
