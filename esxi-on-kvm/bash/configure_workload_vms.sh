@@ -1,7 +1,5 @@
 #!/bin/bash 
 
-
-
 ${OVFTOOLPATH}/ovftool --acceptAllEulas --powerOn --noSSLVerify --name=wordpress-01a --datastore=vm-datastore --net:bridged='Applications (VLAN 30) [compute-dvs]' ./OVA/wordpress/bitnami-wordpress-5.5.1-1-linux-debian-10-x86_64.ova "vi://$SSOACCOUNT@${SSODOMAINBASE}1.${SSODOMAINSUFFIX}:VMware1%21VMware1%21@vcsa1.$DNSDOMAIN/datacenter-1/host/compute-cluster-1/esxi2.$DNSDOMAIN"
                 
 ${OVFTOOLPATH}/ovftool --acceptAllEulas --powerOn --noSSLVerify --name=odoo-01a --datastore=vm-datastore --net:bridged='Applications (VLAN 30) [compute-dvs]' ./OVA/odoo/bitnami-odoo-13.0.20200915-0-linux-debian-10-x86_64.ova "vi://$SSOACCOUNT@${SSODOMAINBASE}1.${SSODOMAINSUFFIX}:VMware1%21VMware1%21@vcsa1.$DNSDOMAIN/datacenter-1/host/compute-cluster-1/esxi4.$DNSDOMAIN"

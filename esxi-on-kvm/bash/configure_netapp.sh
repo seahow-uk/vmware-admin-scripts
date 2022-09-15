@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 # move nics 1 and 2 to their respective iscsi VLANs on the netapp, which is on vcsa 2 thus i=2
 
 echo "configuring fas2040-01a on vcsa2.$DNSDOMAIN..."

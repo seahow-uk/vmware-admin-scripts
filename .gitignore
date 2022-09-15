@@ -348,5 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-6.7.0-19832974.iso.gz
-esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso.gz
+

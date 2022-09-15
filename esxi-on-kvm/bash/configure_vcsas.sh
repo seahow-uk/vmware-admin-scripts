@@ -1,7 +1,6 @@
 #!/bin/bash
 
-    VCSAJSONSOURCE=./JSON/$VSPHEREVERSION.json
-    export PATH=$PATH:$OVFTOOLPATH
+    VCSAJSONSOURCE=./JSON/vcsa-install-$VSPHEREVERSION.json
 
 ## Stage 1: deploy vcsas - one to each of n number hosts
 

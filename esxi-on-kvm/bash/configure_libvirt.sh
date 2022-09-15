@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ## enable libvirtd
 systemctl enable libvirtd
 systemctl start libvirtd

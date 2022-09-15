@@ -6,18 +6,52 @@
 ##
 ## NOTE: you MUST run this as root
 ##
-## 
-## example:
-##
-## ./bash/main.sh 192.168.10.10 192.168.20.50
+# VARIABLES YOU MUST SET -- this whole thing will break if you dont set these
+# You will need to download the ISOs for the VCSA appliance you want to use and point VCSAISO to it
+# You will need to set the vsphere version.  It can only be 7.0 or 6.7.  Other values will break things.
+# You must set the DNS parameters
+# The AD user and password is needed to insert appropriate DNS records into your environment.  
+#
+# here is an example:
+#
+#	export DNSIPADDRESS1=192.168.10.135
+#	export DNSIPADDRESS2=192.168.10.136
+#	export VCSAISO=./ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso
+#	export VSPHEREVERSION=6.7
+# export DNSDOMAIN=example.local
+# export ADPASSWORD=XXXXXXXX
+# export ADUSER=admin@example.local
 
-if [[ $1 == "" ]]; then
-  echo "You didnt supply DNS server 1, try again"
+	export DNSIPADDRESS1=
+	export DNSIPADDRESS2=
+	export VCSAISO=
+	export VSPHEREVERSION=
+  export DNSDOMAIN=
+  export ADPASSWORD=
+  export ADUSER=
+
+if [[ $DNSIPADDRESS1 == "" ]]; then
+  echo "You didnt supply DNS server 1"
   exit 1
 fi
 
-if [[ $2 == "" ]]; then
-  echo "You didnt supply DNS server 2, try again"
+if [[ $DNSIPADDRESS2 == "" ]]; then
+  echo "You didnt supply DNS server 2"
+  exit 1
+fi
+
+if [[ $VCSAISO == "" ]]; then
+  echo "You didnt supply a path to the VCSA ISO"
+  exit 1
+fi
+
+if [[ $VSPHEREVERSION == "" ]]; then
+  echo "You didnt specify the vsphere version"
+  exit 1
+fi
+
+if [[ $DNSDOMAIN == "" ]]; then
+  echo "You didnt specify the DNS domain"
   exit 1
 fi
 
@@ -33,6 +67,9 @@ fi
 
     ## install dnf packages, do some other l0 system config needed for nested vmware
       ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
+
+    ## insert DNS records into your AD-based DNS
+      ./bash/insertdnsrecords.sh &>> /var/log/configure_l0_packages.sh.log
 
     ## configure libvirt, QEMU, KVM
       ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log

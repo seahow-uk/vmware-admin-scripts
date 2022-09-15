@@ -13,8 +13,6 @@
     virsh net-autostart ovs-net
     virsh net-start ovs-net
 
-  ln -s ./vcsa-extracted/7.0/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
-
   # Loop through and create specified number of generic esxi hosts using custom kickstart script added to the iso
 
   for ((i = $STARTHOST; i <= $ENDHOST; i++)); do

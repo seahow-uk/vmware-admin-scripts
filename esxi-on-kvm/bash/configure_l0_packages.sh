@@ -102,13 +102,6 @@
 	systemctl enable --now cockpit.socket &>> /var/log/userdata.log
 	systemctl start --now cockpit.socket &>> /var/log/userdata.log  
 
-## put network-bouncer.sh where it goes
-	cp -f ./bash/network-bouncer.sh /usr/bin/network-bouncer.sh
-	cp -f ./config/network-bouncer.service /usr/lib/systemd/system/network-bouncer.service
-	chmod 777 /usr/bin/network-bouncer.sh
-	chmod 400 /usr/lib/systemd/system/network-bouncer.service
-	systemctl enable network-bouncer
-
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
 	mv -fv ./config/smb.conf /etc/samba/smb.conf
@@ -141,29 +134,12 @@
 
   # extract all versions of the vcsa ISO (might want to tighten this up later to shorten build time)
 
-  #### vSphere 7.0
-    VCSAISO="./ISO/vcsa/VMware-VCSA-all-7.0.0-15934039.iso"
+  #### VCSA
     mount -o loop $VCSAISO /mnt/iso
-    mkdir -p ./vcsa-extracted/7.0
-    cp -rf /mnt/iso/* ./vcsa-extracted/7.0
+    mkdir -p ./vcsa-extracted/$VSPHEREVERSION
+    cp -rf /mnt/iso/* ./vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
-
-  #### vSphere 6.7u3a
-    VCSAISO="./ISO/vcsa/VMware-VCSA-all-6.7.0-15132721.iso"
-    mount -o loop $VCSAISO /mnt/iso
-    mkdir -p ./vcsa-extracted/6.7
-    cp -rf /mnt/iso/* ./vcsa-extracted/6.7
-    umount /mnt/iso
-
-  ##### vSphere 6.5u3a
-    VCSAISO="./ISO/vcsa/VMware-VCSA-all-6.5.0-15259038.iso"
-    mount -o loop $VCSAISO /mnt/iso
-    mkdir -p ./vcsa-extracted/6.5
-    cp -rf /mnt/iso/* ./vcsa-extracted/6.5
-    umount /mnt/iso
-
-  ## put network-bouncer.sh where it goes
-    cp ./bash/network-bouncer.sh /usr/bin/network-bouncer.sh
+	ln -s ./vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
   ## Create directory structures needed
     mkdir -p /etc/samba 
@@ -211,7 +187,7 @@
 	pip install git+https://github.com/vmware/pyvmomi-community-samples.git
 
 	chmod 700 ./data/$ESXCLIFILE
-	./bash/installesxcli.sh
+	./expect/installesxcli.sh
 
 	dcli --version
 

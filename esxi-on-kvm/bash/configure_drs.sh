@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 # for each vcenter/lab environment, configure DRS on the compute cluster
 
 for ((i = 1; i <= 2; i++)); do

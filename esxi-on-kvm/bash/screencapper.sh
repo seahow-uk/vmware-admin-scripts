@@ -1,7 +1,5 @@
 #!/bin/bash 
 
-
-
 # build our global variables
     STARTHOST=1
     ENDHOST=$ESXHOSTCOUNT

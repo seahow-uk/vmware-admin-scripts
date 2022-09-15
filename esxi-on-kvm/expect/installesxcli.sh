@@ -1,7 +1,7 @@
 #!/usr/bin/expect -f
 
 set timeout 5
-spawn ./data/esxcli-7.0.0-15866526-lin64.sh
+spawn $ESXCLIFILE
 
 expect {
     "Press any key to continue to the EULA" {

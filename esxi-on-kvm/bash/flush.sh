@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 ## variables
 STARTHOST=1
 ENDHOST=$ESXHOSTCOUNT
