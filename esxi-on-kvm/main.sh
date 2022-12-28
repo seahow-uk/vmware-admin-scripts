@@ -14,21 +14,21 @@
 #
 # here is an example:
 #
-#	export DNSIPADDRESS1=192.168.10.135
-#	export DNSIPADDRESS2=192.168.10.136
+#	export DNSIPADDRESS1=10.0.0.111
+#	export DNSIPADDRESS2=10.0.0.74
 #	export VCSAISO=./ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso
-#	export VSPHEREVERSION=6.7
+#	export VSPHEREVERSION=7.0
 # export DNSDOMAIN=example.local
-# export ADPASSWORD=XXXXXXXX
+# export ADPASSWORD=Aws2022@
 # export ADUSER=admin@example.local
 
-	export DNSIPADDRESS1=
-	export DNSIPADDRESS2=
-	export VCSAISO=
-	export VSPHEREVERSION=
-  export DNSDOMAIN=
-  export ADPASSWORD=
-  export ADUSER=
+export DNSIPADDRESS1=
+export DNSIPADDRESS2=
+export VCSAISO=
+export VSPHEREVERSION=
+export DNSDOMAIN=
+export ADPASSWORD=
+export ADUSER=
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
   echo "You didnt supply DNS server 1"
