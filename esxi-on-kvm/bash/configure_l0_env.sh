@@ -43,6 +43,13 @@
 # 	export HOME=</home/you>
 
 # this sets the NFS exports root to whatever directory this is
-    sed -i "s/THISDIRPLACEHOLDER/$PWD/g" ./config/	exports
+	function escapeSlashes {
+		sed 's/\//\\\//g'
+	}
+	
+	ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
+	echo $ESCAPEDPWD
+	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/exports
+
 
 exit 0
