@@ -15,13 +15,13 @@
 #
 # here is an example:
 #
-#	export DNSIPADDRESS1=10.0.0.111
-#	export DNSIPADDRESS2=10.0.0.74
-#	export VCSAISO=./ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso
-#	export VSPHEREVERSION=7.0
-# export DNSDOMAIN=example.local
-# export ADPASSWORD=Aws2022@
-# export ADUSER=admin@example.local
+#% DNSIPADDRESS1=10.0.0.111
+#% DNSIPADDRESS2=10.0.0.74
+#% VCSAISO=./ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso
+#% VSPHEREVERSION=7.0
+#% DNSDOMAIN=example.local
+#% ADPASSWORD=Aws2022@
+#% ADUSER=admin@example.local
 
 export DNSIPADDRESS1=
 export DNSIPADDRESS2=
