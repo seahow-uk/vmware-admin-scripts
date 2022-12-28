@@ -17,11 +17,13 @@ Steps
         [this next part is just so cloudwatch agent log stuff works and is optional]
 	
         wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm 
+        rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm 
         vi /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json 
             (manually insert json base file)
             (manually create new log group called nest-test-centos-8-appstream)
         sed -i "s/INSTANCELOGSPLACEHOLDER/nest-test-centos-8-appstream/g" /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
-
+        /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+        
     mkdir -p /scripts
     cd /scripts
     git clone https://github.com/seahow-uk/vmware-admin-scripts.git
@@ -43,4 +45,6 @@ Steps
         [Here you will have to manually set the parameters it wants at the top of the file]
     
     ./main.sh
+
+
 
