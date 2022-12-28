@@ -96,12 +96,6 @@
 	dnf group install "Performance Tools" --with-optional -y
 	dnf group install "System Tools" --with-optional -y
 
-## Install Web Services
-	dnf install cockpit-* -y -q &>> /var/log/userdata.log
-	dnf install mod_ssl -y -q &>> /var/log/userdata.log
-	systemctl enable --now cockpit.socket &>> /var/log/userdata.log
-	systemctl start --now cockpit.socket &>> /var/log/userdata.log  
-
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
 	mv -fv ./config/smb.conf /etc/samba/smb.conf
@@ -144,12 +138,6 @@
   ## Create directory structures needed
     mkdir -p /etc/samba 
     mkdir -p /var/www/html/
-
-  ## Shuffle config files needed for Kickstart, etc
-    mv -fv ./config/exports /etc/exports
-    mv -fv ./config/smb.conf /etc/samba/smb.conf
-    cp -f ./bash/treesize /bin/treesize
-    cp -f ./config/KS.CFG /var/www/html/KS.CFG
 
   ## Kickstart samba
     systemctl enable smb nmb
