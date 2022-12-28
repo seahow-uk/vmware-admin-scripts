@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-ETH0IP=`ifconfig ovs-uplink | awk '/inet / {print $2}'`
+ETH0IP=`ifconfig eth0 | awk '/inet / {print $2}'`
 THIRDOCTET="$(cut -d'.' -f3 <<< $ETH0IP)"
 FOURTHOCTET="$(cut -d'.' -f4 <<< $ETH0IP)"
 echo "$ADPASSWORD" | kinit $ADUSER

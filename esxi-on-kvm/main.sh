@@ -69,7 +69,7 @@ fi
       ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
 
     ## insert DNS records into your AD-based DNS
-      ./bash/insertdnsrecords.sh &>> /var/log/configure_l0_packages.sh.log
+      ./bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
 
     ## configure libvirt, QEMU, KVM
       ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
