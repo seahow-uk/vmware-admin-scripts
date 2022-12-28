@@ -5,6 +5,7 @@
 ## ./bash/main.sh <dns server ip 1> <dns server ip 2>
 ##
 ## NOTE: you MUST run this as root
+## errata: there are a couple places where it assumes the primary network interface is called eth0
 ##
 # VARIABLES YOU MUST SET -- this whole thing will break if you dont set these
 # You will need to download the ISOs for the VCSA appliance you want to use and point VCSAISO to it
