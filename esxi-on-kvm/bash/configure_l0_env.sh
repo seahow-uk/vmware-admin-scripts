@@ -1,6 +1,6 @@
 #!/bin/bash -x
-	export ESXCLIFILE=./esxcli/esxcli-7.0.0-15866526-lin64.sh
-	export OVFTOOLPATH=./vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64
+	export ESXCLIFILE=esxcli/esxcli-7.0.0-15866526-lin64.sh
+	export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64
 # VARIABLES YOU CAN LEAVE AT THE DEFAULT
 	export TIMEZONE=EDT
 # these variables set the octet for the relevant VLANs/subnets
@@ -46,7 +46,7 @@
 	function escapeSlashes {
 		sed 's/\//\\\//g'
 	}
-	
+
 	ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
 	echo $ESCAPEDPWD
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/exports

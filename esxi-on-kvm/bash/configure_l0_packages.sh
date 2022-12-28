@@ -14,8 +14,6 @@
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## repo stuff
-	#sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
-	#sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
 	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization
 	rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
 	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud
@@ -30,45 +28,7 @@
 	dnf distro-sync -y
 
 ## install packages
-	yum install gdisk -y
-	yum install wget -y
-	yum install expect -y
-	yum install lvm2 -y
-	yum install kernel-devel -y
-	yum install nfs-utils -y
-	yum install nfs4-acl-tools -y
-	yum install libnfsidmap -y
-	yum install python2 -y
-	yum install python2-pip -y
-	yum install python39 -y
-	yum install python39-pip -y
-	yum install python39-wheel -y
-	yum install python39-devel -y
-	yum install gcc -y
-	yum install expect -y
-	yum install numactl -y
-	yum install cmake -y
-	yum install maven -y 
-	yum install byacc -y 
-	yum install unbound -y 
-	yum install parallel -y 
-	yum install nvme-cli -y 
-	yum install mlocate -y 
-	yum install ipcalc -y 
-	yum install polkit -y 
-	yum install wget -y  
-	yum install httpd -y
-	yum install dhcp-server -y 
-	yum install libnsl -y 
-	yum install sshpass -y 
-	yum install unzip -y 
-	yum install libvirt-devel -y 
-	yum install nload -y 
-	yum install sysfsutils -y
-	yum install iotop -y
-	yum install iftop -y
-	yum install netpbm -y
-	yum install samba -y
+	dnf install byacc cmake dhcp-server expect gcc gdisk httpd iftop iotop ipcalc kernel-devel libnfsidmap libnsl libvirt-devel lvm2 maven mlocate netpbm nfs4-acl-tools nfs-utils nload numactl nvme-cli parallel polkit python39* samba sshpass sysfsutils unbound unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
 ## update-alternatives for python
 	update-alternatives --set python3 /usr/bin/python3.9
@@ -76,25 +36,20 @@
 
 ## libvirt install via package groups 
 	dnf module disable virt -y &>> /var/log/userdata.log
-	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/userdata.log
-	dnf install virt* -y -q &>> /var/log/userdata.log
-	dnf install libguestfs* -y -q &>> /var/log/userdata.log
-	dnf install swtpm* -y -q &>> /var/log/userdata.log   
+	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
+	dnf install virt* libguestfs* swtpm* -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## OVS install
-	dnf install openvswitch -y -q &>> /var/log/userdata.log
-	dnf install libibverbs -y -q &>> /var/log/userdata.log
-	dnf install os-net-config -y -q &>> /var/log/userdata.log
-	dnf install vnstat -y -q &>> /var/log/userdata.log
+	dnf install openvswitch libibverbs os-net-config vnstat -y -q &>> /var/log/configure_l0_packages_4.log
 	systemctl enable vnstat
 	systemctl start vnstat
 
 ## install various tool packages for troubleshooting
-	dnf group install "Networking Tools" --with-optional -y
-	dnf group install "Hardware Monitoring Utilities" --with-optional -y
-	dnf group install "Large Systems Performance" --with-optional -y
-	dnf group install "Performance Tools" --with-optional -y
-	dnf group install "System Tools" --with-optional -y
+	# dnf group install "Networking Tools" --with-optional -y
+	# dnf group install "Hardware Monitoring Utilities" --with-optional -y
+	# dnf group install "Large Systems Performance" --with-optional -y
+	# dnf group install "Performance Tools" --with-optional -y
+	# dnf group install "System Tools" --with-optional -y
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
@@ -108,7 +63,7 @@
 	systemctl start smb nmb
 
 ## configure host profile
-	tuned-adm profile virtual-host &>> /var/log/userdata.log
+	tuned-adm profile virtual-host &>> /var/log/configure_l0_packages_5
 
 ## python links
 	update-alternatives --set python3 /usr/bin/python3.9
@@ -127,27 +82,24 @@
     mkdir -p vcsa-extracted/$VSPHEREVERSION
     cp -rf /mnt/iso/* vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
-	ln -s vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
+	ln -s ./vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
   ## Permissions tweaks for the aforementioned config files
     chown -R root:nobody * 
     chmod -R 777 /bin/treesize
     chmod -R 744 *
 
-	update-alternatives --set python3 /usr/bin/python3.9
-	update-alternatives --set python /usr/bin/python2
-
-	pip install pyvim --log /var/log/pip/install_pyvim.log
-	pip install requests --log /var/log/pip/install_requests.log
-	pip install vcrpy --log /var/log/pip/install_vrcpy.log
-	pip install pyvmomi --log /var/log/pip/install_pyvmomi.log
-	pip install suds-jurko --log /var/log/pip/install_suds-jurko.log
-	pip install lxml --log /var/log/pip/install_lxml.log
-	pip install ipaddress --log /var/log/pip/install_ipaddress.log
-	pip install setuptools --log /var/log/pip/install_setuptools.log
-	pip install wheel --log /var/log/pip/install_wheel.log
-	pip install dcli --log /var/log/pip/install_dcli.log
-	pip install flent --log /var/log/pip/install_flent.log
+	pip install pyvim --log /var/log/pip_install_pyvim.log
+	pip install requests --log /var/log/pip_install_requests.log
+	pip install vcrpy --log /var/log/pip_install_vrcpy.log
+	pip install pyvmomi --log /var/log/pip_install_pyvmomi.log
+	pip install suds-jurko --log /var/log/pip_install_suds-jurko.log
+	pip install lxml --log /var/log/pip_install_lxml.log
+	pip install ipaddress --log /var/log/pip_install_ipaddress.log
+	pip install setuptools --log /var/log/pip_install_setuptools.log
+	pip install wheel --log /var/log/pip_install_wheel.log
+	pip install dcli --log /var/log/pip_install_dcli.log
+	pip install flent --log /var/log/pip_install_flent.log
 
 	# install vsphere-automation-sdk for python
 	pip install git+https://github.com/vmware/vsphere-automation-sdk-python.git
@@ -155,12 +107,11 @@
 	# community samples package for pyvmomi
 	pip install git+https://github.com/vmware/pyvmomi-community-samples.git
 
-	chmod 700 ./data/$ESXCLIFILE
+	chmod 700 data/$ESXCLIFILE
 	expect/installesxcli.sh
 
-	dcli --version
-
-	dnf install sshpass -y
+	# this is just here for troubleshooting
+	dcli --version &>> /var/log/configure_l0_packages_6
 
 exit 0
 
