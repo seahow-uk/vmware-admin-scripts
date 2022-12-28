@@ -21,19 +21,26 @@ echo "options kvm_intel enable_shadow_vmcs=Y" >>/etc/modprobe.d/kvm_intel.conf
 # routing and other ip tweaks
 echo 'net.ipv4.ip_forward=1' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_timestamps=1' >>/etc/sysctl.conf
-echo 'net.ipv4.tcp_sack=1' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_window_scaling=1' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_rmem=4096 12582912 16777216' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_wmem=4096 12582912 16777216' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_max_syn_backlog=8192' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_tw_reuse=1' >>/etc/sysctl.conf
-echo 'net.ipv4.tcp_slow_start_after_idle=0' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_abort_on_overflow=0' >>/etc/sysctl.conf
-echo 'net.ipv4.tcp_max_syn_backlog=8192' >>/etc/sysctl.conf
 echo 'net.core.rmem_max=16777216' >>/etc/sysctl.conf
 echo 'net.core.wmem_max=16777216' >>/etc/sysctl.conf
 echo 'net.core.somaxconn=2048' >>/etc/sysctl.conf
 echo 'net.core.netdev_max_backlog=16384' >>/etc/sysctl.conf
+
+# things which are useful across the internet but not needed for fast local networks
+
+# Disable TCP gradual speed increase 
+echo 'net.ipv4.tcp_slow_start_after_idle=0' >>/etc/sysctl.conf
+
+# Disable TCP selective acknowledgement and its permutations 
+echo 'net.ipv4.tcp_sack = 0' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_dsack = 0' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_fack = 0' >>/etc/sysctl.conf
 
 ## The following settings came from:
 ## http://techblog.cloudperf.net/2016/05/2-million-packets-per-second-on-public.html
