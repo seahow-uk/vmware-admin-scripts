@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 ## turn off selinux
 	setenforce 0
@@ -14,8 +14,8 @@
 	mkdir -p /mnt/iso /var/www/html ./OVA ./VM 
 
 ## repo stuff
-	sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
-	sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+	#sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+	#sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
 	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization
 	rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
 	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud
