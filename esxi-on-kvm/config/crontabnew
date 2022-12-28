@@ -1,4 +1,3 @@
 */5 * * * * ./bash/epochtohuman.sh /var/log/audit/audit.log >> /var/log/audit/audit.log.converted
 */30 * * * * journalctl --vacuum-time=30m >> /var/log/journalvacuum.log
 */5 * * * * dmesg -T -c >> /var/log/dmesg.log.timestamped
-*/15 * * * * (date +\%F:\%T.\%N && cat /proc/net/sockstat && echo "-----") >> /var/log/sockstat.log
