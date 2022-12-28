@@ -10,8 +10,8 @@
 ## configure cron
 	cat ./config/crontabnew | crontab -
 
-## create directory structure
-	mkdir -p /mnt/iso /var/www/html ./OVA ./VM 
+## create directory structures
+	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## repo stuff
 	#sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
@@ -103,12 +103,6 @@
 	cp -f ./config/KS.CFG /var/www/html/KS.CFG
 	cp -f ./bash/epochtohuman.sh ./bash/epochtohuman.sh
 
-## Permissions tweaks for the aforementioned config files
-	chown -R root:nobody ./ 
-	chmod -R 777 /bin/treesize
-	chmod 777 ./bash/epochtohuman.sh 
-	chmod -R 777 ./
-
 ## Kickstart samba
 	systemctl enable smb nmb
 	systemctl start smb nmb
@@ -130,28 +124,15 @@
 
   #### VCSA
     mount -o loop $VCSAISO /mnt/iso
-    mkdir -p ./vcsa-extracted/$VSPHEREVERSION
-    cp -rf /mnt/iso/* ./vcsa-extracted/$VSPHEREVERSION
+    mkdir -p vcsa-extracted/$VSPHEREVERSION
+    cp -rf /mnt/iso/* vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
-	ln -s ./vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
-
-  ## Create directory structures needed
-    mkdir -p /etc/samba 
-    mkdir -p /var/www/html/
-
-  ## Kickstart samba
-    systemctl enable smb nmb
-    systemctl start smb nmb
+	ln -s vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
   ## Permissions tweaks for the aforementioned config files
-    chown -R root:nobody ./ 
-    chown -R root:wheel /gopath/src/github.com/advantageous/systemd-cloud-watch/installer.sh
+    chown -R root:nobody * 
     chmod -R 777 /bin/treesize
-    chmod 777 ./data/epochtohuman.sh /gopath/src/github.com/advantageous/systemd-cloud-watch/installer.sh
-    chmod -R 777 ./
-    chmod -R 444 /etc/systemd/system/journald-cloudwatch.service
-
-	mkdir -p /var/log/pip
+    chmod -R 744 *
 
 	update-alternatives --set python3 /usr/bin/python3.9
 	update-alternatives --set python /usr/bin/python2
@@ -175,7 +156,7 @@
 	pip install git+https://github.com/vmware/pyvmomi-community-samples.git
 
 	chmod 700 ./data/$ESXCLIFILE
-	./expect/installesxcli.sh
+	expect/installesxcli.sh
 
 	dcli --version
 
