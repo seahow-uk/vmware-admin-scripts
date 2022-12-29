@@ -77,12 +77,12 @@ echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> b
 ## ok we've now made configure_l0_env.sh a central store for all env vars
 ## we need to source it once so it is available to subcomponents of this script run
 
-. bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
+. ./bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
 
 ## now lets copy it to /etc/profile.d so future interactive root sessions can
 ## just run the individual pieces below for troubleshooting
 
-cp bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
+cp ./bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
 
 ## ********** START CALL OUTS TO OTHER BASH SCRIPTS ********** 
 
