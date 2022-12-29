@@ -4,6 +4,18 @@
 	setenforce 0
 	sed -i "s/enforcing/disabled/g" /etc/selinux/config
 
+# this sets the NFS exports root to whatever directory this is
+	function escapeSlashes {
+		sed 's/\//\\\//g'
+	}
+
+	ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
+	echo $ESCAPEDPWD
+	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/exports
+	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/smb.conf
+	
+
+
 ## update grub
 	rm -f /etc/default/grub && mv ./boot/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
 

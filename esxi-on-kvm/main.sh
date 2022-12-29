@@ -13,6 +13,14 @@
 # You must set the DNS parameters
 # The AD user and password is needed to insert appropriate DNS records into your environment.  
 #
+DNSIPADDRESS1=
+DNSIPADDRESS2=
+VCSAISO=
+VSPHEREVERSION=
+DNSDOMAIN=
+ADPASSWORD=
+ADUSER=
+
 # here is an example:
 #
 #% DNSIPADDRESS1=10.0.0.111
@@ -22,14 +30,6 @@
 #% DNSDOMAIN=example.local
 #% ADPASSWORD=Aws2022@
 #% ADUSER=admin@example.local
-
-export DNSIPADDRESS1=
-export DNSIPADDRESS2=
-export VCSAISO=
-export VSPHEREVERSION=
-export DNSDOMAIN=
-export ADPASSWORD=
-export ADUSER=
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
   echo "You didnt supply DNS server 1"
@@ -61,10 +61,30 @@ if [[ "$(whoami)" != root ]]; then
   exit 1
 fi
 
-## ********** START CALL OUTS TO OTHER BASH SCRIPTS ********** 
+## this inserts the exports into configure_l0_env.sh which is sourced elsewhere
+## long story short, it makes them permanent in case you need to just re-run subcomponents
+## yes its a hack that was added later
 
-    ## set environment variables
-      ./bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
+echo "export DNSIPADDRESS1=$DNSIPADDRESS1" >> bash/configure_l0_env.sh
+echo "export DNSIPADDRESS2=$DNSIPADDRESS2" >> bash/configure_l0_env.sh
+echo "export VCSAISO=$VCSAISO" >> bash/configure_l0_env.sh
+echo "export VSPHEREVERSION=$VSPHEREVERSION" >> bash/configure_l0_env.sh
+echo "export DNSDOMAIN=$DNSDOMAIN" >> bash/configure_l0_env.sh
+echo "export ADPASSWORD=$ADPASSWORD" >> bash/configure_l0_env.sh
+echo "export ADUSER=$ADUSER" >> bash/configure_l0_env.sh
+echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> bash/configure_l0_env.sh 
+
+## ok we've now made configure_l0_env.sh a central store for all env vars
+## we need to source it once so it is available to subcomponents of this script run
+
+. bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
+
+## now lets copy it to /etc/profile.d so future interactive root sessions can
+## just run the individual pieces below for troubleshooting
+
+cp bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
+
+## ********** START CALL OUTS TO OTHER BASH SCRIPTS ********** 
 
     ## install dnf packages, do some other l0 system config needed for nested vmware
       ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
