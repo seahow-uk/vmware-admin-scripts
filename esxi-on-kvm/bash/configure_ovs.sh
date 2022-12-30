@@ -7,7 +7,7 @@
     systemctl stop NetworkManager
     mkdir -p /etc/systemd/network
     cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
-    dnf -y install network-scripts
+    dnf install network-scripts -y
     systemctl enable network
     systemctl restart network
 
