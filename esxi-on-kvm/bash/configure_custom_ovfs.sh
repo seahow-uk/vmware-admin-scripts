@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# pip install -U pysphere
+# pip3 install -U pysphere
 # cd ./bash
 # git clone https://github.com/pdellaert/vSphere-Python.git
 

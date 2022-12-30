@@ -26,21 +26,26 @@
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## repo stuff
-	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization
-	rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
-	rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud
-	wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
-	wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
-	wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud
+	# we almost certainly can remove this but leaving just in case
+	# rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization
+	# rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud
+	# wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
+	# wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud
+	# wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+	# rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
+	# cp -f ./repos/* /etc/yum.repos.d
+	# dnf install centos-release-openstack-train -y
+
+	# dnf install centos-release-advanced-virtualization -y
+	# dnf install centos-release-nfv* -y
 
 ## Prep dnf environment
 	dnf clean all 
 	rm -rfv /var/cache/dnf
-	cp -f ./repos/* /etc/yum.repos.d
 	dnf distro-sync -y
 
 ## install packages
-	dnf install byacc cmake dhcp-server expect gcc gdisk httpd iftop iotop ipcalc kernel-devel libnfsidmap libnsl libvirt-devel lvm2 maven mlocate netpbm nfs4-acl-tools nfs-utils nload numactl nvme-cli parallel polkit python39* samba sshpass sysfsutils unbound unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
+	dnf install byacc cmake dhcp-server expect gcc gdisk httpd iftop iotop ipcalc kernel-devel libnfsidmap libnsl libvirt-devel lvm2 maven mlocate netpbm nfs4-acl-tools nfs-utils nload numactl nvme-cli parallel polkit python3 samba sshpass sysfsutils unbound unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
 ## update-alternatives for python
 	update-alternatives --set python3 /usr/bin/python3.9
@@ -74,12 +79,11 @@
 	systemctl enable smb nmb
 	systemctl start smb nmb
 
-## configure host profile
-	tuned-adm profile virtual-host &>> /var/log/configure_l0_packages_5
+## set root password for Samba so jump host can easily mount shares
+	echo -ne "$ADPASSWORD\n$ADPASSWORD\n" | smbpasswd -a -s root
 
-## python links
-	update-alternatives --set python3 /usr/bin/python3.9
-	update-alternatives --set python /usr/bin/python2
+## configure host profile
+	tuned-adm profile virtual-host &>> /var/log/configure_l0_packages_5.log
 
 ## vnet rules
 	mv -f ./config/60-vnet.rules /etc/udev/rules.d/60-vnet.rules
@@ -101,29 +105,29 @@
     chmod -R 777 /bin/treesize
     chmod -R 744 *
 
-	pip install pyvim --log /var/log/pip_install_pyvim.log
-	pip install requests --log /var/log/pip_install_requests.log
-	pip install vcrpy --log /var/log/pip_install_vrcpy.log
-	pip install pyvmomi --log /var/log/pip_install_pyvmomi.log
-	pip install suds-jurko --log /var/log/pip_install_suds-jurko.log
-	pip install lxml --log /var/log/pip_install_lxml.log
-	pip install ipaddress --log /var/log/pip_install_ipaddress.log
-	pip install setuptools --log /var/log/pip_install_setuptools.log
-	pip install wheel --log /var/log/pip_install_wheel.log
-	pip install dcli --log /var/log/pip_install_dcli.log
-	pip install flent --log /var/log/pip_install_flent.log
+	pip3 install pyvim --log /var/log/pip_install_pyvim.log
+	pip3 install requests --log /var/log/pip_install_requests.log
+	pip3 install vcrpy --log /var/log/pip_install_vrcpy.log
+	pip3 install pyvmomi --log /var/log/pip_install_pyvmomi.log
+	pip3 install suds-jurko --log /var/log/pip_install_suds-jurko.log
+	pip3 install lxml --log /var/log/pip_install_lxml.log
+	pip3 install ipaddress --log /var/log/pip_install_ipaddress.log
+	pip3 install setuptools --log /var/log/pip_install_setuptools.log
+	pip3 install wheel --log /var/log/pip_install_wheel.log
+	pip3 install dcli --log /var/log/pip_install_dcli.log
+	pip3 install flent --log /var/log/pip_install_flent.log
 
 	# install vsphere-automation-sdk for python
-	pip install git+https://github.com/vmware/vsphere-automation-sdk-python.git
+	pip3 install git+https://github.com/vmware/vsphere-automation-sdk-python.git
 
 	# community samples package for pyvmomi
-	pip install git+https://github.com/vmware/pyvmomi-community-samples.git
+	pip3 install git+https://github.com/vmware/pyvmomi-community-samples.git
 
-	chmod 700 data/$ESXCLIFILE
+	chmod 700 esxcli/$ESXCLIFILE
 	expect/installesxcli.sh
 
 	# this is just here for troubleshooting
-	dcli --version &>> /var/log/configure_l0_packages_6
+	dcli --version &>> /var/log/configure_l0_packages_6.log
 
 exit 0
 
