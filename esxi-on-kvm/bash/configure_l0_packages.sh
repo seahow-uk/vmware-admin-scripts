@@ -90,7 +90,6 @@
 	pip3 install suds-jurko --log /var/log/pip_install_suds-jurko.log
 	pip3 install lxml --log /var/log/pip_install_lxml.log
 	pip3 install ipaddress --log /var/log/pip_install_ipaddress.log
-	pip3 install setuptools --log /var/log/pip_install_setuptools.log
 	pip3 install wheel --log /var/log/pip_install_wheel.log
 	pip3 install dcli --log /var/log/pip_install_dcli.log
 	pip3 install flent --log /var/log/pip_install_flent.log
