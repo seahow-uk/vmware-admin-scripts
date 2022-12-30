@@ -26,7 +26,8 @@
 ## level set
 	dnf install epel-release -y
 	dnf install centos-release-nfv-openvswitch -y
-	dnf install centos-release-openstack-zed -y
+	# openstack Xena is the newest openstack release they have a package for on Centos 8 stream as of Dec 2022
+	dnf install centos-release-openstack-xena -y
 	dnf install python39 -y
 	dnf install python2 -y
 	dnf clean all 
