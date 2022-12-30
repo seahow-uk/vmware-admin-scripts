@@ -39,7 +39,7 @@
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
-	dnf install dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
+	dnf install net-tools dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
 ## libvirt install via package groups 
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
