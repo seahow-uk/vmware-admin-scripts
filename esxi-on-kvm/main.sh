@@ -93,11 +93,11 @@ cp ./bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
     ## install dnf packages, do some other l0 system config needed for nested vmware
       ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
 
-    ## configure openvswitch, routing, VLANs
-      ./bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
-
     ## configure libvirt, QEMU, KVM
       ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
+
+    ## configure openvswitch, routing, VLANs
+      ./bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
 
     ## insert DNS records into your AD-based DNS
       ./bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
