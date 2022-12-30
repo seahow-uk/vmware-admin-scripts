@@ -37,7 +37,6 @@
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
-	dnf install net-tools -y
 	dnf install dhcp-server -y
 	dnf install expect -y
 	dnf install httpd -y
@@ -53,6 +52,7 @@
 	dnf install unzip -y
 	dnf install wget -y
 	dnf install mod_ssl -y
+	dnf install sysfsutils -y
 
 	systemctl enable --now cockpit.socket
 	systemctl start --now cockpit.socket
@@ -99,8 +99,6 @@
 	pip3 install --upgrade pip
 
   ## install a few pip packages
-	pip3 install ovs --log /var/log/pip_install_ovs.log
-	pip3 install os-net-config  --log /var/log/pip_install_os-net-config.log
 	pip3 install pyvim --log /var/log/pip_install_pyvim.log
 	pip3 install requests --log /var/log/pip_install_requests.log
 	pip3 install vcrpy --log /var/log/pip_install_vrcpy.log
@@ -124,5 +122,27 @@
 	pip3 install dcli --force --log /var/log/pip_install_dcli.log
 	dcli --version &>> /var/log/configure_l0_packages_6.log
 
-exit 0
+  ## this section installs needed prereqs then downloads and compiles OVS
+	dnf install net-tools -y
+	dnf install unbound -y
+	dnf install gcc -y
+	dnf install autoconf -y
+	dnf install automake -y	
+	dnf install libtool -y
+	dnf install netcat -y
+	dnf install curl -y
+	pip3 install pyftpdlib
+	pip3 install tftpy
 
+	git clone https://github.com/openvswitch/ovs.git 
+	cd ovs
+	./boot.sh
+	./configure
+	make
+	make install
+	cd ..
+	export PATH=$PATH:/usr/local/share/openvswitch/scripts
+
+	ovs-ctl start
+
+exit 0
