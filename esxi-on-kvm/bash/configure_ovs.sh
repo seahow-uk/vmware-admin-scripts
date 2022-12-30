@@ -1,6 +1,8 @@
 #!/bin/bash
 
     rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
+    ## vnet rules
+	mv -f ./config/60-vnet.rules /etc/udev/rules.d/60-vnet.rules
 
     ## disable networkmanager AND enact workaround from https://github.com/systemd/systemd/issues/3374
     systemctl disable NetworkManager

@@ -25,7 +25,6 @@
 
 ## level set
 	dnf install epel-release -y
-	dnf install centos-release-nfv* -y
 	dnf install python39 -y
 	dnf install python2 -y
 	dnf clean all 
@@ -42,10 +41,7 @@
 
 ## libvirt install via package groups 
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
-	dnf install virt* libguestfs* swtpm* -y -q &>> /var/log/configure_l0_packages_3.log
-
-## OVS install
-	dnf install openvswitch2.17 libibverbs -y -q &>> /var/log/configure_l0_packages_4.log
+	dnf install virt* libguestfs* swtpm* libibverbs -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
@@ -63,9 +59,6 @@
 
 ## configure host profile
 	tuned-adm profile virtual-host &>> /var/log/configure_l0_packages_5.log
-
-## vnet rules
-	mv -f ./config/60-vnet.rules /etc/udev/rules.d/60-vnet.rules
 
 ## increase the open file limit for dbus
 	sed -i 's/.*DefaultLimitNOFILE=.*/DefaultLimitNOFILE=16384/g' /etc/systemd/system.conf
@@ -88,6 +81,7 @@
 	pip3 install --upgrade pip
 
   ## install a few pip packages
+	pip3 install ovs --log /var/log/pip_install_ovs.log
 	pip3 install os-net-config  --log /var/log/pip_install_os-net-config.log
 	pip3 install pyvim --log /var/log/pip_install_pyvim.log
 	pip3 install requests --log /var/log/pip_install_requests.log
