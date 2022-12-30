@@ -25,10 +25,7 @@
 
 ## level set
 	dnf install epel-release -y
-	dnf install centos-release-nfv-openvswitch -y
-	# openstack Xena is the newest openstack release they have a package for on Centos 8 stream as of Dec 2022
-	# we might be able to get rid of this, I think its only needed for os-net-config, which is helpful but cant recall if its crucial
-	dnf install centos-release-openstack-xena -y
+	dnf install centos-release-nfv* -y
 	dnf install python39 -y
 	dnf install python2 -y
 	dnf clean all 
@@ -48,7 +45,7 @@
 	dnf install virt* libguestfs* swtpm* -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## OVS install
-	dnf install openvswitch libibverbs os-net-config -y -q &>> /var/log/configure_l0_packages_4.log
+	dnf install openvswitch2.17 libibverbs -y -q &>> /var/log/configure_l0_packages_4.log
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
@@ -91,6 +88,7 @@
 	pip3 install --upgrade pip
 
   ## install a few pip packages
+	pip3 install os-net-config  --log /var/log/pip_install_os-net-config.log
 	pip3 install pyvim --log /var/log/pip_install_pyvim.log
 	pip3 install requests --log /var/log/pip_install_requests.log
 	pip3 install vcrpy --log /var/log/pip_install_vrcpy.log
