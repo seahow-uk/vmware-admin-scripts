@@ -74,8 +74,12 @@
     mv ./config/dhcpd.conf /etc/dhcp/dhcpd.conf
     chmod 664 /etc/dhcp/dhcpd.conf
 
+    ## initialize ovs db and service
+    ovs-ctl start
     ovs-vsctl add-br ovs-br0
     systemctl restart network
+
+    ## turn on network services
 
     systemctl enable nfs-server
     systemctl enable rpcbind

@@ -45,6 +45,7 @@
 	dnf install libvirt-devel -y
 	dnf install mlocate -y
 	dnf install nfs-utils -y
+	dnf install nfs-idmapd -y
 	dnf install parallel -y
 	dnf install polkit -y
 	dnf install samba -y
@@ -142,7 +143,5 @@
 	make install
 	cd ..
 	export PATH=$PATH:/usr/local/share/openvswitch/scripts
-
-	ovs-ctl start
 
 exit 0

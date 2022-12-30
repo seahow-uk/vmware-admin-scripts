@@ -93,11 +93,11 @@ cp ./bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
     ## install dnf packages, do some other l0 system config needed for nested vmware
       ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
 
-    ## configure libvirt, QEMU, KVM
-      ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
-
     ## configure openvswitch, routing, VLANs
       ./bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
+
+    ## configure libvirt, QEMU, KVM
+      ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
 
     ## insert DNS records into your AD-based DNS
       ./bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
@@ -112,18 +112,18 @@ cp ./bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
     # ./bash/configure_dvs.sh 
     # ./bash/configure_drs.sh 
     # ./bash/configure_ha.sh 
-      ./bash/build.sh &>>/var/log/build.sh.log
+ #     ./bash/build.sh &>>/var/log/build.sh.log
 
     ## extended tweaks for the esxi hosts, vcsas, etc
-      ./bash/configure_esxi.sh &>>/var/log/configure_esxi.log
+ #     ./bash/configure_esxi.sh &>>/var/log/configure_esxi.log
 
     ## download bitnami appliances
-      ./bash/get_ovas.sh &>>/var/log/get_ovas.sh.log
+ #     ./bash/get_ovas.sh &>>/var/log/get_ovas.sh.log
 
     ## install bitnami appliances to act as workload VMs
-      ./bash/configure_workload_vms.sh &>>/var/log/configure_workload_vms.sh.log
+ #     ./bash/configure_workload_vms.sh &>>/var/log/configure_workload_vms.sh.log
 
     ## deploy any custom ovfs like netapp, commvault, veeam, generic windows templates
-      ./bash/configure_custom_ovfs.sh &>>/var/log/configure_custom_ovfs.sh.log
+#      ./bash/configure_custom_ovfs.sh &>>/var/log/configure_custom_ovfs.sh.log
 
 exit 0
