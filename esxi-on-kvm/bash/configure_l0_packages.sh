@@ -25,20 +25,6 @@
 ## create directory structures
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
-## repo stuff
-	# we almost certainly can remove this but leaving just in case
-	# rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization
-	# rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud
-	# wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
-	# wget https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Cloud -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud
-	# wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
-	# rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
-	# cp -f ./repos/* /etc/yum.repos.d
-	# dnf install centos-release-openstack-train -y
-
-	# dnf install centos-release-advanced-virtualization -y
-	# dnf install centos-release-nfv* -y
-
 ## Prep dnf environment
 	dnf clean all 
 	rm -rfv /var/cache/dnf
@@ -48,8 +34,8 @@
 	dnf install byacc cmake dhcp-server expect gcc gdisk httpd iftop iotop ipcalc kernel-devel libnfsidmap libnsl libvirt-devel lvm2 maven mlocate netpbm nfs4-acl-tools nfs-utils nload numactl nvme-cli parallel polkit python3 samba sshpass sysfsutils unbound unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
 ## update-alternatives for python
-	update-alternatives --set python3 /usr/bin/python3.9
-	update-alternatives --set python /usr/bin/python2
+	# update-alternatives --set python3 /usr/bin/python3.9
+	# update-alternatives --set python /usr/bin/python2
 
 ## libvirt install via package groups 
 	dnf module disable virt -y &>> /var/log/userdata.log
@@ -57,23 +43,14 @@
 	dnf install virt* libguestfs* swtpm* -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## OVS install
-	dnf install openvswitch libibverbs os-net-config vnstat -y -q &>> /var/log/configure_l0_packages_4.log
-	systemctl enable vnstat
-	systemctl start vnstat
-
-## install various tool packages for troubleshooting
-	# dnf group install "Networking Tools" --with-optional -y
-	# dnf group install "Hardware Monitoring Utilities" --with-optional -y
-	# dnf group install "Large Systems Performance" --with-optional -y
-	# dnf group install "Performance Tools" --with-optional -y
-	# dnf group install "System Tools" --with-optional -y
+	dnf install openvswitch libibverbs os-net-config -y -q &>> /var/log/configure_l0_packages_4.log
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
 	mv -fv ./config/smb.conf /etc/samba/smb.conf
 	cp -f ./bash/treesize.sh /bin/treesize
 	cp -f ./config/KS.CFG /var/www/html/KS.CFG
-	cp -f ./bash/epochtohuman.sh ./bash/epochtohuman.sh
+	cp -f ./bash/epochtohuman.sh /bin/epochtohuman.sh
 
 ## Kickstart samba
 	systemctl enable smb nmb
