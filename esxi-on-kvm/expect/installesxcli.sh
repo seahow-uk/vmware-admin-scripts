@@ -1,6 +1,9 @@
 #!/usr/bin/expect -f
 
 set timeout 5
+set ESXCLIFILE "esxcli/esxcli-7.0.0-15866526-lin64.sh"
+catch {set MYVAR $env(ESXCLIFILE)}
+
 spawn $ESXCLIFILE
 
 expect {

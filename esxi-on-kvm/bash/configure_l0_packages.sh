@@ -34,6 +34,10 @@
 	dnf distro-sync -y
 	dnf update -y
 
+## set python alternative references up.  something needs python2 later and i dont recall what
+	update-alternatives --set python3 /usr/bin/python3.6
+	update-alternatives --set python /usr/bin/python2
+
 ## install packages
 	dnf install dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
@@ -81,6 +85,10 @@
     chmod -R 777 /bin/treesize
     chmod -R 744 *
 
+  ## upgrade pip first
+	pip3 install --upgrade pip
+
+  ## install a few pip packages
 	pip3 install pyvim --log /var/log/pip_install_pyvim.log
 	pip3 install requests --log /var/log/pip_install_requests.log
 	pip3 install vcrpy --log /var/log/pip_install_vrcpy.log
@@ -99,7 +107,7 @@
 	# community samples package for pyvmomi
 	pip3 install git+https://github.com/vmware/pyvmomi-community-samples.git
 
-	chmod 700 esxcli/$ESXCLIFILE
+	chmod 700 $ESXCLIFILE
 	expect/installesxcli.sh
 
 	# this is just here for troubleshooting
