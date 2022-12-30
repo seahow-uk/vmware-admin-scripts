@@ -12,6 +12,7 @@
 # You will need to set the vsphere version.  It can only be 7.0 or 6.7.  Other values will break things.
 # You must set the DNS parameters
 # The AD user and password is needed to insert appropriate DNS records into your environment.  
+# oddly enough, the way kinit works you have to capitalize the domain name in the ADUSER variable
 #
 DNSIPADDRESS1=
 DNSIPADDRESS2=
@@ -29,7 +30,7 @@ ADUSER=
 #% VSPHEREVERSION=7.0
 #% DNSDOMAIN=example.local
 #% ADPASSWORD=Aws2022@
-#% ADUSER=admin@example.local
+#% ADUSER=admin@EXAMPLE.LOCAL
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
   echo "You didnt supply DNS server 1"
