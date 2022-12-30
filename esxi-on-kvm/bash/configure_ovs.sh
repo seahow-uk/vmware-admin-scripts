@@ -74,7 +74,7 @@
     mv ./config/dhcpd.conf /etc/dhcp/dhcpd.conf
     chmod 664 /etc/dhcp/dhcpd.conf
 
-    /usr/bin/ovs-vsctl add-br ovs-br0
+    ovs-vsctl add-br ovs-br0
     systemctl restart network
 
     systemctl enable nfs-server
