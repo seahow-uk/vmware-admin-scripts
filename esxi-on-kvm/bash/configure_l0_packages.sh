@@ -13,8 +13,6 @@
 	echo $ESCAPEDPWD
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/exports
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/smb.conf
-	
-
 
 ## update grub
 	rm -f /etc/default/grub && mv ./boot/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -25,20 +23,13 @@
 ## create directory structures
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
-## Prep dnf environment
-	dnf clean all 
-	rm -rfv /var/cache/dnf
-	dnf distro-sync -y
+## install all the python stuff
+	dnf install python3*
 
 ## install packages
-	dnf install byacc cmake dhcp-server expect gcc gdisk httpd iftop iotop ipcalc kernel-devel libnfsidmap libnsl libvirt-devel lvm2 maven mlocate netpbm nfs4-acl-tools nfs-utils nload numactl nvme-cli parallel polkit python3 samba sshpass sysfsutils unbound unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
-
-## update-alternatives for python
-	# update-alternatives --set python3 /usr/bin/python3.9
-	# update-alternatives --set python /usr/bin/python2
+	dnf install dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
 
 ## libvirt install via package groups 
-	dnf module disable virt -y &>> /var/log/userdata.log
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
 	dnf install virt* libguestfs* swtpm* -y -q &>> /var/log/configure_l0_packages_3.log
 
