@@ -91,7 +91,6 @@
 	pip3 install lxml --log /var/log/pip_install_lxml.log
 	pip3 install ipaddress --log /var/log/pip_install_ipaddress.log
 	pip3 install wheel --log /var/log/pip_install_wheel.log
-	pip3 install dcli --log /var/log/pip_install_dcli.log
 	pip3 install flent --log /var/log/pip_install_flent.log
 
 	# install vsphere-automation-sdk for python
@@ -103,7 +102,8 @@
 	chmod 700 $ESXCLIFILE
 	expect/installesxcli.sh
 
-	# this is just here for troubleshooting
+	# dcli must be forcibly installed dead last or dependency conflicts occur
+	pip3 install dcli --force --log /var/log/pip_install_dcli.log
 	dcli --version &>> /var/log/configure_l0_packages_6.log
 
 exit 0
