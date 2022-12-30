@@ -1,17 +1,10 @@
 #!/bin/bash
 
     rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
-    ## vnet rules
 	mv -f ./config/60-vnet.rules /etc/udev/rules.d/60-vnet.rules
-
-    ## disable networkmanager AND enact workaround from https://github.com/systemd/systemd/issues/3374
-    systemctl disable NetworkManager
-    systemctl stop NetworkManager
     mkdir -p /etc/systemd/network
     cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
     dnf install network-scripts -y
-    systemctl enable network
-    systemctl restart network
 
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
@@ -48,10 +41,6 @@
     cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
     sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
 
-    systemctl start openvswitch.service
-    systemctl enable openvswitch.service
-
-    systemctl status openvswitch.service
     ovs-vsctl -V
 
     echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
@@ -121,9 +110,7 @@
     ln -s ./ISO /var/www/html/ISO
     ln -s /var/www/html ./webserver
     systemctl restart httpd
-
     systemctl restart libvirtd
-    systemctl restart network
-    systemctl restart openvswitch
+
 
 exit 0

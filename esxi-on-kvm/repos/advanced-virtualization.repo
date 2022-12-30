@@ -1,6 +1,0 @@
-[advanced-virtualization]
-name = CentOS-8 - Advanced Virtualization
-baseurl = http://vault.centos.org/centos/$releasever/virt/$basearch/advanced-virtualization
-gpgcheck = 1
-enabled = 1
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
