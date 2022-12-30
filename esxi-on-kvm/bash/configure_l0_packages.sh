@@ -27,7 +27,7 @@
 	dnf install epel-release -y
 	dnf install centos-release-nfv-openvswitch -y
 	dnf install centos-release-openstack-zed -y
-	dnf install python3 -y
+	dnf install python39 -y
 	dnf install python2 -y
 	dnf clean all 
 	rm -rfv /var/cache/dnf
@@ -35,7 +35,7 @@
 	dnf update -y
 
 ## set python alternative references up.  something needs python2 later and i dont recall what
-	update-alternatives --set python3 /usr/bin/python3.6
+	update-alternatives --set python3 /usr/bin/python3.9
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
