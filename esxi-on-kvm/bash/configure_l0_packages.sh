@@ -37,7 +37,25 @@
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
-	dnf install net-tools dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
+	dnf install net-tools -y
+	dnf install dhcp-server -y
+	dnf install expect -y
+	dnf install httpd -y
+	dnf install ipcalc -y
+	dnf install libnsl -y
+	dnf install libvirt-devel -y
+	dnf install mlocate -y
+	dnf install nfs-utils -y
+	dnf install parallel -y
+	dnf install polkit -y
+	dnf install samba -y
+	dnf install sshpass -y
+	dnf install unzip -y
+	dnf install wget -y
+	dnf install mod_ssl -y
+
+	systemctl enable --now cockpit.socket
+	systemctl start --now cockpit.socket
 
 ## libvirt install via package groups 
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
