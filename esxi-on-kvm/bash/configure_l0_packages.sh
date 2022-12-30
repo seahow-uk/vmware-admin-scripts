@@ -23,8 +23,13 @@
 ## create directory structures
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
-## install all the python stuff
-	dnf install python3*
+## level set
+	dnf install epel-release -y
+	dnf clean all 
+	rm -rfv /var/cache/dnf
+	dnf distro-sync -y
+	dnf update -y
+	dnf install python3 -y
 
 ## install packages
 	dnf install dhcp-server expect httpd ipcalc libnsl libvirt-devel mlocate nfs-utils parallel polkit samba sshpass unzip wget sshpass -y -q &>> /var/log/configure_l0_packages_1.log
