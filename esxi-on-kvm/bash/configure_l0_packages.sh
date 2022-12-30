@@ -25,6 +25,8 @@
 
 ## level set
 	dnf install epel-release -y
+	dnf install centos-release-nfv-openvswitch -y
+	dnf install centos-release-openstack-zed -y
 	dnf install python3 -y
 	dnf install python2 -y
 	dnf clean all 
