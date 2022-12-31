@@ -1,6 +1,10 @@
 #!/bin/bash
 
-    rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
+    ## destroy the virbr0 libvirt creates by default
+	virsh net-undefine default
+	virsh net-destroy default
+
+    #rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
 
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
@@ -71,7 +75,7 @@
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
-    ovs-ctl --system-id 0 start
+    ovs-ctl --system-id=random start
     ovs-vsctl add-br ovs-br0
     systemctl restart NetworkManager
 

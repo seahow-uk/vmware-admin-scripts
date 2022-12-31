@@ -62,10 +62,6 @@
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
 	dnf install virt* libguestfs* swtpm* libibverbs -y -q &>> /var/log/configure_l0_packages_3.log
 
-## destroy the virbr0 libvirt creates by default
-	virsh net-undefine default
-	virsh net-destroy default
-
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv ./config/exports /etc/exports
 	mv -fv ./config/smb.conf /etc/samba/smb.conf
