@@ -71,9 +71,9 @@
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
-    ovs-ctl start
+    ovs-ctl --system-id 0 start
     ovs-vsctl add-br ovs-br0
-    nmcli connection reload
+    systemctl restart NetworkManager
 
     ## turn on network services
 
