@@ -74,6 +74,7 @@ echo "export DNSDOMAIN=$DNSDOMAIN" >> bash/configure_l0_env.sh
 echo "export ADPASSWORD=$ADPASSWORD" >> bash/configure_l0_env.sh
 echo "export ADUSER=$ADUSER" >> bash/configure_l0_env.sh
 echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> bash/configure_l0_env.sh 
+echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts" >> bash/configure_l0_env.sh
 
 ## make sure cloud-init doesnt run anymore at boot
 touch /etc/cloud/cloud-init.disabled
