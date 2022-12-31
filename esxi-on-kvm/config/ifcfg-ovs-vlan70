@@ -6,7 +6,7 @@ BOOTPROTO=static
 IPADDR=192.168.70.1
 NETMASK=255.255.255.0
 ONBOOT=yes
-NM_CONTROLLED=yes
+NM_CONTROLLED=no
 EC2SYNC=no
 OVS_OPTIONS="tag=70"
 OVS_EXTRA="set Interface $DEVICE external-ids:iface-id=$(hostname -s)-$DEVICE-vif"
