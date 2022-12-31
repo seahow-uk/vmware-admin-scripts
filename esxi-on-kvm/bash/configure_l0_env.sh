@@ -22,3 +22,4 @@ export MEM=48
 export CORE=8
 export MGMTMEM=64
 export MGMTCORE=8
+export PATH=$PATH:/usr/local/share/openvswitch/scripts

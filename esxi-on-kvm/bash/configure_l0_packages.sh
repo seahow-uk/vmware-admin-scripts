@@ -142,6 +142,6 @@
 	make
 	make install
 	cd ..
-	export PATH=$PATH:/usr/local/share/openvswitch/scripts
+	
 
 exit 0
