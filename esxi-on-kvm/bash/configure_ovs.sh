@@ -29,40 +29,37 @@
 
     ## Add in ifcfg files
 
-    cp -f ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
+    # cp -f ./config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
 
     ## add in routing placeholder so connection to metadata isnt lost
 
-    cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
-    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
+    # cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
+    # sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
+    # echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
 
-    ovs-vsctl -V
+    # ## ifcfg-ovs-uplink.
 
-    echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
+    # sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" ./config/ifcfg-ovs-uplink
+    # sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" ./config/ifcfg-ovs-uplink
+    # sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" ./config/ifcfg-ovs-uplink
+    # sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" ./config/ifcfg-ovs-uplink
+    # cp ./config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
 
-    ## ifcfg-ovs-uplink.
+    # # ## Network files need to be tuned up before moving them to /etc/sysconfig/network-scripts
 
-    sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" ./config/ifcfg-ovs-uplink
-    cp ./config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
+    # mv /etc/sysconfig/network-scripts/ifcfg-eth0 ./config/ifcfg-eth0.original
+    # cp ./config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
 
-    # ## Network files need to be tuned up before moving them to /etc/sysconfig/network-scripts
+    # # ## General OVS / network config files
 
-    mv /etc/sysconfig/network-scripts/ifcfg-eth0 ./config/ifcfg-eth0.original
-    cp ./config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
-
-    # ## General OVS / network config files
-
-    cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    # cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
     systemctl stop firewalld
     systemctl disable firewalld
 
@@ -78,7 +75,9 @@
 
     ## initialize ovs db and service
     systemctl start openvswitch
-    ovs-vsctl add-br ovs-br0
+    nmcli conn add type ovs-bridge conn.interface bridge0
+    nmcli conn add type ovs-port conn.interface port0 master bridge0
+    nmcli conn add type ethernet conn.interface eth0 master port0
     systemctl restart NetworkManager
 
     ## turn on network services
@@ -87,7 +86,7 @@
     systemctl enable rpcbind
     systemctl enable nfs-idmapd
     systemctl enable httpd
-    systemctl enable dhcpd
+    #systemctl enable dhcpd
     systemctl enable chronyd
     systemctl enable smb
     systemctl enable nmb
@@ -101,11 +100,11 @@
     systemctl start nmb
 
     ## diagnostic info in case dhcpd startup fails (it is strangely fragile)
-    systemctl status dhcpd.service
-    cat /etc/dhcp/dhcpd.conf
-    echo "-----"
-    echo "running command: journalctl -xe"
-    journalctl -xe
+    #systemctl status dhcpd.service
+    #cat /etc/dhcp/dhcpd.conf
+    #echo "-----"
+    #echo "running command: journalctl -xe"
+    #journalctl -xe
 
     mkdir -p ./VMs/esxi-hostlogs
     mkdir -p ./VMs/vcsa-backups
