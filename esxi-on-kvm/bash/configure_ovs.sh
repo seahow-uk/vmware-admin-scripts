@@ -12,6 +12,7 @@
     rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
 
     ## this reinstalls and re-enables the older-style network service
+    ## leave NetworkManager running though in case you need to add a second NIC for troubleshooting
     dnf -y install network-scripts
     systemctl enable network
     systemctl restart network
