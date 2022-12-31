@@ -56,7 +56,7 @@
 
     # ## General OVS / network config files
 
-    mv ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
     systemctl stop firewalld
     systemctl disable firewalld
 
@@ -67,7 +67,7 @@
     sed -i "s/DNS2PLACEHOLDER/$DNSIPADDRESS2/g" ./config/dhcpd.conf
 
     mv /etc/dhcp/dhcpd.conf ./data/dhcpd.conf.old
-    mv ./config/dhcpd.conf /etc/dhcp/dhcpd.conf
+    cp ./config/dhcpd.conf /etc/dhcp/dhcpd.conf
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
