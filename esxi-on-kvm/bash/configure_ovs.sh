@@ -4,7 +4,12 @@
 	virsh net-undefine default
 	virsh net-destroy default
 
-    #rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
+    ## this fixes an issue with mac assignment
+    mkdir -p /etc/systemd/network
+    cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
+    
+    ## These might not need to go but I never liked them
+    rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
 
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
