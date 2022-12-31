@@ -1,0 +1,6 @@
+TYPE=Ethernet
+NAME=ovs-slave-eth0
+UUID=537da431-3c9e-4c3e-95fe-31af44091458
+DEVICE=eth0
+ONBOOT=yes
+OVS_PORT=port0

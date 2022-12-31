@@ -132,6 +132,7 @@
 	dnf install libtool -y
 	dnf install netcat -y
 	dnf install curl -y
+	dnf install NetworkManager-ovs -y
 	pip3 install pyftpdlib
 	pip3 install tftpy
 
