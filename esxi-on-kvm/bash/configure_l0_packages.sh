@@ -143,5 +143,8 @@
 	make install
 	cd ..
 	
-
+	cp -f config/openvswitch.service /usr/lib/systemd/system/openvswitch.service
+	chmod 400 /usr/lib/systemd/system/openvswitch.service
+	systemctl enable openvswitch.service
+	
 exit 0

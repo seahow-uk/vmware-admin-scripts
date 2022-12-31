@@ -8,15 +8,6 @@
     mkdir -p /etc/systemd/network
     cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
     
-    ## These might not need to go but I never liked them
-    rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
-
-    ## this reinstalls and re-enables the older-style network service
-    ## leave NetworkManager running though in case you need to add a second NIC for troubleshooting
-    dnf -y install network-scripts
-    systemctl enable network
-    systemctl restart network
-
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
     ETH0NETMASK=$(ifconfig -a | grep -m1 eth0 -A2 | grep netmask | awk '{print $4}')
@@ -86,9 +77,9 @@
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
-    ovs-ctl --system-id=random start
+    systemctl start openvswitch
     ovs-vsctl add-br ovs-br0
-    systemctl restart network
+    systemctl restart NetworkManager
 
     ## turn on network services
 

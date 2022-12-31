@@ -1,0 +1,15 @@
+[Unit]
+Description=start the ovs vswitchd and such on system boot
+
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/share/openvswitch/scripts/ovs-ctl --system-id=random start
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
