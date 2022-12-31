@@ -99,7 +99,7 @@
     systemctl start nfs-server
     systemctl start rpcbind
     systemctl start nfs-idmapd
-    systemctl start dhcpd
+    #systemctl start dhcpd
     systemctl start smb
     systemctl start nmb
 
