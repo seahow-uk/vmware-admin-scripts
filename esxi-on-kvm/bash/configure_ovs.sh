@@ -11,10 +11,6 @@
     ## These might not need to go but I never liked them
     rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
 
-    ## this disables NetworkManager.  I have tried but can't get ifcfg-rh to see the ETHTOOL options properly
-    systemctl disable NetworkManager
-    systemctl stop NetworkManager
-
     ## this reinstalls and re-enables the older-style network service
     dnf -y install network-scripts
     systemctl enable network
