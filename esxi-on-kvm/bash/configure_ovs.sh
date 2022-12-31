@@ -1,10 +1,6 @@
 #!/bin/bash
 
-    #rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
-	#mv -f ./config/60-vnet.rules /etc/udev/rules.d/60-vnet.rules
-    #mkdir -p /etc/systemd/network
-    #cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
-    #dnf install network-scripts -y
+    rm -fv /etc/sysconfig/network-scripts/ifcfg-ens*
 
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
@@ -77,7 +73,7 @@
     ## initialize ovs db and service
     ovs-ctl start
     ovs-vsctl add-br ovs-br0
-    systemctl restart network
+    nmcli connection reload
 
     ## turn on network services
 
