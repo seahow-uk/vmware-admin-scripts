@@ -35,7 +35,10 @@
             },
             "net": {
                 "resources": [
-                    "eth0"
+                    "eth0",
+                    "ovs-br0",
+                    "ovs-system",
+                    "ovs-uplink"
                 ],
                 "measurement": [
                     "bytes_sent",
@@ -48,7 +51,10 @@
             },
             "ethtool": {
                 "interface_include": [
-                    "eth0"
+                    "eth0",
+                    "ovs-br0",
+                    "ovs-system",
+                    "ovs-uplink"
                 ],
                 "metrics_include": [
                     "rx_packets",
@@ -97,9 +103,9 @@
             "files": {
                 "collect_list": [
                     {
-                        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "file_path": "/var/log/amazon/ssm/amazon-ssm-agent.log",
                         "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/amazon/ssm/amazon-ssm-agent.log",
                         "timezone": "Local"
                     },
                     {
@@ -167,7 +173,92 @@
                         "log_group_name": "/INSTANCELOGSPLACEHOLDER",
                         "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/insertdnsrecords.sh.log",
                         "timezone": "Local"
-                    }                     
+                    },
+
+                    {
+                        "file_path": "/var/log/secure",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/secure",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/dnf.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/dnf.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/cloud-init.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cloud-init.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/cloud-init-output.sh.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cloud-init-output.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/messages",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/messages.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/configure_ovs.sh.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_ovs.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/lib/cloud/data/status.json",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/lib/cloud/data/status.json",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/run/cloud-init/cloud-init-generator.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/run/cloud-init/cloud-init-generator.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/run/cloud-init/cloud-init-generator.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/run/cloud-init/cloud-init-generator.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/cron",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cron ",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/dmesg.log.timestamped",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/dmesg.log.timestamped",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
+                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "timezone": "Local"
+                    }                    
                 ]
             }
         },
