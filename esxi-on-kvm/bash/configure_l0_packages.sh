@@ -101,9 +101,9 @@
 	ln -s $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
   ## Permissions tweaks for the aforementioned config files
-    chown -R root:nobody * 
+    chown -R root:kvm $ESXIROOT 
     chmod -R 777 /bin/treesize
-    chmod -R 744 *
+	chmod -R 774 $ESXIROOT
 
   ## upgrade pip first
 	pip3 install --upgrade pip
