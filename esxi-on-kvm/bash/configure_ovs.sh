@@ -4,9 +4,14 @@
 	virsh net-undefine default
 	virsh net-destroy default
 
-    ## this fixes an issue with mac assignment
+    ## disable networkmanager AND enact workaround from https://github.com/systemd/systemd/issues/3374
+    systemctl disable NetworkManager
+    systemctl stop NetworkManager
     mkdir -p /etc/systemd/network
     cp /usr/lib/systemd/network/99-default.link /etc/systemd/network/99-default.link
+    dnf install network-scripts -y
+    systemctl enable network
+    systemctl restart network
     
     ETH0MAC=$(ifconfig -a | grep -m1 eth0 -A3 | grep ether | awk '/ether / {print $2}')
     ETH0IP=$(ifconfig eth0 | awk '/inet / {print $2}')
@@ -29,37 +34,37 @@
 
     ## Add in ifcfg files
 
-    # cp -f ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
-    # cp -f ./config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
+    cp -f ./config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
 
-    ## add in routing placeholder so connection to metadata isnt lost
+    # add in routing placeholder so connection to metadata isnt lost
 
-    # cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
-    # sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
-    # echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
+    cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
+    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
+    echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
 
-    # ## ifcfg-ovs-uplink.
+    ## ifcfg-ovs-uplink.
 
-    # sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" ./config/ifcfg-ovs-uplink
-    # sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" ./config/ifcfg-ovs-uplink
-    # sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" ./config/ifcfg-ovs-uplink
-    # sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" ./config/ifcfg-ovs-uplink
-    # cp ./config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
+    sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" ./config/ifcfg-ovs-uplink
+    sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" ./config/ifcfg-ovs-uplink
+    sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" ./config/ifcfg-ovs-uplink
+    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" ./config/ifcfg-ovs-uplink
+    cp ./config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
 
-    # # ## Network files need to be tuned up before moving them to /etc/sysconfig/network-scripts
+    # ## Network files need to be tuned up before moving them to /etc/sysconfig/network-scripts
 
-    # mv /etc/sysconfig/network-scripts/ifcfg-eth0 ./config/ifcfg-eth0.original
-    # cp ./config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
+    mv /etc/sysconfig/network-scripts/ifcfg-eth0 ./config/ifcfg-eth0.original
+    cp ./config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
 
-    # # ## General OVS / network config files
+    # ## General OVS / network config files
 
-    # cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
     systemctl stop firewalld
     systemctl disable firewalld
 
@@ -74,11 +79,11 @@
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
+    systemctl enable openvswitch
     systemctl start openvswitch
-    nmcli conn add type ovs-bridge conn.interface bridge0
-    nmcli conn add type ovs-port conn.interface port0 master bridge0
-    nmcli conn add type ethernet conn.interface eth0 master port0
-    systemctl restart NetworkManager
+    ovs-vsctl add-br ovs-br0
+
+    systemctl restart network
 
     ## turn on network services
 
@@ -86,7 +91,7 @@
     systemctl enable rpcbind
     systemctl enable nfs-idmapd
     systemctl enable httpd
-    #systemctl enable dhcpd
+    systemctl enable dhcpd
     systemctl enable chronyd
     systemctl enable smb
     systemctl enable nmb
@@ -95,7 +100,7 @@
     systemctl start nfs-server
     systemctl start rpcbind
     systemctl start nfs-idmapd
-    #systemctl start dhcpd
+    systemctl start dhcpd
     systemctl start smb
     systemctl start nmb
 
