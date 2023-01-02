@@ -121,5 +121,8 @@
     systemctl restart httpd
     systemctl restart libvirtd
 
+    ## I'm starting NetworkManager again after all the changes because it will make adding a secondary nic easier for troubleshooting
+    ## once those things are working network manager shouldn't mess with them
+    systemctl stop NetworkManager
 
 exit 0
