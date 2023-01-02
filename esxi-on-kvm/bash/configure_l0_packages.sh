@@ -138,7 +138,6 @@
 	dnf install net-tools -y
 	dnf install netcat -y
 	dnf install openvswitch -y 
-	dnf install libibverbs -y 
 	dnf install os-net-config -y
 	
 exit 0
