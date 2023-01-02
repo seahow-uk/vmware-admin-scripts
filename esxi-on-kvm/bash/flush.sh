@@ -9,7 +9,7 @@ ENDHOST=$ESXHOSTCOUNT
 for ((i = $STARTHOST; i <= $ENDHOST; i++)); do
   virsh destroy esxi$i
   virsh undefine esxi$i
-  rm -rv ./esxi$i
+  rm -rv esxi$i
 done
 
 # remove the dhcpd static entries for all esxi hosts
