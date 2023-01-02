@@ -18,7 +18,4 @@ export PYTHONIOENCODING=UTF-8
 export ESXHOSTCOUNT=10
 export HOSTSPERLAB=5
 export IPSPERLAB=10
-export MEM=48
-export CORE=8
-export MGMTMEM=64
-export MGMTCORE=8
+

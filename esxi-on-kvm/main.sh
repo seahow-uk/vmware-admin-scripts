@@ -39,6 +39,20 @@ ADUSER=
 #% ADPASSWORD=Aws2022@
 #% ADUSER=admin@EXAMPLE.LOCAL
 
+## These variables tune the size of the ESXi hosts that get deployed
+## The default represents the practical minimum.  In aggregate, there are 10 ESXi hosts, 2 of which
+## are management hosts.  so the default will require the following physical resources on the server
+## Memory: 168GB
+## Cores: 40
+## This means the default settings below will run on a c5n.metal host in AWS, which has 72 vcpu and 192GB RAM
+## Personally, I recommend an m5zn.metal.  It drops to 48CPU but they run at 4.5GHz vs 3GHz for c5n
+## These defaults fit perfectly in an m5zn.metal.
+
+MEM=16
+CORE=4
+MGMTMEM=20
+MGMTCORE=4
+
 # NOTE: There are more variables you can alter inside configure_l0_env.sh
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
@@ -75,6 +89,10 @@ fi
 ## long story short, it makes them permanent in case you need to just re-run subcomponents
 ## yes its a hack that was added later
 
+echo "export MEM=$MEM" >> bash/configure_l0_env.sh
+echo "export CORE=$CORE" >> bash/configure_l0_env.sh
+echo "export MGMTMEM=$MGMTMEM" >> bash/configure_l0_env.sh
+echo "export MGMTCORE=$MGMTCORE" >> bash/configure_l0_env.sh
 echo "export DNSIPADDRESS1=$DNSIPADDRESS1" >> bash/configure_l0_env.sh
 echo "export DNSIPADDRESS2=$DNSIPADDRESS2" >> bash/configure_l0_env.sh
 echo "export VCSAISO=$VCSAISO" >> bash/configure_l0_env.sh
