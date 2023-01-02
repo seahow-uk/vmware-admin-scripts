@@ -89,7 +89,6 @@
 
     systemctl enable nfs-server
     systemctl enable rpcbind
-    systemctl enable nfs-idmapd
     systemctl enable httpd
     systemctl enable dhcpd
     systemctl enable chronyd
@@ -99,7 +98,6 @@
     systemctl start chronyd
     systemctl start nfs-server
     systemctl start rpcbind
-    systemctl start nfs-idmapd
     systemctl start dhcpd
     systemctl start smb
     systemctl start nmb
