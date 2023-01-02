@@ -24,14 +24,13 @@
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## level set
+	## if this box has awscli already on it, it can cause problems
+	dnf remove awscli -y
+	
 	dnf config-manager --enable ha
 	dnf config-manager --enable powertools
 	dnf config-manager --enable nfv
 	dnf config-manager --enable extras
-	dnf clean all 
-	rm -rfv /var/cache/dnf
-	dnf distro-sync -y
-	dnf update -y
 
 	dnf install python39 -y
 	dnf install python2 -y
@@ -47,6 +46,7 @@
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
+	dnf install awscli -y
 	dnf install dhcp-server -y
 	dnf install expect -y
 	dnf install httpd -y
