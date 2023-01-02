@@ -57,6 +57,7 @@
 	dnf install mod_ssl -y
 	dnf install sysfsutils -y
 
+## turn on cockpit, which you can access at https://<hostip>:9090
 	systemctl enable --now cockpit.socket
 	systemctl start --now cockpit.socket
 
@@ -131,26 +132,5 @@
 	dnf install openvswitch -y 
 	dnf install libibverbs -y 
 	dnf install os-net-config -y
-
-	# dnf install curl -y
-	# dnf install unbound -y
-	# dnf install gcc -y
-	# dnf install autoconf -y
-	# dnf install automake -y	
-	# dnf install libtool -y
-	# dnf install NetworkManager-ovs -y
-	# pip3 install pyftpdlib
-	# pip3 install tftpy
-	# git clone https://github.com/openvswitch/ovs.git 
-	# cd ovs
-	# ./boot.sh
-	# ./configure
-	# make
-	# make install
-	# cd ..
-	
-	# cp -f config/openvswitch.service /usr/lib/systemd/system/openvswitch.service
-	# chmod 400 /usr/lib/systemd/system/openvswitch.service
-	# systemctl enable openvswitch.service
 	
 exit 0
