@@ -1,6 +1,6 @@
 #!/bin/bash
 export ESXCLIFILE=esxcli/esxcli-7.0.0-15866526-lin64.sh
-export TIMEZONE=EDT
+export TIMEZONE=GMT
 export HOSTOCTET=192.168.10
 export MANAGEMENTOCTET=192.168.20
 export APPOCTET=192.168.30
