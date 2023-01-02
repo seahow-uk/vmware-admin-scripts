@@ -1,6 +1,6 @@
 #!/bin/bash
 
-    VCSAJSONSOURCE=./JSON/vcsa-install-$VSPHEREVERSION.json
+    VCSAJSONSOURCE=$ESXIROOT/JSON/vcsa-install-$VSPHEREVERSION.json
 
 ## Stage 1: deploy vcsas - one to each of n number hosts
 
@@ -11,7 +11,7 @@
     do
         ## clone json
         
-        VCSAJSONTARGET="./JSON/vcsa$i.json"
+        VCSAJSONTARGET="$ESXIROOT/JSON/vcsa$i.json"
         cp -f $VCSAJSONSOURCE $VCSAJSONTARGET
 
         ## prep json
@@ -42,8 +42,8 @@
     ## Deploy the vcsa appliances
     mkdir -p /var/log/vcsa1 /var/log/vcsa2 
 
-    ./vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install ./vcsa1.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa1 > /dev/null 2>&1 &
-    ./vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install ./vcsa2.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa2 > /dev/null 2>&1 &
+    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/vcsa1.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa1 > /dev/null 2>&1 &
+    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/vcsa2.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa2 > /dev/null 2>&1 &
   
     # now wait until those are complete
     wait

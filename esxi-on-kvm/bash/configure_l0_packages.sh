@@ -11,14 +11,14 @@
 
 	ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
 	echo $ESCAPEDPWD
-	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/exports
-	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' ./config/smb.conf
+	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/exports
+	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/smb.conf
 
 ## update grub
-	rm -f /etc/default/grub && mv ./boot/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
+	rm -f /etc/default/grub && mv $ESXIROOT/boot/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ## configure cron
-	cat ./config/crontabnew | crontab -
+	cat $ESXIROOT/config/crontabnew | crontab -
 
 ## create directory structures
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
@@ -72,11 +72,11 @@
 	dnf install virt* libguestfs* swtpm* libibverbs -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## Shuffle config files needed for Kickstart, etc
-	mv -fv ./config/exports /etc/exports
-	mv -fv ./config/smb.conf /etc/samba/smb.conf
-	cp -f ./bash/treesize.sh /bin/treesize
-	cp -f ./config/KS.CFG /var/www/html/KS.CFG
-	cp -f ./bash/epochtohuman.sh /bin/epochtohuman.sh
+	mv -fv $ESXIROOT/config/exports /etc/exports
+	mv -fv $ESXIROOT/config/smb.conf /etc/samba/smb.conf
+	cp -f $ESXIROOT/bash/treesize.sh /bin/treesize
+	cp -f $ESXIROOT/config/KS.CFG /var/www/html/KS.CFG
+	cp -f $ESXIROOT/bash/epochtohuman.sh /bin/epochtohuman.sh
 
 ## Kickstart samba
 	systemctl enable smb nmb
@@ -98,7 +98,7 @@
     mkdir -p vcsa-extracted/$VSPHEREVERSION
     cp -rf /mnt/iso/* vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
-	ln -s ./vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
+	ln -s $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
   ## Permissions tweaks for the aforementioned config files
     chown -R root:nobody * 

@@ -34,48 +34,48 @@
 
     ## Add in ifcfg files
 
-    cp -f ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
-    cp -f ./config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan20 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan30 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan40 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan50 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan60 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan70 /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/ifcfg-ovs-vlan80 /etc/sysconfig/network-scripts/
 
     # add in routing placeholder so connection to metadata isnt lost
 
-    cp -f ./config/route-ovs-uplink /etc/sysconfig/network-scripts/
+    cp -f $ESXIROOT/config/route-ovs-uplink /etc/sysconfig/network-scripts/
     sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" /etc/sysconfig/network-scripts/route-ovs-uplink
     echo 'GATEWAYDEV=ovs-uplink' >>/etc/sysconfig/network
 
     ## ifcfg-ovs-uplink.
 
-    sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" ./config/ifcfg-ovs-uplink
-    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" ./config/ifcfg-ovs-uplink
-    cp ./config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
+    sed -i "s/ETH0MACPLACEHOLDER/$ETH0MAC/g" $ESXIROOT/config/ifcfg-ovs-uplink
+    sed -i "s/ETH0IPPLACEHOLDER/$ETH0IP/g" $ESXIROOT/config/ifcfg-ovs-uplink
+    sed -i "s/ETH0NETMASKPLACEHOLDER/$ETH0NETMASK/g" $ESXIROOT/config/ifcfg-ovs-uplink
+    sed -i "s/ETH0GATEWAYPLACEHOLDER/$ETH0GATEWAY/g" $ESXIROOT/config/ifcfg-ovs-uplink
+    cp $ESXIROOT/config/ifcfg-ovs-uplink /etc/sysconfig/network-scripts/ifcfg-ovs-uplink
 
     # ## Network files need to be tuned up before moving them to /etc/sysconfig/network-scripts
 
-    mv /etc/sysconfig/network-scripts/ifcfg-eth0 ./config/ifcfg-eth0.original
-    cp ./config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
+    mv /etc/sysconfig/network-scripts/ifcfg-eth0 $ESXIROOT/config/ifcfg-eth0.original
+    cp $ESXIROOT/config/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
 
     # ## General OVS / network config files
 
-    cp ./config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
+    cp $ESXIROOT/config/ifcfg-ovs-br0 /etc/sysconfig/network-scripts/
     systemctl stop firewalld
     systemctl disable firewalld
 
     systemctl stop dhcpd
 
-    sed -i "s/DNSDOMAINPLACEHOLDER/$DNSDOMAIN/g" ./config/dhcpd.conf
-    sed -i "s/DNS1PLACEHOLDER/$DNSIPADDRESS1/g" ./config/dhcpd.conf
-    sed -i "s/DNS2PLACEHOLDER/$DNSIPADDRESS2/g" ./config/dhcpd.conf
+    sed -i "s/DNSDOMAINPLACEHOLDER/$DNSDOMAIN/g" $ESXIROOT/config/dhcpd.conf
+    sed -i "s/DNS1PLACEHOLDER/$DNSIPADDRESS1/g" $ESXIROOT/config/dhcpd.conf
+    sed -i "s/DNS2PLACEHOLDER/$DNSIPADDRESS2/g" $ESXIROOT/config/dhcpd.conf
 
-    mv /etc/dhcp/dhcpd.conf ./data/dhcpd.conf.old
-    cp ./config/dhcpd.conf /etc/dhcp/dhcpd.conf
+    mv /etc/dhcp/dhcpd.conf $ESXIROOT/data/dhcpd.conf.old
+    cp $ESXIROOT/config/dhcpd.conf /etc/dhcp/dhcpd.conf
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
@@ -110,14 +110,14 @@
     #echo "running command: journalctl -xe"
     #journalctl -xe
 
-    mkdir -p ./VMs/esxi-hostlogs
-    mkdir -p ./VMs/vcsa-backups
+    mkdir -p $ESXIROOT/VMs/esxi-hostlogs
+    mkdir -p $ESXIROOT/VMs/vcsa-backups
 
     ## make the ISO and OVA available over http instead of NFS
 
-    ln -s ./OVA /var/www/html/OVA
-    ln -s ./ISO /var/www/html/ISO
-    ln -s /var/www/html ./webserver
+    ln -s $ESXIROOT/OVA /var/www/html/OVA
+    ln -s $ESXIROOT/ISO /var/www/html/ISO
+    ln -s /var/www/html $ESXIROOT/webserver
     systemctl restart httpd
     systemctl restart libvirtd
 

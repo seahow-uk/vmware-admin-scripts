@@ -3,7 +3,7 @@
 for ((i = 1; i <= 2; i++)); do
 
     echo "creating dvswitch on vcsa$i.$DNSDOMAIN..."
-    python3 ./python/create-dvs.py -s vcsa$i.$DNSDOMAIN -u $SSOACCOUNT@lab$i.local -p $SSOPASSWORD
+    python3 $ESXIROOT/python/create-dvs.py -s vcsa$i.$DNSDOMAIN -u $SSOACCOUNT@lab$i.local -p $SSOPASSWORD
 
 done
 

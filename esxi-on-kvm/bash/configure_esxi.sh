@@ -5,7 +5,7 @@
   ENDHOST=$ESXHOSTCOUNT
 
 # make a log of the network situation of the esxi hosts
-  ./bash/grabhostnetinfo.sh 
+  $ESXIROOT/bash/grabhostnetinfo.sh 
 
 # detach cdroms
   for ((i = $STARTHOST; i <= $ENDHOST; i++)); do
@@ -13,7 +13,7 @@
   done
 
 # take diag screenshots every 15 min
-  echo "*/15 * * * * ./bash/screencapper.sh &>> /var/log/screencapper.log" >screencapper15minutes
+  echo "*/15 * * * * $ESXIROOT/bash/screencapper.sh &>> /var/log/screencapper.log" >screencapper15minutes
 
 # fix the vmkernels and do some other post-hoc tweaks we've identified
 
