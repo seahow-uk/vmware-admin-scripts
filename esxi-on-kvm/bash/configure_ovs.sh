@@ -79,11 +79,12 @@
     chmod 664 /etc/dhcp/dhcpd.conf
 
     ## initialize ovs db and service
-    systemctl stop network
+
     systemctl enable openvswitch
     systemctl start openvswitch
     ovs-vsctl add-br ovs-br0
-    systemctl start network
+    /etc/sysconfig/network-scripts/ifdown ifcfg-eth0
+    systemctl restart network
 
     ## turn on network services
 
