@@ -33,10 +33,14 @@
 	dnf distro-sync -y
 	dnf update -y
 
-	dnf install centos-release-openstack-xena -y
 	dnf install python39 -y
 	dnf install python2 -y
-
+	dnf install centos-release-openstack-xena -y
+	dnf install centos-release-nfv-openvswitch -y
+	dnf clean all 
+	rm -rfv /var/cache/dnf
+	dnf distro-sync -y
+	dnf update -y
 
 ## set python alternative references up.  something needs python2 later and i dont recall what
 	update-alternatives --set python3 /usr/bin/python3.9
