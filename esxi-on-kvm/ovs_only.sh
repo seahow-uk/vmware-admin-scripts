@@ -54,6 +54,7 @@ touch /etc/cloud/cloud-init.disabled
 	update-alternatives --set python /usr/bin/python2
 
 ## install packages
+	dnf install awscli -y
 	dnf install dhcp-server -y
 	dnf install expect -y
 	dnf install httpd -y
