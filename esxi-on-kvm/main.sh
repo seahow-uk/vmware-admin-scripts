@@ -62,6 +62,13 @@ if [[ "$(whoami)" != root ]]; then
   exit 1
 fi
 
+function escapeSlashes {
+  sed 's/\//\\\//g'
+}
+
+ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
+echo $ESCAPEDPWD
+
 ## this inserts the exports into configure_l0_env.sh which is sourced elsewhere
 ## long story short, it makes them permanent in case you need to just re-run subcomponents
 ## yes its a hack that was added later
@@ -74,7 +81,8 @@ echo "export DNSDOMAIN=$DNSDOMAIN" >> bash/configure_l0_env.sh
 echo "export ADPASSWORD=$ADPASSWORD" >> bash/configure_l0_env.sh
 echo "export ADUSER=$ADUSER" >> bash/configure_l0_env.sh
 echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> bash/configure_l0_env.sh 
-echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts" >> bash/configure_l0_env.sh
+echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts:$ESCAPEDPWD/bash:$ESCAPEDPWD/python:$ESCAPEDPWD/expect" >> bash/configure_l0_env.sh
+echo "export ESXIROOT=$ESCAPEDPWD" >> bash/configure_l0_env.sh
 
 ## make sure cloud-init doesnt run anymore at boot
 touch /etc/cloud/cloud-init.disabled
