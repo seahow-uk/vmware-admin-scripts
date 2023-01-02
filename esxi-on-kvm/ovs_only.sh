@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/bin/bash -x
+#
+# Troubleshooting script that only installs OVS, no virtualization
 
 echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts" >> bash/configure_l0_env.sh
+. ./bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
 
 ## make sure cloud-init doesnt run anymore at boot
 touch /etc/cloud/cloud-init.disabled
-
-#!/bin/bash -x
 
 ## turn off selinux
 	setenforce 0
@@ -101,5 +102,8 @@ touch /etc/cloud/cloud-init.disabled
   dnf install libibverbs -y 
 	dnf install openvswitch -y 
 	dnf install os-net-config -y
-	
+
+## configure openvswitch, routing, VLANs
+  ./bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
+
 exit 0
