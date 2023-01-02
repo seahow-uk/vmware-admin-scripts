@@ -55,7 +55,7 @@
 
     mkdir -p $ESXIROOT/esxi$i
     chmod -R 770 $ESXIROOT/esxi$i
-    chown -R root:kvm $ESXIROOT/esxi$i
+    chown -R root:nobody $ESXIROOT/esxi$i
     cp -f $ESXIROOT/XML/esxi.xml $ESXIROOT/esxi$i/esxi$i.xml
 
     qemu-img create -f raw $ESXIROOT/esxi$i/esxi$i-root $MYDISK
