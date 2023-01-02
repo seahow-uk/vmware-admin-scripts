@@ -19,22 +19,6 @@ sed -i '55,$ d' /etc/dhcp/dhcpd.conf
 virsh net-destroy ovs-net
 virsh net-undefine ovs-net
 
-# kill network stuff in the right order
-systemctl stop libvirtd
-systemctl stop httpd
-systemctl stop dhcpd
-systemctl start ovs-vswitchd
-systemctl start ovsdb-server
-systemctl start network
-
-# start network stuff in the right order
-systemctl start network
-systemctl start ovsdb-server
-systemctl start ovs-vswitchd
-systemctl start dhcpd
-systemctl start httpd
-systemctl start libvirtd
-
 echo "done"
 
 exit 0

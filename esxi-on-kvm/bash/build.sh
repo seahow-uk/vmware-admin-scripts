@@ -55,20 +55,20 @@
     qemu-img convert -O raw ./esxi$i/esxi$i-root ./esxi$i/esxi$i-root.raw
     rm ./esxi$i/esxi$i-root -f
 
-    qemu-img create -f raw ./data/vsan/esxi$i-disk1 900G
-    qemu-img create -f raw ./data/vsan/esxi$i-disk2 900G
-    qemu-img create -f raw ./data/vsan/esxi$i-disk3 900G
-    qemu-img create -f raw ./data/vsan/esxi$i-disk4 900G
+    qemu-img create -f raw ./esxi$i/esxi$i-disk1 900G
+    qemu-img create -f raw ./esxi$i/esxi$i-disk2 900G
+    qemu-img create -f raw ./esxi$i/esxi$i-disk3 900G
+    qemu-img create -f raw ./esxi$i/esxi$i-disk4 900G
 
-    qemu-img convert -O raw ./data/vsan/esxi$i-disk1 ./data/vsan/esxi$i-disk1.raw
-    qemu-img convert -O raw ./data/vsan/esxi$i-disk2 ./data/vsan/esxi$i-disk2.raw
-    qemu-img convert -O raw ./data/vsan/esxi$i-disk3 ./data/vsan/esxi$i-disk3.raw
-    qemu-img convert -O raw ./data/vsan/esxi$i-disk4 ./data/vsan/esxi$i-disk4.raw
+    qemu-img convert -O raw ./esxi$i/esxi$i-disk1 ./esxi$i/esxi$i-disk1.raw
+    qemu-img convert -O raw ./esxi$i/esxi$i-disk2 ./esxi$i/esxi$i-disk2.raw
+    qemu-img convert -O raw ./esxi$i/esxi$i-disk3 ./esxi$i/esxi$i-disk3.raw
+    qemu-img convert -O raw ./esxi$i/esxi$i-disk4 ./esxi$i/esxi$i-disk4.raw
 
-    rm ./data/vsan/esxi$i-disk1 -f
-    rm ./data/vsan/esxi$i-disk2 -f
-    rm ./data/vsan/esxi$i-disk3 -f
-    rm ./data/vsan/esxi$i-disk4 -f
+    rm ./esxi$i/esxi$i-disk1 -f
+    rm ./esxi$i/esxi$i-disk2 -f
+    rm ./esxi$i/esxi$i-disk3 -f
+    rm ./esxi$i/esxi$i-disk4 -f
 
     sed -i "s/MEMPLACEHOLDER/$MYMEM/g" ./esxi$i/esxi$i.xml
     sed -i "s/CPUPLACEHOLDER/$MYCORE/g" ./esxi$i/esxi$i.xml
@@ -95,10 +95,10 @@
     chmod -R 777 ./esxi$i
     virsh define ./esxi$i/esxi$i.xml
 
-    virsh attach-disk esxi$i ./data/vsan/esxi$i-disk1.raw sdb --persistent --targetbus sata
-    virsh attach-disk esxi$i ./data/vsan/esxi$i-disk2.raw sdc --persistent --targetbus sata
-    virsh attach-disk esxi$i ./data/vsan/esxi$i-disk3.raw sdd --persistent --targetbus sata
-    virsh attach-disk esxi$i ./data/vsan/esxi$i-disk4.raw sde --persistent --targetbus sata
+    virsh attach-disk esxi$i ./esxi$i/esxi$i-disk1.raw sdb --persistent --targetbus sata
+    virsh attach-disk esxi$i ./esxi$i/esxi$i-disk2.raw sdc --persistent --targetbus sata
+    virsh attach-disk esxi$i ./esxi$i/esxi$i-disk3.raw sdd --persistent --targetbus sata
+    virsh attach-disk esxi$i ./esxi$i/esxi$i-disk4.raw sde --persistent --targetbus sata
 
     virsh autostart esxi$i
     virsh start esxi$i
