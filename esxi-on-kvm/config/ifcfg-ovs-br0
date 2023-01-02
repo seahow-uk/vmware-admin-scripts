@@ -6,4 +6,5 @@ ONBOOT=yes
 NM_CONTROLLED=yes
 EC2SYNC=no
 OVSBOOTPROTO=none
+ETHTOOL_OPTS="-K ${DEVICE} gso off; -K ${DEVICE} gro off; -K ${DEVICE} tso off; -K ${DEVICE} txvlan off; -K ${DEVICE} sg off; -K ${DEVICE} ufo off; -K ${DEVICE} lro off"
 MTU=9000

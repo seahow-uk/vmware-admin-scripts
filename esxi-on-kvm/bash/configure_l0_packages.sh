@@ -25,6 +25,8 @@
 
 ## level set
 	dnf install epel-release -y
+	dnf install centos-release-nfv-openvswitch -y
+	dnf install centos-release-openstack-xena -y
 	dnf install python39 -y
 	dnf install python2 -y
 	dnf clean all 
@@ -123,29 +125,32 @@
 	pip3 install dcli --force --log /var/log/pip_install_dcli.log
 	dcli --version &>> /var/log/configure_l0_packages_6.log
 
-  ## this section installs needed prereqs then downloads and compiles OVS
+  ## this section installs needed prereqs plus OVS
 	dnf install net-tools -y
-	dnf install unbound -y
-	dnf install gcc -y
-	dnf install autoconf -y
-	dnf install automake -y	
-	dnf install libtool -y
 	dnf install netcat -y
-	dnf install curl -y
-	dnf install NetworkManager-ovs -y
-	pip3 install pyftpdlib
-	pip3 install tftpy
+	dnf install openvswitch -y 
+	dnf install libibverbs -y 
+	dnf install os-net-config -y
 
-	git clone https://github.com/openvswitch/ovs.git 
-	cd ovs
-	./boot.sh
-	./configure
-	make
-	make install
-	cd ..
+	# dnf install curl -y
+	# dnf install unbound -y
+	# dnf install gcc -y
+	# dnf install autoconf -y
+	# dnf install automake -y	
+	# dnf install libtool -y
+	# dnf install NetworkManager-ovs -y
+	# pip3 install pyftpdlib
+	# pip3 install tftpy
+	# git clone https://github.com/openvswitch/ovs.git 
+	# cd ovs
+	# ./boot.sh
+	# ./configure
+	# make
+	# make install
+	# cd ..
 	
-	cp -f config/openvswitch.service /usr/lib/systemd/system/openvswitch.service
-	chmod 400 /usr/lib/systemd/system/openvswitch.service
-	systemctl enable openvswitch.service
+	# cp -f config/openvswitch.service /usr/lib/systemd/system/openvswitch.service
+	# chmod 400 /usr/lib/systemd/system/openvswitch.service
+	# systemctl enable openvswitch.service
 	
 exit 0

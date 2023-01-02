@@ -11,6 +11,7 @@ EC2SYNC=no
 MACADDR=ETH0MACPLACEHOLDER
 GATEWAY=ETH0GATEWAYPLACEHOLDER
 OVS_EXTRA="set Interface eth0 other-config:hwaddr=$MACADDR"
+ETHTOOL_OPTS="-K ${DEVICE} gso off; -K ${DEVICE} gro off; -K ${DEVICE} tso off; -K ${DEVICE} txvlan off; -K ${DEVICE} sg off; -K ${DEVICE} ufo off; -K ${DEVICE} lro off"
 MTU=9000
 
 

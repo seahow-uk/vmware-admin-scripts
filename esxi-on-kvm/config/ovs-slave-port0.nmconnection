@@ -1,9 +1,0 @@
-[connection]
-id=ovs-slave-port0
-uuid=91529109-5577-46db-9535-e013acc30599
-type=ovs-port
-interface-name=port0
-master=0
-slave-type=ovs-bridge
-
-[ovs-port]
