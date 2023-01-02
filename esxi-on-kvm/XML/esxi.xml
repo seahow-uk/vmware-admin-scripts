@@ -63,14 +63,14 @@
     <emulator>/usr/libexec/qemu-kvm</emulator>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='./ISO/esxi-custom/VSPHEREVERSIONPLACEHOLDER.iso'/>
+      <source file='ESXIROOTPLACEHOLDER/ISO/esxi-custom/VSPHEREVERSIONPLACEHOLDER.iso'/>
       <target dev='hdc' bus='ide'/>
       <readonly/>
       <address type='drive' controller='0' bus='1' unit='0'/>
     </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
-      <source file='./NAMEPLACEHOLDER/NAMEPLACEHOLDER-root.raw'/>
+      <source file='ESXIROOTPLACEHOLDER/NAMEPLACEHOLDER/NAMEPLACEHOLDER-root.raw'/>
       <target dev='sda' bus='sata'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>

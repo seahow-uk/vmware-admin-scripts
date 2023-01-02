@@ -69,7 +69,8 @@
     rm $ESXIROOT/esxi$i/esxi$i-disk2 -f
     rm $ESXIROOT/esxi$i/esxi$i-disk3 -f
     rm $ESXIROOT/esxi$i/esxi$i-disk4 -f
-
+    
+    sed -i "s/ESXIROOTPLACEHOLDER/$ESXIROOT/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MEMPLACEHOLDER/$MYMEM/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/CPUPLACEHOLDER/$MYCORE/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/NAMEPLACEHOLDER/esxi$i/g" $ESXIROOT/esxi$i/esxi$i.xml
