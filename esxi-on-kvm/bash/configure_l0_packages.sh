@@ -24,15 +24,21 @@
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## level set
-	dnf install epel-release -y
-	dnf install centos-release-nfv-openvswitch -y
-	dnf install centos-release-openstack-xena -y
-	dnf install python39 -y
-	dnf install python2 -y
+	dnf config-manager --disable epel-next
+	dnf config-manager --disable epel
+	dnf config-manager --enable ha
+	dnf config-manager --enable powertools
+	dnf config-manager --enable nfv
+	dnf config-manager --enable extras
 	dnf clean all 
 	rm -rfv /var/cache/dnf
 	dnf distro-sync -y
 	dnf update -y
+	
+	dnf install centos-release-openstack-xena -y
+	dnf install python39 -y
+	dnf install python2 -y
+
 
 ## set python alternative references up.  something needs python2 later and i dont recall what
 	update-alternatives --set python3 /usr/bin/python3.9
