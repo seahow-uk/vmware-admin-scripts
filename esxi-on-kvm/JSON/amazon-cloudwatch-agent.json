@@ -1,22 +1,46 @@
 {
     "agent": {
-        "metrics_collection_interval": 10,
+        "metrics_collection_interval": 60,
+        "run_as_user": "root",
         "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
     },
     "metrics": {
+        "aggregation_dimensions": [
+            [
+                "InstanceId"
+            ]
+        ],
+        "append_dimensions": {
+            "ImageId": "${aws:ImageId}",
+            "InstanceId": "${aws:InstanceId}",
+            "InstanceType": "${aws:InstanceType}"
+        },
         "metrics_collected": {
+            "cpu": {
+                "measurement": [
+                    "cpu_usage_idle",
+                    "cpu_usage_iowait",
+                    "cpu_usage_user",
+                    "cpu_usage_system"
+                ],
+                "metrics_collection_interval": 60,
+                "resources": [
+                    "*"
+                ],
+                "totalcpu": false
+            },
             "diskio": {
                 "measurement": [
-                    "diskio_write_time",
-                    "diskio_write_bytes",
-                    "diskio_writes",
-                    "diskio_read_time",
-                    "diskio_read_bytes",
-                    "diskio_reads",
-                    "diskio_iops_in_progress",
-                    "diskio_io_time"
+                    "io_time",
+                    "write_bytes",
+                    "read_bytes",
+                    "writes",
+                    "reads"
                 ],
-                "metrics_collection_interval": 10
+                "metrics_collection_interval": 60,
+                "resources": [
+                    "*"
+                ]
             },
             "swap": {
                 "measurement": [
@@ -29,15 +53,23 @@
                 "measurement": [
                     "mem_used",
                     "mem_cached",
-                    "mem_total"
+                    "mem_total",
+                    "mem_used_percent"
                 ],
-                "metrics_collection_interval": 10
+                "metrics_collection_interval": 60
             },
             "net": {
                 "resources": [
                     "eth0",
                     "ovs-br0",
                     "ovs-system",
+                    "ovs-vlan20",
+                    "ovs-vlan30",
+                    "ovs-vlan40",
+                    "ovs-vlan50",
+                    "ovs-vlan60",
+                    "ovs-vlan70",
+                    "ovs-vlan80",
                     "ovs-uplink"
                 ],
                 "measurement": [
@@ -51,10 +83,7 @@
             },
             "ethtool": {
                 "interface_include": [
-                    "eth0",
-                    "ovs-br0",
-                    "ovs-system",
-                    "ovs-uplink"
+                    "eth0"
                 ],
                 "metrics_include": [
                     "rx_packets",
@@ -74,6 +103,11 @@
                 ],
                 "metrics_collection_interval": 60
             },
+            "statsd": {
+                "metrics_aggregation_interval": 60,
+                "metrics_collection_interval": 10,
+                "service_address": ":8125"
+            },
             "processes": {
                 "measurement": [
                     "running",
@@ -82,20 +116,6 @@
                 ]
             }
         },
-        "append_dimensions": {
-            "ImageId": "${!aws:ImageId}",
-            "InstanceId": "${!aws:InstanceId}",
-            "InstanceType": "${!aws:InstanceType}"
-        },
-        "aggregation_dimensions": [
-            [
-                "ImageId"
-            ],
-            [
-                "InstanceId",
-                "InstanceType"
-            ]
-        ],
         "force_flush_interval": 30
     },
     "logs": {
@@ -104,165 +124,165 @@
                 "collect_list": [
                     {
                         "file_path": "/var/log/amazon/ssm/amazon-ssm-agent.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/amazon/ssm/amazon-ssm-agent.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/amazon/ssm/amazon-ssm-agent.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/configure_l0_env.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_env.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_env.sh.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/configure_l0_packages.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages.sh.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/configure_l0_packages_1.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_1.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_1.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/configure_l0_packages_2.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_2.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_2.log",
                         "timezone": "Local"
                     },   
                     {
                         "file_path": "/var/log/configure_l0_packages_3.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_3.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_3.log",
                         "timezone": "Local"
                     },   
                     {
                         "file_path": "/var/log/configure_l0_packages_4.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_4.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_4.log",
                         "timezone": "Local"
                     },   
                     {
                         "file_path": "/var/log/configure_l0_packages_5.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_5.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_5.log",
                         "timezone": "Local"
                     },    
                     {
                         "file_path": "/var/log/configure_l0_packages_6.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_l0_packages_6.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_packages_6.log",
                         "timezone": "Local"
                     },        
                     {
                         "file_path": "/var/log/configure_libvirt.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_libvirt.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_libvirt.sh.log",
                         "timezone": "Local"
                     },        
                     {
                         "file_path": "/var/log/configure_ovs.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_ovs.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_ovs.sh.log",
                         "timezone": "Local"
                     },   
                     {
                         "file_path": "/var/log/insertdnsrecords.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/insertdnsrecords.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/insertdnsrecords.sh.log",
                         "timezone": "Local"
                     },
 
                     {
                         "file_path": "/var/log/secure",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/secure",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/secure",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/dnf.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/dnf.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/dnf.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/cloud-init.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cloud-init.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/cloud-init.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/cloud-init-output.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cloud-init-output.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/cloud-init-output.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/messages",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/messages.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/messages.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/configure_ovs.sh.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/configure_ovs.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_ovs.sh.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/lib/cloud/data/status.json",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/lib/cloud/data/status.json",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/lib/cloud/data/status.json",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/run/cloud-init/cloud-init-generator.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/run/cloud-init/cloud-init-generator.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/run/cloud-init/cloud-init-generator.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/run/cloud-init/cloud-init-generator.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/run/cloud-init/cloud-init-generator.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/run/cloud-init/cloud-init-generator.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/cron",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/cron ",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/cron ",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/log/dmesg.log.timestamped",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/var/log/dmesg.log.timestamped",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/dmesg.log.timestamped",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-                        "log_group_name": "/INSTANCELOGSPLACEHOLDER",
-                        "log_stream_name": "/INSTANCELOGSPLACEHOLDER/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
                         "timezone": "Local"
                     }                    
                 ]
             }
         },
-        "log_stream_name": "/INSTANCELOGSPLACEHOLDER",
+        "log_stream_name": "/{instance_id}",
         "force_flush_interval": 15
     }
 }
