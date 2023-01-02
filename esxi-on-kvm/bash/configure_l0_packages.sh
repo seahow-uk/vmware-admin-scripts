@@ -103,7 +103,8 @@
   ## Permissions tweaks for the aforementioned config files
     chown -R root:kvm $ESXIROOT 
     chmod -R 777 /bin/treesize
-	chmod -R 774 $ESXIROOT
+	chmod -R 770 $ESXIROOT
+	chmod -R 777 $ESXIROOT/webserver
 
   ## upgrade pip first
 	pip3 install --upgrade pip
