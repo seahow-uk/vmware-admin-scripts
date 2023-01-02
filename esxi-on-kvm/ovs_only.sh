@@ -98,8 +98,6 @@ touch /etc/cloud/cloud-init.disabled
 
 ## this section installs needed prereqs plus OVS
 	dnf install net-tools -y
-	dnf install netcat -y
-  dnf install libibverbs -y 
 	dnf install openvswitch -y 
 	dnf install os-net-config -y
 
