@@ -104,7 +104,8 @@
     sed -i "$ a   fixed-address 192.168.20.$OCTET;" /etc/dhcp/dhcpd.conf
     sed -i "$ a }" /etc/dhcp/dhcpd.conf
 
-    chmod -R 700 $ESXIROOT/esxi$i
+    chmod -R 770 $ESXIROOT/esxi$i
+    chown -R root:kvm $ESXIROOT/esxi$i
     virsh define $ESXIROOT/esxi$i/esxi$i.xml
 
     virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk1.raw sdb --persistent --targetbus sata
