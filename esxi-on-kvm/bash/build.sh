@@ -76,7 +76,7 @@
     sed -i "s/MACPLACEHOLDER1/$MAC1/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MACPLACEHOLDER2/$MAC2/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MACPLACEHOLDER3/$MAC3/g" $ESXIROOT/esxi$i/esxi$i.xml
-    sed -i "s/MACPLACEHOLDER4/$MAC4/g" $ESXIROOT/ esxi$i/esxi$i.xml
+    sed -i "s/MACPLACEHOLDER4/$MAC4/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MACPLACEHOLDER5/$MAC5/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MACPLACEHOLDER6/$MAC6/g" $ESXIROOT/esxi$i/esxi$i.xml
     sed -i "s/MACPLACEHOLDER7/$MAC7/g" $ESXIROOT/esxi$i/esxi$i.xml
