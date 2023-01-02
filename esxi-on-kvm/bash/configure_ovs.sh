@@ -84,6 +84,7 @@
     ovs-vsctl add-br ovs-br0
 
     systemctl restart network
+    systemctl restart openvswitch
 
     ## turn on network services
 
