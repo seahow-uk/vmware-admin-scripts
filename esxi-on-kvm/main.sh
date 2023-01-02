@@ -7,6 +7,13 @@
 ## NOTE: you MUST run this as root
 ## errata: there are a couple places where it assumes the primary network interface is called eth0
 ##
+function escapeSlashes {
+  sed 's/\//\\\//g'
+}
+
+ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
+echo $ESCAPEDPWD
+
 # VARIABLES YOU MUST SET -- this whole thing will break if you dont set these
 # You will need to download the ISOs for the VCSA appliance you want to use and point VCSAISO to it
 # You will need to set the vsphere version.  It can only be 7.0 or 6.7.  Other values will break things.
@@ -31,6 +38,8 @@ ADUSER=
 #% DNSDOMAIN=example.local
 #% ADPASSWORD=Aws2022@
 #% ADUSER=admin@EXAMPLE.LOCAL
+
+# NOTE: There are more variables you can alter inside configure_l0_env.sh
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
   echo "You didnt supply DNS server 1"
@@ -61,13 +70,6 @@ if [[ "$(whoami)" != root ]]; then
   echo "Only user root can run this script."
   exit 1
 fi
-
-function escapeSlashes {
-  sed 's/\//\\\//g'
-}
-
-ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
-echo $ESCAPEDPWD
 
 ## this inserts the exports into configure_l0_env.sh which is sourced elsewhere
 ## long story short, it makes them permanent in case you need to just re-run subcomponents
