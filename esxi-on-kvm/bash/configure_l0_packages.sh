@@ -55,8 +55,6 @@
 	dnf install libvirt-devel -y
 	dnf install mlocate -y
 	dnf install nfs-utils -y
-	dnf install nfs-idmapd -y
-	dnf install parallel -y
 	dnf install polkit -y
 	dnf install samba -y
 	dnf install sshpass -y
