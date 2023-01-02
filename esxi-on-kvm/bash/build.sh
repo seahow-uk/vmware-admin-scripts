@@ -4,6 +4,10 @@
   STARTHOST=1
   ENDHOST=$ESXHOSTCOUNT
 
+  ## permissions need to be 770 for root:kvm on esxi and ISO directories
+  chown -R root:kvm $ESXIROOT/ISO
+  chmod -R 770 $ESXIROOT/ISO
+
   function escapeSlashes {
     sed 's/\//\\\//g'
   }
@@ -55,7 +59,7 @@
 
     mkdir -p $ESXIROOT/esxi$i
     chmod -R 770 $ESXIROOT/esxi$i
-    chown -R root:nobody $ESXIROOT/esxi$i
+    chown -R root:kvm $ESXIROOT/esxi$i
     cp -f $ESXIROOT/XML/esxi.xml $ESXIROOT/esxi$i/esxi$i.xml
 
     qemu-img create -f raw $ESXIROOT/esxi$i/esxi$i-root $MYDISK
@@ -107,6 +111,9 @@
     virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk2.raw sdc --persistent --targetbus sata
     virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk3.raw sdd --persistent --targetbus sata
     virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk4.raw sde --persistent --targetbus sata
+
+    chmod -R 770 $ESXIROOT/esxi$i
+    chown -R root:kvm $ESXIROOT/esxi$i
 
     virsh autostart esxi$i
     virsh start esxi$i
