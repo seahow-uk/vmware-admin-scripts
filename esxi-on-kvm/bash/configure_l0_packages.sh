@@ -24,8 +24,6 @@
 	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
 
 ## level set
-	dnf config-manager --disable epel-next
-	dnf config-manager --disable epel
 	dnf config-manager --enable ha
 	dnf config-manager --enable powertools
 	dnf config-manager --enable nfv
@@ -34,7 +32,7 @@
 	rm -rfv /var/cache/dnf
 	dnf distro-sync -y
 	dnf update -y
-	
+
 	dnf install centos-release-openstack-xena -y
 	dnf install python39 -y
 	dnf install python2 -y
