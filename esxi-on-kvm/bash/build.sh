@@ -23,7 +23,7 @@
   mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
   mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
   mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild
-  
+
   ## prep for network
 
     virsh net-destroy default
@@ -141,7 +141,7 @@
 
   ## this is the first boot up where the kickstart install happens
 
-  while [ $ESXISECUP -le 360 ]; do
+  while [ $ESXISECUP -le 450 ]; do
     echo "last esxi has only been up $ESXISECUP sec... sleeping 15 seconds"
     sleep 15
     ESXISECUP=$(ps -p $ESXIPID -o etimes -h | xargs)
