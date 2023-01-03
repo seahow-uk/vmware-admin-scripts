@@ -171,10 +171,10 @@
   echo "esx1's uptime initial: $ESXI1MINUP"
 
   ## First we need to wait until the esxi hosts have rebooted twice - first to apply their kickstart firstboot script, then a normal reboot
-  ## this takes around 238 seconds on an m5.metal for vsphere 6.5
+  ## this takes around 140 seconds on an m5zn.metal for vsphere 7.0
   rm -rv $ESXIROOT/data/esxi-screenshots/postboot
   mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
-  while [ $ESXI1MINUP -le 360 ]; do
+  while [ $ESXI1MINUP -le 200 ]; do
     echo "esxi1 was only up $ESXI1MINUP sec... sleeping 15 seconds"
     sleep 15
     ESXI1MINUP=$(ps -p $ESXI1PID -o etimes -h | xargs)
