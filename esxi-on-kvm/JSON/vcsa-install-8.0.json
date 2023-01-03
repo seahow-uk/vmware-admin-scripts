@@ -1,0 +1,53 @@
+{
+  "__version": "2.13.0",
+  "__comments": "basic vcsa deployment",
+  "new_vcsa": {
+      "esxi": {
+          "hostname": "TARGETHOSTNAMEPLACEHOLDER",
+          "username": "root",
+          "password": "HOSTPASSWORDPLACEHOLDER",
+          "deployment_network": "VM Network",
+          "datastore": "datastore1"
+      },
+      "appliance": {
+          "__comments": [
+              "some comments"
+          ],
+          "thin_disk_mode": true,
+          "deployment_option": "small",
+          "name": "VCSAFQDNPLACEHOLDER"
+      },
+      "network": {
+          "ip_family": "ipv4",
+          "mode": "static",
+          "ip": "TARGETIPPLACEHOLDER",
+          "dns_servers": [
+              "DNS1PLACEHOLDER", "DNS2PLACEHOLDER"
+          ],
+          "prefix": "24",
+          "gateway": "192.168.20.1",
+          "system_name": "VCSAFQDNPLACEHOLDER"
+      },
+      "os": {
+          "password": "HOSTPASSWORDPLACEHOLDER",
+          "ntp_servers": [
+            "DNS1PLACEHOLDER", "DNS2PLACEHOLDER"
+          ],
+          "ssh_enable": true
+      },
+      "sso": {
+          "password": "HOSTPASSWORDPLACEHOLDER",
+          "domain_name": "SSODOMAINPLACEHOLDER"
+      }
+  },
+  "ceip": {
+      "description": {
+          "__comments": [
+              "some comments"
+          ]
+      },
+      "settings": {
+          "ceip_enabled": false
+      }
+  }
+}
