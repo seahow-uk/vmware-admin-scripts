@@ -138,8 +138,6 @@
     ethtool -K esxi$i-vmnic6 gso off gro off tx off sg off txvlan off
   done
 
-  echo "now re-run the vcsa stuff"
-
   ESXI1PID=$(ps -aux | grep -F "guest=esxi1" -m1 | grep -Fv "grep" | awk '{ print $2 }')
   ESXI1MINUP=$(ps -p $ESXI1PID -o etimes -h | xargs)
 
