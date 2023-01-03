@@ -125,30 +125,6 @@
     virsh start esxi$i
   done
 
-  systemctl restart dhcpd
-  systemctl restart httpd
-
-  ESXIPID=$(ps -aux | grep -F "guest=esxi$ENDHOST" | grep -Fv "grep" | awk '{ print $2 }')
-  ESXISECUP=$(ps -p $ESXIPID -o etimes -h | xargs)
-  echo "esxi$ENDHOST's PID: $ESXIPID"
-  echo "esxi$ENDHOST's uptime initial: $ESXISECUP"
-
-  rm -rv $ESXIROOT/data/esxi-screenshots/kvm-config
-  mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
-
-  while [ $ESXISECUP -le 450 ]; do
-    echo "last esxi has only been up $ESXISECUP sec... sleeping 15 seconds"
-    sleep 15
-    ESXISECUP=$(ps -p $ESXIPID -o etimes -h | xargs)
-
-    bash/screencapper.sh &>>/var/log/screencapper.log
-
-    for ((j = $STARTHOST; j <= $ENDHOST; j++)); do
-      virsh screenshot esxi$j data/esxi-screenshots/kvm-config/esxi$j-$ESXISECUP-seconds.ppm
-    done
-
-  done
-
   echo "ok we appear to be done defining all the domains in kvm."
   for ((i = $STARTHOST; i <= $ENDHOST; i++)); do
     virsh destroy esxi$i
@@ -171,10 +147,10 @@
   echo "esx1's uptime initial: $ESXI1MINUP"
 
   ## First we need to wait until the esxi hosts have rebooted twice - first to apply their kickstart firstboot script, then a normal reboot
-  ## this takes around 140 seconds on an m5zn.metal for vsphere 7.0
+  ## this takes around 180 seconds on an m5zn.metal for vsphere 6.7.  On a slower box you may need to raise this timeout
   rm -rv $ESXIROOT/data/esxi-screenshots/postboot
   mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
-  while [ $ESXI1MINUP -le 200 ]; do
+  while [ $ESXI1MINUP -le 210 ]; do
     echo "esxi1 was only up $ESXI1MINUP sec... sleeping 15 seconds"
     sleep 15
     ESXI1MINUP=$(ps -p $ESXI1PID -o etimes -h | xargs)
