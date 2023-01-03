@@ -111,6 +111,7 @@ touch /etc/cloud/cloud-init.disabled
 ## now lets copy it to /etc/profile.d so future interactive root sessions can
 ## just run the individual pieces below for troubleshooting
 
+rm -rfv /etc/profile.d/configure_l0_env.sh
 cp $ESXIROOT/bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
 chmod 644 /etc/profile.d/configure_l0_env.sh
 
