@@ -7,6 +7,7 @@
   ## permissions need to be 770 for root:kvm on esxi and ISO directories
   chown -R root:kvm $ESXIROOT/ISO
   chmod -R 770 $ESXIROOT/ISO
+  chmod 777 $ESXIROOT/webserver/KS.CFG
 
   function escapeSlashes {
     sed 's/\//\\\//g'
