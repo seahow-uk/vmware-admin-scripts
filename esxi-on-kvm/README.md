@@ -8,8 +8,11 @@ Steps
 2.  Set up a VPC
    
 3.  Currently, the nested setup requires Active Directory for DNS and NTP, I recommend using the AWS Managed AD.  That will need to be deployed into the same VPC in advance.
+   
     *  Note: The script uses admin@example.local by default.  This means you cant use Simple AD, it has to be the full Managed AD ... well, unless you want to hack the scripts
+  
     *  This also means you would be best served setting the DHCP options up for your VPC to point to these for DNS, not the default AWS DNS
+  
     ![image](images/dhcp-options.png)
 
 4.  Deploy an m5zn.metal to your VPC
