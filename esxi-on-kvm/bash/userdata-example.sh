@@ -34,8 +34,8 @@ rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm
 cp esxi-on-kvm/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
 
-mkdir -p /scripts/vmware-admin/scripts/esxi-on-kvm/ISO/esxi
-mkdir -p /scripts/vmware-admin/scripts/esxi-on-kvm/ISO/vcsa
+mkdir -p /scripts/vmware-admin-scripts/esxi-on-kvm/ISO/esxi
+mkdir -p /scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa
 
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/VMware-VCSA-all-8.0.0-20920323.iso /scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-8.0.0-20920323.iso
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/VMware-VCSA-all-7.0.3-20395099.iso /scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-7.0.3-20395099.iso
