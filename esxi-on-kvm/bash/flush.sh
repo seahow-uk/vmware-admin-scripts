@@ -5,8 +5,9 @@ STARTHOST=1
 ENDHOST=$ESXHOSTCOUNT
 
 ## delete the screenshots
-rm -rv $ESXIROOT/data/esxi-screenshots/kvm-config
-rm -rv $ESXIROOT/data/esxi-screenshots/postboot
+rm -rfv $ESXIROOT/data/esxi-screenshots/kvm-config
+rm -rfv $ESXIROOT/data/esxi-screenshots/postboot
+rm -rfv $ESXIROOT/data/esxi-screenshots/postbuild
 
 # kill existing vms
 

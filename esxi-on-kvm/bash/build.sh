@@ -22,7 +22,8 @@
   ## prepare the screenshot locations
   mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
   mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
-
+  mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild
+  
   ## prep for network
 
     virsh net-destroy default
@@ -145,10 +146,15 @@
     sleep 15
     ESXISECUP=$(ps -p $ESXIPID -o etimes -h | xargs)
 
-    bash/screencapper.sh &>>/var/log/screencapper.log
+    ## this script gathers additional information and injects it into the screencaps under $ESXIROOT/data/esxi-screenshots/postbuild
+    $ESXIROOT/bash/screencapper.sh &>>/var/log/screencapper.log
+
+    ## this just grabs raw screenshots and puts them under $ESXIROOT/data/esxi-screenshots/kvm-config
+    ## I have both happening because the more complicated screencapper.sh script could break and you'd still
+    ## at least have basic screenshots here
 
     for ((j = $STARTHOST; j <= $ENDHOST; j++)); do
-      virsh screenshot esxi$j data/esxi-screenshots/kvm-config/esxi$j-$ESXISECUP-seconds.ppm
+      virsh screenshot esxi$j $ESXIROOT/data/esxi-screenshots/kvm-config/esxi$j-$ESXISECUP-seconds.ppm
     done
 
   done
@@ -182,10 +188,10 @@
     sleep 15
     ESXI1MINUP=$(ps -p $ESXI1PID -o etimes -h | xargs)
 
-    bash/screencapper.sh &>>/var/log/screencapper.log
+    $ESXIROOT/bash/screencapper.sh &>>/var/log/screencapper.log
 
     for ((j = 1; j <= $ESXHOSTCOUNT; j++)); do
-      virsh screenshot esxi$j data/esxi-screenshots/postboot/esxi$j-$ESXI1MINUP-seconds.ppm
+      virsh screenshot esxi$j $ESXIROOT/data/esxi-screenshots/postboot/esxi$j-$ESXI1MINUP-seconds.ppm
     done
   done
 
