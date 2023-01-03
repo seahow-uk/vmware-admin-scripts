@@ -4,16 +4,20 @@
   STARTHOST=1
   ENDHOST=$ESXHOSTCOUNT
 
-  ## permissions need to be 770 for root:kvm on esxi and ISO directories
-  chown -R root:kvm $ESXIROOT/ISO
-  chmod -R 770 $ESXIROOT/ISO
-  chmod 777 $ESXIROOT/webserver/KS.CFG
-
   function escapeSlashes {
     sed 's/\//\\\//g'
   }
 
   ESCAPEDESXIROOT=$(echo "$ESXIROOT" | escapeSlashes)
+
+  ## permissions need to be 770 for root:kvm on esxi and ISO directories
+  chown -R root:kvm $ESXIROOT/ISO
+  chmod -R 770 $ESXIROOT/ISO
+
+  ## kick the apache server in the pants to make sure the hosts can download
+  ## http://192.168.20.1/KS.CFG at build time
+  chmod -R 777 $ESXIROOT/webserver
+  systemctl restart httpd
 
   ## prep for network
 
