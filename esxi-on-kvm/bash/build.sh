@@ -139,7 +139,8 @@
   echo "esxi$ENDHOST's uptime initial: $ESXISECUP"
 
 
-  ## this is the first boot up where the kickstart install happens
+  ## this is the first boot up where the kickstart install happens.  The process takes just under 300 seconds on an m5zn.metal
+  ## to do an unattended install of vsphere 8.0.  I'm setting it to 450 seconds just to be safe.
 
   while [ $ESXISECUP -le 450 ]; do
     echo "last esxi has only been up $ESXISECUP sec... sleeping 15 seconds"
