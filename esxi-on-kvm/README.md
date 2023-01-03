@@ -8,23 +8,23 @@ Steps
     3.  Currently, the nested setup requires Active Directory for DNS and NTP, I recommend using the AWS Managed AD.  That will need to be deployed into the same VPC in advance.
         1.  Note: The script uses admin@example.local by default.  This means you cant use Simple AD, it has to be the full Managed AD ... well, unless you want to hack the scripts
         2.  This also means you would be best served setting the DHCP options up for your VPC to point to these for DNS, not the default AWS DNS
-            ![](images/dhcp-options.png)
+            ![image](images/dhcp-options.png)
     4.  Deploy an m5zn.metal to your VPC
         1.  Use the official Centos 8 Stream AMI from AWS
-            ![](images/ami.png)
+            ![image](images/ami.png)
         2.  Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prep the host and grab the ISOs from your bucket.  It will also do a git clone from this repo.
             1.  Make sure to point the S3BUCKET and S3PREFIX variables appropriately
-            ![](images/userdata.png)
+            ![image](images/userdata.png)
         3.  Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it
             1.  First, disable the source/dest check (under networking)
-            ![](images/sourcedest.png)
+            ![image](images/sourcedest.png)
             2.  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance
-            ![](images/routes.png)
+            ![image](images/routes.png)
     5.  Now SSH into your EC2 baremetal instance
         1.  cd /scripts/vmware-admin-scripts/esxi-on-kvm
         2.  vi ./main.sh
             Edit the variables for the DNS IP Address 1 and 2, plus any others which are relevant to you
-            ![](images/main.sh.png)
+            ![image](images/main.sh.png)
         3.  Now kick off the build of the nested environment
             ./main.sh
 
