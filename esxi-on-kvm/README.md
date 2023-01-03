@@ -1,9 +1,9 @@
 Steps
 ----
 1.  Set up an S3 bucket
-    a.  Download the VCSA for 6.7, 7.0, and 8.0 into it
-    b.  Download the modified ISOs for ESXI 6.7, 7.0, and 8.0 into it
-        c.  See the *MODIFYING ESXI ISOs* section that describes how make them do an automated Kickstart install from http://192.168.20.1/KS.CFG
+    *  Download the VCSA for 6.7, 7.0, and 8.0 into it
+    *  Download the modified ISOs for ESXI 6.7, 7.0, and 8.0 into it
+       *  See the *MODIFYING ESXI ISOs* section that describes how make them do an automated Kickstart install from http://192.168.20.1/KS.CFG
 
 2.  Set up a VPC
    
@@ -12,18 +12,18 @@ Steps
     *  This also means you would be best served setting the DHCP options up for your VPC to point to these for DNS, not the default AWS DNS
     ![image](images/dhcp-options.png)
 
-1.  Deploy an m5zn.metal to your VPC
+4.  Deploy an m5zn.metal to your VPC
    
     *  Use the official Centos 8 Stream AMI from AWS
 
         ![image](images/ami.png)
-1.  Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prep the host and grab the ISOs from your bucket.  It will also do a git clone from this repo.
+5.  Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prep the host and grab the ISOs from your bucket.  It will also do a git clone from this repo.
 
     *  Make sure to point the S3BUCKET and S3PREFIX variables appropriately
   
         ![image](images/userdata.png)
 
-1.  Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it
+6.  Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it
    
     *  First, disable the source/dest check (under networking)
   
@@ -33,7 +33,7 @@ Steps
   
         ![image](images/routes.png)
 
-2.  Now SSH into your EC2 baremetal instance
+7.  Now SSH into your EC2 baremetal instance
    
      *  cd /scripts/vmware-admin-scripts/esxi-on-kvm
   
