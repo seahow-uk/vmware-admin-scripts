@@ -52,7 +52,9 @@ Steps
 
      *  Now kick off the build of the nested environment
   
-         ./main.sh
+         ./nested.sh
+
+         *NOTE: This assumes you used the example userdata.  If you did not, you will need to manually run ./main.sh BEFORE ./nested.sh*
 
 Tips
 ----

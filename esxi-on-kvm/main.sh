@@ -7,12 +7,6 @@
 ## NOTE: you MUST run this as root
 ## errata: there are a couple places where it assumes the primary network interface is called eth0
 ##
-function escapeSlashes {
-  sed 's/\//\\\//g'
-}
-
-ESCAPEDPWD=$(echo "$PWD" | escapeSlashes)
-echo $ESCAPEDPWD
 
 # VARIABLES YOU MUST SET -- this whole thing will break if you dont set these
 # You will need to download the ISOs for the VCSA appliance you want to use and point VCSAISO to it
@@ -89,20 +83,22 @@ fi
 ## long story short, it makes them permanent in case you need to just re-run subcomponents
 ## yes its a hack that was added later
 
-echo "export MEM=$MEM" >> bash/configure_l0_env.sh
-echo "export CORE=$CORE" >> bash/configure_l0_env.sh
-echo "export MGMTMEM=$MGMTMEM" >> bash/configure_l0_env.sh
-echo "export MGMTCORE=$MGMTCORE" >> bash/configure_l0_env.sh
-echo "export DNSIPADDRESS1=$DNSIPADDRESS1" >> bash/configure_l0_env.sh
-echo "export DNSIPADDRESS2=$DNSIPADDRESS2" >> bash/configure_l0_env.sh
-echo "export VCSAISO=$VCSAISO" >> bash/configure_l0_env.sh
-echo "export VSPHEREVERSION=$VSPHEREVERSION" >> bash/configure_l0_env.sh
-echo "export DNSDOMAIN=$DNSDOMAIN" >> bash/configure_l0_env.sh
-echo "export ADPASSWORD=$ADPASSWORD" >> bash/configure_l0_env.sh
-echo "export ADUSER=$ADUSER" >> bash/configure_l0_env.sh
-echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> bash/configure_l0_env.sh 
-echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts:$ESCAPEDPWD/bash:$ESCAPEDPWD/python:$ESCAPEDPWD/expect" >> bash/configure_l0_env.sh
-echo "export ESXIROOT=$ESCAPEDPWD" >> bash/configure_l0_env.sh
+export ESXIROOT="$PWD"
+
+echo "export MEM=$MEM" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export CORE=$CORE" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export MGMTMEM=$MGMTMEM" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export MGMTCORE=$MGMTCORE" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export DNSIPADDRESS1=$DNSIPADDRESS1" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export DNSIPADDRESS2=$DNSIPADDRESS2" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export VCSAISO=$VCSAISO" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export VSPHEREVERSION=$VSPHEREVERSION" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export DNSDOMAIN=$DNSDOMAIN" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export ADPASSWORD=$ADPASSWORD" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export ADUSER=$ADUSER" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> $ESXIROOT/bash/configure_l0_env.sh 
+echo "export PATH=$PATH:/usr/local/share/openvswitch/scripts:$PWD/bash:$PWD/python:$PWD/expect" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export ESXIROOT=$PWD" >> $ESXIROOT/bash/configure_l0_env.sh
 
 ## make sure cloud-init doesnt run anymore at boot
 touch /etc/cloud/cloud-init.disabled
@@ -110,49 +106,26 @@ touch /etc/cloud/cloud-init.disabled
 ## ok we've now made configure_l0_env.sh a central store for all env vars
 ## we need to source it once so it is available to subcomponents of this script run
 
-. ./bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
+. $ESXIROOT/bash/configure_l0_env.sh &>> /var/log/configure_l0_env.sh.log
 
 ## now lets copy it to /etc/profile.d so future interactive root sessions can
 ## just run the individual pieces below for troubleshooting
 
-cp ./bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
+cp $ESXIROOT/bash/configure_l0_env.sh /etc/profile.d/configure_l0_env.sh
+chmod 644 /etc/profile.d/configure_l0_env.sh
 
 ## ********** START CALL OUTS TO OTHER BASH SCRIPTS ********** 
 
     ## install dnf packages, do some other l0 system config needed for nested vmware
-      ./bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
+      $ESXIROOT/bash/configure_l0_packages.sh &>> /var/log/configure_l0_packages.sh.log
 
     ## configure libvirt, QEMU, KVM
-      ./bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
+      $ESXIROOT/bash/configure_libvirt.sh &>> /var/log/configure_libvirt.sh.log
 
     ## configure openvswitch, routing, VLANs
-      ./bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
+      $ESXIROOT/bash/configure_ovs.sh &>> /var/log/configure_ovs.sh.log
 
     ## insert DNS records into your AD-based DNS
-      ./bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
-
-    ## build base vmware environment
-    #
-    #  NOTE: in addition to doing an unattended install of the ESXi hosts,
-    #  build.sh calls the following sub-scripts afterward:
-    #  
-    # ./bash/configure_vcsas.sh 
-    # ./bash/configure_cluster.sh 
-    # ./bash/configure_dvs.sh 
-    # ./bash/configure_drs.sh 
-    # ./bash/configure_ha.sh 
-      ./bash/build.sh &>>/var/log/build.sh.log
-
-    ## extended tweaks for the esxi hosts, vcsas, etc
-      ./bash/configure_esxi.sh &>>/var/log/configure_esxi.log
-
-    ## download bitnami appliances
-      ./bash/get_ovas.sh &>>/var/log/get_ovas.sh.log
-
-    ## install bitnami appliances to act as workload VMs
-      ./bash/configure_workload_vms.sh &>>/var/log/configure_workload_vms.sh.log
-
-    ## deploy any custom ovfs like netapp, commvault, veeam, generic windows templates
-      ./bash/configure_custom_ovfs.sh &>>/var/log/configure_custom_ovfs.sh.log
+      $ESXIROOT/bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
 
 exit 0
