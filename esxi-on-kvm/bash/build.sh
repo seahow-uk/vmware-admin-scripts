@@ -54,12 +54,12 @@
       let MYCORE=$CORE
     fi
 
-    if [ "$VSPHEREVERSION" == "7.0" ]; then
-      VSSVNICMODEL="e1000e"
-      DVSVNICMODEL="e1000e"
-    else
+    if [ "$VSPHEREVERSION" == "6.7" ]; then
       VSSVNICMODEL="e1000"
       DVSVNICMODEL="e1000"
+    else
+      VSSVNICMODEL="e1000e"
+      DVSVNICMODEL="e1000e"
     fi
 
     mkdir -p $ESXIROOT/esxi$i
