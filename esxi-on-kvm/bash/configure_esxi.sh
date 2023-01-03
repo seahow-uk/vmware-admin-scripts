@@ -12,9 +12,6 @@
     virsh attach-disk esxi$i "" hdc --type cdrom --mode readonly
   done
 
-# take diag screenshots every 15 min
-  echo "*/15 * * * * $ESXIROOT/bash/screencapper.sh &>> /var/log/screencapper.log" >screencapper15minutes
-
 # fix the vmkernels and do some other post-hoc tweaks we've identified
 
   dcli +server vcsa1.$DNSDOMAIN +skip-server-verification com vmware appliance ntp set --servers $DNSIPADDRESS1
