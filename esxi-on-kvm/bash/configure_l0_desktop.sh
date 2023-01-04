@@ -79,14 +79,8 @@ systemctl daemon-reload
 systemctl enable vncserver@:1.service
 systemctl start vncserver@:1.service
 
-# install all the default widgets and utilities for MATE desktop
-dnf install xfce* -y
-
 # install a GUI device manager style utility. 
 dnf install lshw-gui -y
-
-# install a GUI utility for NetworkManager.  
-dnf install network-manager-applet -y
 
 # this forces the vnc server to restart after we add utilities.  for some weird reason, a temp file for xwindows gets stuck sometimes.
 systemctl stop vncserver@:1.service
