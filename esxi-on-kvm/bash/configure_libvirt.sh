@@ -38,13 +38,13 @@ echo 'net.core.netdev_max_backlog=16384' >>/etc/sysctl.conf
 
 # things which are useful across the internet but not needed for fast local networks
 
-    # Disable TCP gradual speed increase 
-    echo 'net.ipv4.tcp_slow_start_after_idle=0' >>/etc/sysctl.conf
+# Disable TCP gradual speed increase 
+echo 'net.ipv4.tcp_slow_start_after_idle=0' >>/etc/sysctl.conf
 
-    # Disable TCP selective acknowledgement and its permutations 
-    echo 'net.ipv4.tcp_sack = 0' >>/etc/sysctl.conf
-    echo 'net.ipv4.tcp_dsack = 0' >>/etc/sysctl.conf
-    echo 'net.ipv4.tcp_fack = 0' >>/etc/sysctl.conf
+# Disable TCP selective acknowledgement and its permutations 
+echo 'net.ipv4.tcp_sack = 0' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_dsack = 0' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_fack = 0' >>/etc/sysctl.conf
 
 ## The following settings came from:
 ## http://techblog.cloudperf.net/2016/05/2-million-packets-per-second-on-public.html
