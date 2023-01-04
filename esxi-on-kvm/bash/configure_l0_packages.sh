@@ -78,6 +78,10 @@
 	cp -f $ESXIROOT/config/KS.CFG /var/www/html/KS.CFG
 	cp -f $ESXIROOT/bash/epochtohuman.sh /bin/epochtohuman.sh
 
+## Edit KS.CFG
+	sed -i "s/ESXIROOTPLACEHOLDER/$ESCAPEDPWD/g" /etc/systemd/system.conf
+	sed -i "s/HOSTPASSWORDPLACEHOLDER/$HOSTPASSWORD/g" /etc/systemd/system.conf
+
 ## Kickstart samba
 	systemctl enable smb nmb
 	systemctl start smb nmb
