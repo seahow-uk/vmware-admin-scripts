@@ -46,20 +46,20 @@ ADUSER=
 ##
 ## Memory: 152GB
 ## Cores: 24
-##
+## 
 ## [Due to the way I've got various services running on L0 you should leave a decent amount of cpu cores and ram free]
 ##
 ## This means the default settings below will run on a c5n.metal host in AWS, which has 72 vcpu and 192GB RAM
 ## c5n.metal is the cheapest x86_64 baremetal instance type at $3.88/hour or $2838.24/month (on demand) 
 ##
-## Personally, I recommend an m5zn.metal.  Only 48CPU but they are 4.5GHz Xeon 8252's vs 3GHz 8124M's
+## Personally, I recommend an m5zn.metal.  Only 24 real / 48 HT VCPU but they are 4.5GHz Xeon 8252's vs 3GHz 8124M's
 ## m5zn.metal is almost as cheap as c5n.metal at $3.96/hour or $2893.79/month (on demand)
 ##
 
 MEM=12
 CORE=2
 MGMTMEM=28
-MGMTCORE=2
+MGMTCORE=4
 
 ## All that said, if you don't care as much about cost and need bigger/faster ESXi hosts, I would recommend
 ## an r6i.metal with 128 VCPU and 1024 GB memory.  They have even newer 3.5 GHz Intel Xeon 8375C (Ice Lake) cpus
