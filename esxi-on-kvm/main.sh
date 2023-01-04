@@ -42,9 +42,11 @@ ADUSER=
 ## 16GB for each of the 8x Compute hosts is a good amount considering all of the sample and storage VMs
 ## that get deployed by the later parts of these scripts
 ##
-## In total, the default will require the following physical resources on the server
-## Memory: 184GB
+## In total, the default will require the following physical resources on the server for the KVM domains
+## Memory: 158GB
 ## Cores: 40
+##
+## [Due to the way I've got various services running on L0 you should leave at least 20GB of memory free]
 ##
 ## This means the default settings below will run on a c5n.metal host in AWS, which has 72 vcpu and 192GB RAM
 ## c5n.metal is the cheapest x86_64 baremetal instance type at $3.88/hour or $2838.24/month (on demand) 
@@ -53,7 +55,7 @@ ADUSER=
 ## m5zn.metal is almost as cheap as c5n.metal at $3.96/hour or $2893.79/month (on demand)
 ##
 
-MEM=16
+MEM=14
 CORE=4
 MGMTMEM=28
 MGMTCORE=4
