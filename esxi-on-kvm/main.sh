@@ -56,8 +56,8 @@ ADUSER=
 ## m5zn.metal is almost as cheap as c5n.metal at $3.96/hour or $2893.79/month (on demand)
 ##
 
-MEM=14
-CORE=4
+MEM=12
+CORE=2
 MGMTMEM=28
 MGMTCORE=4
 
