@@ -5,6 +5,10 @@
     ENDHOST=$ESXHOSTCOUNT
     ETH0IP=`ifconfig eth0 | awk '/inet / {print $2}'`
 
+    mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
+	mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
+	mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild
+
 # define our functions
     timestamp() {
         date +"%H-%M-%S" # current time
