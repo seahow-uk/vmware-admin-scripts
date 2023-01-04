@@ -57,3 +57,5 @@ echo "Aws2022@" | realm join -U admin --client-software=sssd example.local  &>> 
 
 cd /scripts/vmware-admin-scripts/esxi-on-kvm/
 ./main.sh
+
+reboot
