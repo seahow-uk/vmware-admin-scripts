@@ -44,10 +44,10 @@ ADUSER=
 ##
 ## In total, the default will require the following physical resources on the server for the KVM domains
 ##
-## Memory: 168GB
-## Cores: 40
+## Memory: 152GB
+## Cores: 24
 ##
-## [Due to the way I've got various services running on L0 you should leave at least 20GB of memory free]
+## [Due to the way I've got various services running on L0 you should leave a decent amount of cpu cores and ram free]
 ##
 ## This means the default settings below will run on a c5n.metal host in AWS, which has 72 vcpu and 192GB RAM
 ## c5n.metal is the cheapest x86_64 baremetal instance type at $3.88/hour or $2838.24/month (on demand) 
