@@ -58,5 +58,11 @@ echo 'vm.swappiness=0' >>/etc/sysctl.conf
 # numa tunables: Disable numa balancing feature
 echo 'kernel.numa_balancing=0' >>/etc/sysctl.conf
 
+# AWS recommended sysctl tweaks
+# From: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking-os.html
+echo 'vm.min_free_kbytes=1048576' >>/etc/sysctl.conf
+
+# make sure the options take immediate effect just in case the L0 doesn't get rebooted as part of the build
+systemctl restart libvirtd
 
 exit 0
