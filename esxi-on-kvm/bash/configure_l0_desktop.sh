@@ -63,7 +63,6 @@ chmod 700 ./runvncpasswd.sh
 
 # delete the expect script as we don't want someone coming along and finding the clear text
 rm ./runvncpasswd.sh
-echo "geometry=1920x1200" >>/etc/tigervnc/vncserver-config-mandatory
 
 # set the configuration files
 mkdir /etc/tigervnc
