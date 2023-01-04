@@ -201,19 +201,19 @@
   echo "ok we appear to be ready"
 
   echo "deploying vcsa appliances..."
-  bash/configure_vcsas.sh &>/var/log/configure_vcsas.sh.log
+  $ESXIROOT/bash/configure_vcsas.sh &>/var/log/configure_vcsas.sh.log
 
   echo "post-deployment vcsa config..."
-  bash/configure_cluster.sh &>/var/log/configure_cluster.sh.log
+  $ESXIROOT/bash/configure_cluster.sh &>/var/log/configure_cluster.sh.log
 
   echo "create dvses..."
-  bash/configure_dvs.sh &>/var/log/configure_dvs.sh.log
+  $ESXIROOT/bash/configure_dvs.sh &>/var/log/configure_dvs.sh.log
 
   echo "configure drs..."
-  bash/configure_drs.sh &>>/var/log/configure_drs.log
+  $ESXIROOT/bash/configure_drs.sh &>>/var/log/configure_drs.log
 
   echo "configure ha..."
-  bash/configure_ha.sh &>>/var/log/configure_ha.log
+  $ESXIROOT/bash/configure_ha.sh &>>/var/log/configure_ha.log
 
   sed -i '105,$ d' /etc/dhcp/dhcpd.conf
 
