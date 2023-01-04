@@ -34,19 +34,45 @@ ADUSER=
 #% ADUSER=admin@EXAMPLE.LOCAL
 
 ## These variables tune the size of the ESXi hosts that get deployed
-## The default represents the practical minimum.  In aggregate, there are 10 ESXi hosts, 2 of which
-## are management hosts.  so the default will require the following physical resources on the server
-## Memory: 168GB
+## The default represents the practical minimum.  
+## In aggregate, there are 10 ESXi hosts, 2 of which
+## are management hosts.  Both management hosts house a VCSA of size "small", which is 24GB RAM in 8.0
+##
+## You want a little bit of overhead on those hosts, hence 28GB is a good minimum for those two.
+## 16GB for each of the 8x Compute hosts is a good amount considering all of the sample and storage VMs
+## that get deployed by the later parts of these scripts
+##
+## In total, the default will require the following physical resources on the server
+## Memory: 184GB
 ## Cores: 40
+##
 ## This means the default settings below will run on a c5n.metal host in AWS, which has 72 vcpu and 192GB RAM
-## Personally, I recommend an m5zn.metal.  It drops to 48CPU but they run at 4.5GHz vs 3GHz for c5n
-## These defaults fit perfectly in an m5zn.metal.
+## c5n.metal is the cheapest x86_64 baremetal instance type at $3.88/hour or $2838.24/month (on demand) 
+##
+## Personally, I recommend an m5zn.metal.  Only 48CPU but they are 4.5GHz Xeon 8252's vs 3GHz 8124M's
+## m5zn.metal is almost as cheap as c5n.metal at $3.96/hour or $2893.79/month (on demand)
+##
 
 MEM=16
 CORE=4
-MGMTMEM=20
+MGMTMEM=28
 MGMTCORE=4
 
+## All that said, if you don't care as much about cost and need bigger/faster ESXi hosts, I would recommend
+## an r6i.metal with 128 VCPU and 1024 GB memory.  They have even newer 3.5 GHz Intel Xeon 8375C (Ice Lake) cpus
+## Cost goes up significantly, though.  r6i.metal costs $8.06/hour or $5886.72/month (on demand)
+##
+## With an r6i.metal, you could raise these parameters to something like the following:
+##
+## MEM=96
+## CORE=12
+## MGMTMEM=96
+## MGMTCORE=12
+##
+## It might make more sense at that point to just raise the number of total nested hosts from 10 to 20 or something
+## Unfortunately, as of Jan 2023, you will have to hack the scripts especially the python ones that configure the 
+## vsphere clusters.  There are hard coded spots in there.  Maybe I will change this in time.
+##
 # NOTE: There are more variables you can alter inside configure_l0_env.sh
 
 if [[ $DNSIPADDRESS1 == "" ]]; then
