@@ -129,6 +129,12 @@
                         "timezone": "Local"
                     },
                     {
+                        "file_path": "/var/log/configure_l0_desktop.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_l0_desktop.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
                         "file_path": "/var/log/configure_l0_env.sh.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/configure_l0_env.sh.log",

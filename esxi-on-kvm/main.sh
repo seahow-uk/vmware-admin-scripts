@@ -155,4 +155,6 @@ chmod 644 /etc/profile.d/configure_l0_env.sh
     ## insert DNS records into your AD-based DNS
       $ESXIROOT/bash/insertdnsrecords.sh &>> /var/log/insertdnsrecords.sh.log
 
+    ## install an xfce desktop and tigervnc-server environment
+      $ESXIROOT/bash/configure_l0_desktop.sh --r root --p $ADPASSWORD &>> /var/log/configure_l0_desktop.sh.log
 exit 0
