@@ -42,7 +42,7 @@ while [ $# -gt 0 ]; do
 done
 
 # Now install the packages we will need
-dnf group install Workstation -y
+dnf group install Workstation --with-optional --hidden -y
 dnf install tigervnc-server -y
 dnf install tigervnc-server-module -y
 dnf install expect -y
@@ -70,7 +70,8 @@ echo ":1=$r" >>/etc/tigervnc/vncserver.users
 echo "securitytypes=vncauth,tlsvnc" >>/etc/tigervnc/vncserver-config-mandatory
 echo "desktop=sandbox" >>/etc/tigervnc/vncserver-config-mandatory
 echo "geometry=1920x1200" >>/etc/tigervnc/vncserver-config-mandatory
-echo "session=xfce" >>/etc/tigervnc/vncserver-config-mandatory
+echo "session=gnome" >>/etc/tigervnc/vncserver-config-mandatory
+echo "PREFERRED=/usr/bin/gnome-session" > /etc/sysconfig/desktop
 
 cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
 sed -i "s/<USER>/$r/" /etc/systemd/system/vncserver@.service
