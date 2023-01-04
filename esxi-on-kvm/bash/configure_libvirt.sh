@@ -8,19 +8,26 @@ chown -R root:kvm $ESXIROOT/*
 systemctl enable libvirtd
 systemctl start libvirtd
 
+## now stop it so kvm and kvm_intel can be unloaded
+systemctl stop libvirtd
+
+## unload
 modprobe -r kvm_intel
+modprobe -r kvm
 
 # activate the nesting feature, along with several others
-modprobe kvm_intel nested=Y enable_apicv=Y ept=Y enable_shadow_vmcs=Y
+echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=0" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
+echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
 
-# see what the deal is with kvm_intel's option config set overall
-systool -m kvm_intel -v &>>/var/log/kvm_intel_option_set.log
+## now force them to reload with the changed values
+modprobe kvm
+modprobe kvm_intel
 
-# make it all stick on subsequent reboots
-echo "options kvm_intel nested=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enable_shadow_vmcs=Y" >>/etc/modprobe.d/kvm_intel.conf
+## now start libvirtd with nesting enabled
+systemctl start libvirtd
 
 # routing and other ip tweaks
 echo 'net.ipv4.ip_forward=1' >>/etc/sysctl.conf
