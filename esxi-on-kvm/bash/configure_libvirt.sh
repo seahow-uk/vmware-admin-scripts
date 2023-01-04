@@ -29,6 +29,10 @@ modprobe kvm_intel
 ## now start libvirtd with nesting enabled
 systemctl start libvirtd
 
+## get the status of these values for the logs
+systool -m kvm_intel -v
+systool -m kvm -v
+
 # routing and other ip tweaks
 echo 'net.ipv4.ip_forward=1' >>/etc/sysctl.conf
 echo 'net.ipv4.tcp_timestamps=1' >>/etc/sysctl.conf
