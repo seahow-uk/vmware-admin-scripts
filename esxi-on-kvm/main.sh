@@ -43,7 +43,8 @@ ADUSER=
 ## that get deployed by the later parts of these scripts
 ##
 ## In total, the default will require the following physical resources on the server for the KVM domains
-## Memory: 158GB
+##
+## Memory: 168GB
 ## Cores: 40
 ##
 ## [Due to the way I've got various services running on L0 you should leave at least 20GB of memory free]
@@ -66,8 +67,8 @@ MGMTCORE=4
 ##
 ## With an r6i.metal, you could raise these parameters to something like the following:
 ##
-## MEM=96
-## CORE=12
+## MEM=64
+## CORE=8
 ## MGMTMEM=96
 ## MGMTCORE=12
 ##
