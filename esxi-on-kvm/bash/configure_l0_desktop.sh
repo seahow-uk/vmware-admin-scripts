@@ -77,10 +77,12 @@ cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
 sed -i "s/<USER>/$r/" /etc/systemd/system/vncserver@.service
 systemctl daemon-reload
 systemctl enable vncserver@:1.service
-systemctl start vncserver@:1.service
 
 # install a GUI device manager style utility. 
 dnf install lshw-gui -y
+
+# install a GUI utility for NetworkManager.  
+dnf install network-manager-applet -y
 
 # this forces the vnc server to restart after we add utilities.  for some weird reason, a temp file for xwindows gets stuck sometimes.
 systemctl stop vncserver@:1.service
