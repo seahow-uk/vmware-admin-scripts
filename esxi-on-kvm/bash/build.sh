@@ -20,9 +20,7 @@
   systemctl restart httpd
 
   ## prepare the screenshot locations
-  mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
-  mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
-  mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild
+
 
   ## prep for network
 

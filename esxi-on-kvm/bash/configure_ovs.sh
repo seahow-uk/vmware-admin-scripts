@@ -110,14 +110,6 @@
     #echo "running command: journalctl -xe"
     #journalctl -xe
 
-    mkdir -p $ESXIROOT/VMs/esxi-hostlogs
-    mkdir -p $ESXIROOT/VMs/vcsa-backups
-
-    ## make the ISO and OVA available over http instead of NFS
-
-    ln -s $ESXIROOT/OVA /var/www/html/OVA
-    ln -s $ESXIROOT/ISO /var/www/html/ISO
-    ln -s /var/www/html $ESXIROOT/webserver
     systemctl restart httpd
     systemctl restart libvirtd
 

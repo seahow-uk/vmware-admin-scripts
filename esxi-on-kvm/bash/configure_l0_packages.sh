@@ -21,7 +21,27 @@
 	cat $ESXIROOT/config/crontabnew | crontab -
 
 ## create directory structures
-	mkdir -p /mnt/iso /var/www/html OVA VM /etc/samba /var/log/pip
+	mkdir -p /mnt/iso
+	mkdir -p /var/www/html
+	mkdir -p /etc/samba
+	mkdir -p /var/log/pip
+	mkdir -p /etc/systemd/network
+	mkdir -p /var/log/vcsa1
+	mkdir -p /var/log/vcsa2
+	mkdir -p $ESXIROOT/ISO/vcsa
+	mkdir -p $ESXIROOT/ISO/esxi
+	mkdir -p $ESXIROOT/OVA
+	mkdir -p $ESXIROOT/VM
+	mkdir -p $ESXIROOT/VMs/esxi-hostlogs
+    mkdir -p $ESXIROOT/VMs/vcsa-backups
+	mkdir -p $ESXIROOT/OVA/odoo
+  	mkdir -p $ESXIROOT/OVA/resourcespsace
+    mkdir -p $ESXIROOT/OVA/suitecrm
+    mkdir -p $ESXIROOT/OVA/mysql
+    mkdir -p $ESXIROOT/OVA/wordpress
+	mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
+	mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
+	mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild
 
 ## level set
 	## if this box has awscli already on it, it can cause problems
@@ -78,10 +98,6 @@
 	cp -f $ESXIROOT/config/KS.CFG /var/www/html/KS.CFG
 	cp -f $ESXIROOT/bash/epochtohuman.sh /bin/epochtohuman.sh
 
-## Edit KS.CFG
-	sed -i "s/ESXIROOTPLACEHOLDER/$ESCAPEDPWD/g" /etc/systemd/system.conf
-	sed -i "s/HOSTPASSWORDPLACEHOLDER/$HOSTPASSWORD/g" /etc/systemd/system.conf
-
 ## Kickstart samba
 	systemctl enable smb nmb
 	systemctl start smb nmb
@@ -95,14 +111,23 @@
 ## increase the open file limit for dbus
 	sed -i 's/.*DefaultLimitNOFILE=.*/DefaultLimitNOFILE=16384/g' /etc/systemd/system.conf
 
-  # extract all versions of the vcsa ISO (might want to tighten this up later to shorten build time)
-
-  #### VCSA
+# extract VCSA files
     mount -o loop $VCSAISO /mnt/iso
     mkdir -p vcsa-extracted/$VSPHEREVERSION
     cp -rf /mnt/iso/* vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
 	ln -s $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
+
+  ## make the ISOs and OVAs accessible over http
+    ln -s $ESXIROOT/OVA /var/www/html/OVA
+    ln -s $ESXIROOT/ISO /var/www/html/ISO
+
+  ## link the webserver directory to here
+    ln -s /var/www/html $ESXIROOT/webserver
+  
+  ## Edit KS.CFG
+	sed -i "s/ESXIROOTPLACEHOLDER/$ESCAPEDPWD/g" $ESXIROOT/webserver/KS.CFG
+	sed -i "s/HOSTPASSWORDPLACEHOLDER/$HOSTPASSWORD/g" $ESXIROOT/webserver/KS.CFG
 
   ## Permissions tweaks for the aforementioned config files
     chown -R root:kvm $ESXIROOT 
