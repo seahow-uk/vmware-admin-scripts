@@ -14,9 +14,6 @@
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/exports
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/smb.conf
 
-## update grub
-	rm -f /etc/default/grub && mv $ESXIROOT/boot/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
-
 ## configure cron
 	cat $ESXIROOT/config/crontabnew | crontab -
 

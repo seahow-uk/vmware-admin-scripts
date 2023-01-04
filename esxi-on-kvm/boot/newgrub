@@ -1,6 +1,0 @@
-GRUB_TIMEOUT=5
-GRUB_DEFAULT=saved
-GRUB_DISABLE_SUBMENU=true
-GRUB_TERMINAL_OUTPUT="console"
-GRUB_CMDLINE_LINUX="crashkernel=auto rhgb console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 rd.emergency=poweroff rd.shell=0 iommu=1 intel_iommu=on selinux=0 pcie_aspm=off ipv6.disable=1"
-GRUB_DISABLE_RECOVERY="true"
