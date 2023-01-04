@@ -110,8 +110,8 @@
 
 # extract VCSA files
     mount -o loop $VCSAISO /mnt/iso
-    mkdir -p vcsa-extracted/$VSPHEREVERSION
-    cp -rf /mnt/iso/* vcsa-extracted/$VSPHEREVERSION
+    mkdir -p $ESXIROOT/vcsa-extracted/$VSPHEREVERSION
+    cp -rf /mnt/iso/* $ESXIROOT/vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
 	ln -s $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64/ovftool /usr/bin/ovftool
 
