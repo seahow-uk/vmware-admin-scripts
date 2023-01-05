@@ -13,7 +13,9 @@
 	echo $ESCAPEDPWD
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/exports
 	sed -i 's/'"THISDIRPLACEHOLDER"'/'"$ESCAPEDPWD"'/' $ESXIROOT/config/smb.conf
-
+	setsebool -P samba_export_all_rw 1
+	/sbin/restorecon -v /etc/samba/smb.conf
+	
 ## configure cron
 	cat $ESXIROOT/config/crontabnew | crontab -
 
