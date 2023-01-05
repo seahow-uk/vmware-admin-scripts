@@ -13,7 +13,7 @@ rm -rfv $ESXIROOT/data/esxi-screenshots/postbuild
 
 for ((i = $STARTHOST; i <= $ENDHOST; i++)); do
   virsh destroy esxi$i
-  virsh undefine --nvram esxi$i
+  virsh undefine esxi$i
   rm -rv $ESXIROOT/esxi$i
 done
 
