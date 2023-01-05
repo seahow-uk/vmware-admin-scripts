@@ -19,8 +19,9 @@ modprobe -r kvm
 echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_apicv=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
-echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
+# echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
+# echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
+# echo "options modprobe kvm tdp_mmu=1" >>/etc/modprobe.d/kvm.conf
 
 ## now force them to reload with the changed values
 modprobe kvm
