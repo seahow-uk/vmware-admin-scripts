@@ -7,7 +7,35 @@
     <type arch='x86_64' machine='pc-i440fx-rhel7.6.0'>hvm</type>
     <boot dev='hd'/>
     <boot dev='cdrom'/>
+    <smbios mode='sysinfo'/>
   </os>
+  <sysinfo type='smbios'>
+    <bios>
+      <entry name='vendor'>Dell Inc.</entry>
+      <entry name='version'>2.8.0</entry>
+      <entry name='date'>04/01/2020</entry>
+      <entry name='release'>2.8</entry>
+    </bios>
+    <system>
+      <entry name='manufacturer'>Dell Inc.</entry>
+      <entry name='product'>PowerEdge R740</entry>
+      <entry name='version'>Not Specified</entry>
+      <entry name='serial'>5K1234</entry>
+      <entry name='sku'>SKU=1234;ModelName=PowerEdge R740</entry>
+      <entry name='family'>PowerEdge</entry>
+    </system>
+    <baseBoard>
+      <entry name='manufacturer'>Dell Inc.</entry>
+      <entry name='product'>12NR12</entry>
+      <entry name='version'>A02</entry>
+      <entry name='serial'>.5KT0B123.ABCDE000000001.</entry>
+      <entry name='asset'>Not Specified</entry>
+    </baseBoard>
+    <oemStrings>
+      <entry>mfg:Dell</entry>
+      <entry>productline:Dell PowerEdge R7xx</entry>
+    </oemStrings>
+  </sysinfo>
   <features>
     <acpi/>
     <apic/>
@@ -16,7 +44,9 @@
     </kvm>
     <vmport state='off'/>
   </features>
-  <cpu mode="host-passthrough" check="none" migratable="on"/>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" cores="CPUPLACEHOLDER" threads="1"/>
+  </cpu>
   <clock offset='utc'>
     <timer name='pit' present='yes' tickpolicy='delay'/>
     <timer name='rtc' present='yes' tickpolicy='catchup'/>

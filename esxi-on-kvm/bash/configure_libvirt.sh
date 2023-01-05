@@ -17,7 +17,7 @@ modprobe -r kvm
 
 # activate the nesting feature, along with several others
 echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enable_apicv=0" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
 echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
