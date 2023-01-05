@@ -4,14 +4,13 @@
 Prerequisites
 ---------
 pip3 install argparse
+pip3 install setuptools-git
 pip3 install normalizer
 pip3 install wheel
 pip3 install pyVim
 pip3 install pyVmomi
 pip3 install git+https://github.com/vmware/pyvmomi-community-samples.git
 pip3 install git+https://github.com/vmware/vsphere-automation-sdk-python.git
-
-or just run ./install_vmware_prereqs.sh
 
 Arguments
 ---------

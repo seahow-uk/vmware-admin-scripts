@@ -136,18 +136,26 @@
    	mkdir -p $ESXIROOT/dcli_venv
 	virtualenv $ESXIROOT/dcli_venv -p /usr/bin/python3.6 --download
 	source $ESXIROOT/dcli_venv/bin/activate
+
 	pip3 install --upgrade pip
-	pip3 install pyvim
+	pip3 install argparse
+	pip3 install setuptools-git
+	pip3 install normalizer
+	pip3 install suds-jurko
 	pip3 install requests
 	pip3 install vcrpy
+	pip3 install pyvim
 	pip3 install pyvmomi
 	pip3 install lxml
 	pip3 install ipaddress
 	pip3 install git+https://github.com/vmware/vsphere-automation-sdk-python.git
 	pip3 install git+https://github.com/vmware/pyvmomi-community-samples.git
 	pip3 install dcli
+
 	pip freeze --local > $ESXIROOT/dcli_venv/requirements.txt
+
 	dcli -v
+	
 	deactivate
 
   ## install esxcli
