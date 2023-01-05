@@ -4,7 +4,7 @@
   <currentMemory unit='GiB'>MEMPLACEHOLDER</currentMemory>
   <vcpu placement='static'>CPUPLACEHOLDER</vcpu>
   <os>
-    <type arch='x86_64' machine='pc-q35-rhel8.6.0'>hvm</type>
+    <type arch='x86_64' machine='pc-i440fx-rhel7.6.0'>hvm</type>
     <boot dev='hd'/>
     <boot dev='cdrom'/>
     <smbios mode='sysinfo'/>
@@ -18,10 +18,10 @@
     </bios>
     <system>
       <entry name='manufacturer'>Dell Inc.</entry>
-      <entry name='product'>PowerEdge R750</entry>
+      <entry name='product'>PowerEdge R740</entry>
       <entry name='version'>Not Specified</entry>
       <entry name='serial'>5K1234</entry>
-      <entry name='sku'>SKU=1234;ModelName=PowerEdge R750</entry>
+      <entry name='sku'>SKU=1234;ModelName=PowerEdge R740</entry>
       <entry name='family'>PowerEdge</entry>
     </system>
     <baseBoard>
@@ -39,10 +39,13 @@
   <features>
     <acpi/>
     <apic/>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
     <vmport state='off'/>
   </features>
-  <cpu mode='host-passthrough'>
-    <topology sockets='1' dies='1' cores='CPUPLACEHOLDER' threads='1'/>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" cores="CPUPLACEHOLDER" threads="1"/>
   </cpu>
   <clock offset='utc'>
     <timer name='pit' present='yes' tickpolicy='delay'/>
@@ -58,64 +61,40 @@
   </pm>
   <devices>
     <emulator>/usr/libexec/qemu-kvm</emulator>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='ESXIROOTPLACEHOLDER/ISO/esxi/VSPHEREVERSIONPLACEHOLDER.iso'/>
+      <target dev='hdc' bus='ide'/>
+      <readonly/>
+      <address type='drive' controller='0' bus='1' unit='0'/>
+    </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
       <source file='ESXIROOTPLACEHOLDER/NAMEPLACEHOLDER/NAMEPLACEHOLDER-root.raw'/>
       <target dev='sda' bus='sata'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
-      <source file='ESXIROOTPLACEHOLDER/ISO/esxi/VSPHEREVERSIONPLACEHOLDER.iso'/>
-      <target dev='sdb' bus='sata'/>
-      <readonly/>
-      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
-    </disk>
     <controller type='usb' index='0' model='ich9-ehci1'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x7'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x7'/>
     </controller>
     <controller type='usb' index='0' model='ich9-uhci1'>
       <master startport='0'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x0' multifunction='on'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0' multifunction='on'/>
     </controller>
     <controller type='usb' index='0' model='ich9-uhci2'>
       <master startport='2'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x1'/>
     </controller>
     <controller type='usb' index='0' model='ich9-uhci3'>
       <master startport='4'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x2'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x2'/>
     </controller>
+    <controller type='pci' index='0' model='pci-root'/>
     <controller type='sata' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
-    </controller>
-    <controller type='pci' index='0' model='pcie-root'/>
-    <controller type='pci' index='1' model='pcie-root-port'>
-      <model name='pcie-root-port'/>
-      <target chassis='1' port='0x10'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0' multifunction='on'/>
-    </controller>
-    <controller type='pci' index='2' model='pcie-to-pci-bridge'>
-      <model name='pcie-pci-bridge'/>
-      <address type='pci' domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
-    </controller>
-    <controller type='pci' index='3' model='pcie-root-port'>
-      <model name='pcie-root-port'/>
-      <target chassis='3' port='0x11'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x1'/>
-    </controller>
-    <controller type='pci' index='4' model='pcie-root-port'>
-      <model name='pcie-root-port'/>
-      <target chassis='4' port='0x12'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x2'/>
-    </controller>
-    <controller type='pci' index='5' model='pcie-root-port'>
-      <model name='pcie-root-port'/>
-      <target chassis='5' port='0x13'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x3'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </controller>
     <controller type='virtio-serial' index='0'>
-      <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
     </controller>
     <interface type='network'>
       <mac address='MACPLACEHOLDER1'/>
@@ -250,7 +229,7 @@
     <graphics type='vnc'/>
     <video>
       <model type='virtio' heads='1' primary='yes'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
     </video>
     <rng model='virtio'>
       <backend model='random'>/dev/urandom</backend>
