@@ -66,7 +66,7 @@ rm ./runvncpasswd.sh
 
 # set the configuration files
 mkdir /etc/tigervnc
-echo ":1=$r" >>/etc/tigervnc/vncserver.users
+echo ":11=$r" >>/etc/tigervnc/vncserver.users
 echo "securitytypes=vncauth,tlsvnc" >>/etc/tigervnc/vncserver-config-mandatory
 echo "desktop=sandbox" >>/etc/tigervnc/vncserver-config-mandatory
 echo "geometry=1920x1200" >>/etc/tigervnc/vncserver-config-mandatory
@@ -76,7 +76,7 @@ echo "PREFERRED=/usr/bin/gnome-session" > /etc/sysconfig/desktop
 cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
 sed -i "s/<USER>/$r/" /etc/systemd/system/vncserver@.service
 systemctl daemon-reload
-systemctl enable vncserver@:1.service
+systemctl enable vncserver@:11.service
 
 # install a GUI device manager style utility. 
 dnf install lshw-gui -y
@@ -85,6 +85,6 @@ dnf install lshw-gui -y
 dnf install network-manager-applet -y
 
 # this forces the vnc server to restart after we add utilities.  for some weird reason, a temp file for xwindows gets stuck sometimes.
-systemctl stop vncserver@:1.service
+systemctl stop vncserver@:11.service
 rm -rf  /tmp/.X11-unix/X1
-systemctl start vncserver@:1.service
+systemctl start vncserver@:11.service
