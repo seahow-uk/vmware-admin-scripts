@@ -4,7 +4,7 @@
   <currentMemory unit='GiB'>MEMPLACEHOLDER</currentMemory>
   <vcpu placement='static'>CPUPLACEHOLDER</vcpu>
   <os>
-    <type arch='x86_64' machine='pc-i440fx-rhel7.6.0'>hvm</type>
+    <type arch='x86_64' machine='pc-i440fx-rhel8.6.0'>hvm</type>
     <boot dev='hd'/>
     <boot dev='cdrom'/>
     <smbios mode='sysinfo'/>
@@ -18,10 +18,10 @@
     </bios>
     <system>
       <entry name='manufacturer'>Dell Inc.</entry>
-      <entry name='product'>PowerEdge R740</entry>
+      <entry name='product'>PowerEdge R750</entry>
       <entry name='version'>Not Specified</entry>
       <entry name='serial'>5K1234</entry>
-      <entry name='sku'>SKU=1234;ModelName=PowerEdge R740</entry>
+      <entry name='sku'>SKU=1234;ModelName=PowerEdge R750</entry>
       <entry name='family'>PowerEdge</entry>
     </system>
     <baseBoard>
