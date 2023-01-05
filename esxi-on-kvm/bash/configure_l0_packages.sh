@@ -134,6 +134,12 @@
 	chmod -R 770 $ESXIROOT
 	chmod -R 777 $ESXIROOT/webserver
 
+  ## install python packages into the root 3.9 environment
+	pip3 install --upgrade pip
+	pip3 install virtualenv
+	pip3 install setuptools
+	pip3 install setuptools-git
+
   ## create a 3.6 virtual environment because dcli won't function under python 3.9
    	mkdir -p $ESXIROOT/dcli_venv
 	virtualenv $ESXIROOT/dcli_venv -p /usr/bin/python3.6 --download
