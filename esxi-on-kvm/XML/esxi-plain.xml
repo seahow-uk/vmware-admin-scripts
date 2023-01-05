@@ -16,7 +16,7 @@
     </kvm>
     <vmport state='off'/>
   </features>
-  <cpu mode="host-passthrough" check="none" migratable="on"/>
+  <cpu mode="host-passthrough"/>
   <clock offset='utc'>
     <timer name='pit' present='yes' tickpolicy='delay'/>
     <timer name='rtc' present='yes' tickpolicy='catchup'/>
