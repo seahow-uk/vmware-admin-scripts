@@ -14,18 +14,18 @@ systemctl stop libvirtd
 modprobe -r kvm_intel
 modprobe -r kvm
 
-# activate the nesting feature, along with several others
+## load now
+modprobe kvm_intel nested=1 enable_apicv=1 ept=1 enlightened_vmcs=1 nested_early_check=1
+
+# add for future boots
 echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_apicv=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options enlightened_vmcs=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enlightened_vmcs=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested_early_check=1" >>/etc/modprobe.d/kvm_intel.conf
 # echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
 # echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
 # echo "options modprobe kvm tdp_mmu=1" >>/etc/modprobe.d/kvm.conf
-
-## now force them to reload with the changed values
-modprobe kvm
-modprobe kvm_intel
 
 ## now start libvirtd with nesting enabled
 systemctl start libvirtd
