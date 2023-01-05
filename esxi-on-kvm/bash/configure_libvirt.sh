@@ -14,6 +14,9 @@ systemctl stop libvirtd
 modprobe -r kvm_intel
 modprobe -r kvm
 
+
+## note:  AMD uses 0 and 1 for these options while Intel uses Y and N
+
 ## load now
 modprobe kvm_intel nested=Y enable_apicv=Y ept=Y enlightened_vmcs=Y nested_early_check=Y
 
