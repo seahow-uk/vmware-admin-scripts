@@ -116,10 +116,10 @@
     chown -R root:kvm $ESXIROOT/esxi$i
     virsh define $ESXIROOT/esxi$i/esxi$i.xml
 
-    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk1.raw sdb --persistent --targetbus sata
-    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk2.raw sdc --persistent --targetbus sata
-    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk3.raw sdd --persistent --targetbus sata
-    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk4.raw sde --persistent --targetbus sata
+    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk1.raw sdc --persistent --targetbus sata
+    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk2.raw sdd --persistent --targetbus sata
+    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk3.raw sde --persistent --targetbus sata
+    virsh attach-disk esxi$i $ESXIROOT/esxi$i/esxi$i-disk4.raw sdf --persistent --targetbus sata
 
     chmod -R 770 $ESXIROOT/esxi$i
     chown -R root:kvm $ESXIROOT/esxi$i
