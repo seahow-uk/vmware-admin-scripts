@@ -73,6 +73,9 @@ echo 'kernel.numa_balancing=0' >>/etc/sysctl.conf
 # From: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking-os.html
 echo 'vm.min_free_kbytes=1048576' >>/etc/sysctl.conf
 
+## this forces everything in /etc/sysctl.conf to take effect without needing a reboot
+sysctl --system
+
 # make sure the options take immediate effect just in case the L0 doesn't get rebooted as part of the build
 systemctl restart libvirtd
 

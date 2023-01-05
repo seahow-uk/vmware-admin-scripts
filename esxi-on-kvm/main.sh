@@ -29,8 +29,8 @@ SSOPASSWORD=
 #
 #% DNSIPADDRESS1=10.0.0.111
 #% DNSIPADDRESS2=10.0.0.74
-#% VCSAISO=/scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-8.0.0-20920323.iso
-#% VSPHEREVERSION=8.0
+#% VCSAISO=/scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-6.7.0-15132721.iso
+#% VSPHEREVERSION=6.7
 #% DNSDOMAIN=example.local
 #% ADPASSWORD=Aws2022@
 #% ADUSER=admin@EXAMPLE.LOCAL
