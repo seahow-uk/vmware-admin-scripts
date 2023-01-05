@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## this needs to run under a 3.6 venv
+source $ESXIROOT/dcli_venv/bin/activate
+
 let m1=1
 let c1=2
 let c2=3
@@ -94,3 +97,6 @@ for ((i = 1; i <= 2; i++)); do
     let c3=c3+5
     let c4=c4+5
 done
+
+## leave the 3.6 venv
+deactivate

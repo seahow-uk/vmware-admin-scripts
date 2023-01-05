@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## this needs to run under a 3.6 venv
+source $ESXIROOT/dcli_venv/bin/activate
+
 # variables
   STARTHOST=1
   ENDHOST=$ESXHOSTCOUNT
@@ -57,5 +60,9 @@
     sshpass -p "$HOSTPASSWORD" ssh "esxi$i.$DNSDOMAIN" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "esxcli iscsi adapter discovery sendtarget add -A vmhba65 -a 192.168.70.70:3260"
     sshpass -p "$HOSTPASSWORD" ssh "esxi$i.$DNSDOMAIN" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "esxcli iscsi adapter discovery sendtarget add -A vmhba65 -a 192.168.80.70:3260"
   done
+
+
+## leave the 3.6 venv
+deactivate
 
 exit 0

@@ -132,32 +132,27 @@
 	chmod -R 770 $ESXIROOT
 	chmod -R 777 $ESXIROOT/webserver
 
-  ## upgrade pip first
+  ## create a 3.6 virtual environment because dcli won't function under python 3.9
+   	mkdir -p $ESXIROOT/dcli_venv
+	virtualenv $ESXIROOT/dcli_venv -p /usr/bin/python3.6 --download
+	source $ESXIROOT/dcli_venv/bin/activate
 	pip3 install --upgrade pip
-
-  ## install a few pip packages
-	pip3 install pyvim --log /var/log/pip_install_pyvim.log
-	pip3 install requests --log /var/log/pip_install_requests.log
-	pip3 install vcrpy --log /var/log/pip_install_vrcpy.log
-	pip3 install pyvmomi --log /var/log/pip_install_pyvmomi.log
-	pip3 install suds-jurko --log /var/log/pip_install_suds-jurko.log
-	pip3 install lxml --log /var/log/pip_install_lxml.log
-	pip3 install ipaddress --log /var/log/pip_install_ipaddress.log
-	pip3 install wheel --log /var/log/pip_install_wheel.log
-	pip3 install flent --log /var/log/pip_install_flent.log
-
-	# install vsphere-automation-sdk for python
+	pip3 install pyvim
+	pip3 install requests
+	pip3 install vcrpy
+	pip3 install pyvmomi
+	pip3 install lxml
+	pip3 install ipaddress
 	pip3 install git+https://github.com/vmware/vsphere-automation-sdk-python.git
-
-	# community samples package for pyvmomi
 	pip3 install git+https://github.com/vmware/pyvmomi-community-samples.git
+	pip3 install dcli
+	pip freeze --local > $ESXIROOT/dcli_venv/requirements.txt
+	dcli -v
+	deactivate
 
+  ## install esxcli
 	chmod 700 $ESXCLIFILE
-	expect/installesxcli.sh
-
-	# dcli must be forcibly installed dead last or dependency conflicts occur
-	pip3 install dcli --force --log /var/log/pip_install_dcli.log
-	dcli --version &>> /var/log/configure_l0_packages_6.log
+	$ESXIROOT/expect/installesxcli.sh
 
   ## this section installs needed prereqs plus OVS
 	dnf install net-tools -y
