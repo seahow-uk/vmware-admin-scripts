@@ -33,7 +33,7 @@
           ]
       },
       "sso": {
-          "password": "HOSTPASSWORDPLACEHOLDER",
+          "password": "SSOPASSWORDPLACEHOLDER",
           "domain-name": "SSODOMAINPLACEHOLDER",
           "site-name": "SITEPLACEHOLDER"
       }

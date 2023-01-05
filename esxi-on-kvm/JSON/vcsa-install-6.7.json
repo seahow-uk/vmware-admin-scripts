@@ -36,7 +36,7 @@
           "ssh_enable": true
       },
       "sso": {
-          "password": "HOSTPASSWORDPLACEHOLDER",
+          "password": "SSOPASSWORDPLACEHOLDER",
           "domain_name": "SSODOMAINPLACEHOLDER"
       }
   },

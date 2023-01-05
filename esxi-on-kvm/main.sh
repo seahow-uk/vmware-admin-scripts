@@ -22,6 +22,8 @@ VSPHEREVERSION=
 DNSDOMAIN=
 ADPASSWORD=
 ADUSER=
+HOSTPASSWORD=
+SSOPASSWORD=
 
 # here is an example:
 #
@@ -32,6 +34,8 @@ ADUSER=
 #% DNSDOMAIN=example.local
 #% ADPASSWORD=Aws2022@
 #% ADUSER=admin@EXAMPLE.LOCAL
+#% HOSTPASSWORD="VMware1!"
+#% SSOPASSWORD="Aws2022@"
 
 ## These variables tune the size of the ESXi hosts that get deployed
 ## The default represents the practical minimum.  
@@ -103,6 +107,26 @@ if [[ $DNSDOMAIN == "" ]]; then
   exit 1
 fi
 
+if [[ $HOSTPASSWORD == "" ]]; then
+  echo "You didnt specify the host password"
+  exit 1
+fi
+
+if [[ $SSOPASSWORD == "" ]]; then
+  echo "You didnt specify the sso password"
+  exit 1
+fi
+
+if [[ $ADPASSWORD == "" ]]; then
+  echo "You didnt specify the ad password"
+  exit 1
+fi
+
+if [[ $ADUSER == "" ]]; then
+  echo "You didnt specify the ad user"
+  exit 1
+fi
+
 if [[ "$(whoami)" != root ]]; then
   echo "Only user root can run this script."
   exit 1
@@ -123,6 +147,8 @@ echo "export DNSIPADDRESS2=$DNSIPADDRESS2" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export VCSAISO=$VCSAISO" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export VSPHEREVERSION=$VSPHEREVERSION" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export DNSDOMAIN=$DNSDOMAIN" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export SSOPASSWORD=$SSOPASSWORD" >> $ESXIROOT/bash/configure_l0_env.sh
+echo "export HOSTPASSWORD=$HOSTPASSWORD" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export ADPASSWORD=$ADPASSWORD" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export ADUSER=$ADUSER" >> $ESXIROOT/bash/configure_l0_env.sh
 echo "export OVFTOOLPATH=vcsa-extracted/$VSPHEREVERSION/vcsa/ovftool/lin64" >> $ESXIROOT/bash/configure_l0_env.sh 
