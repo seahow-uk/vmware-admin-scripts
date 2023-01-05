@@ -15,14 +15,14 @@ modprobe -r kvm_intel
 modprobe -r kvm
 
 ## load now
-modprobe kvm_intel nested=1 enable_apicv=1 ept=1 enlightened_vmcs=1 nested_early_check=1
+modprobe kvm_intel nested=Y enable_apicv=Y ept=Y enlightened_vmcs=Y nested_early_check=Y
 
 # add for future boots
-echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enable_apicv=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enlightened_vmcs=1" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel nested_early_check=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enlightened_vmcs=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested_early_check=Y" >>/etc/modprobe.d/kvm_intel.conf
 # echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
 # echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
 # echo "options modprobe kvm tdp_mmu=1" >>/etc/modprobe.d/kvm.conf
