@@ -6,7 +6,6 @@ chown -R root:kvm $ESXIROOT/*
 
 ## enable libvirtd
 systemctl enable libvirtd
-systemctl start libvirtd
 
 ## now stop it so kvm and kvm_intel can be unloaded
 systemctl stop libvirtd
@@ -19,6 +18,7 @@ modprobe -r kvm
 echo "options kvm_intel nested=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_apicv=1" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=1" >>/etc/modprobe.d/kvm_intel.conf
+echo "options enlightened_vmcs=1" >>/etc/modprobe.d/kvm_intel.conf
 # echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
 # echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
 # echo "options modprobe kvm tdp_mmu=1" >>/etc/modprobe.d/kvm.conf
