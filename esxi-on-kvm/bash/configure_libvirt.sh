@@ -14,7 +14,6 @@ systemctl stop libvirtd
 modprobe -r kvm_intel
 modprobe -r kvm
 
-
 ## note:  AMD uses 0 and 1 for these options while Intel uses Y and N
 
 ## load now
@@ -29,7 +28,7 @@ modprobe kvm ignore_msrs=Y, tdp_mmu=N, report report_ignored_msrs=N
 # These two are ALWAYS required for nesting to work, regardless of ESXi version (6.7, 7.0, 80)
 # If you turn either of these off, the nested VMs inside ESXi will refuse to boot
 
-echo "options kvm_intel nested=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested=Y" > /etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # Nested VMs may or may not refuse to boot (depending on version of ESX, etc) if this is set to Y
@@ -48,7 +47,7 @@ echo "options kvm_intel enlightened_vmcs=N" >>/etc/modprobe.d/kvm_intel.conf
 # ignore as it doesn't provide any detectable benefit and there is documentation out there from
 # VMware and others recommending these settings.  Reasons unclear.
 
-echo "options kvm ignore_msrs=Y" >>/etc/modprobe.d/kvm.conf
+echo "options kvm ignore_msrs=Y" > /etc/modprobe.d/kvm.conf
 echo "options kvm report_ignored_msrs=N" >>/etc/modprobe.d/kvm.conf
 
 # This one is for two dimensional pages and can cause Win 10 or Server 2022 to crash randomly
