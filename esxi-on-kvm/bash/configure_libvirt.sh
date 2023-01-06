@@ -26,7 +26,7 @@ modprobe kvm ignore_msrs=Y, tdp_mmu=N, report report_ignored_msrs=N
 # After extensive testing in 2022, I've concluded the following:
 # 
 # These two are ALWAYS required for nesting to work, regardless of ESXi version (6.7, 7.0, 80)
-# If you turn either of these off, the nested VMs inside ESXi will refuse to boot
+# If you turn either of these off, the nested VMs inside ESXi will refuse to boot flat out
 
 echo "options kvm_intel nested=Y" > /etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
