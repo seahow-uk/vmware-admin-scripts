@@ -18,7 +18,8 @@ modprobe -r kvm
 ## note:  AMD uses 0 and 1 for these options while Intel uses Y and N
 
 ## load now
-modprobe kvm_intel nested=Y enable_apicv=Y ept=Y enlightened_vmcs=Y nested_early_check=Y
+modprobe kvm_intel nested=Y enable_apicv=N ept=Y enlightened_vmcs=N nested_early_check=N
+modprobe kvm ignore_msrs=Y, tdp_mmu=N, report report_ignored_msrs=N
 
 # add for future boots
 
@@ -47,11 +48,11 @@ echo "options kvm_intel enlightened_vmcs=N" >>/etc/modprobe.d/kvm_intel.conf
 # ignore as it doesn't provide any detectable benefit and there is documentation out there from
 # VMware and others recommending these settings.  Reasons unclear.
 
-echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
-echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
+echo "options kvm ignore_msrs=Y" >>/etc/modprobe.d/kvm.conf
+echo "options kvm report_ignored_msrs=N" >>/etc/modprobe.d/kvm.conf
 
 # This one is for two dimensional pages and can cause Win 10 or Server 2022 to crash randomly
-echo "options modprobe kvm tdp_mmu=0" >>/etc/modprobe.d/kvm.conf
+echo "options modprobe kvm tdp_mmu=N" >>/etc/modprobe.d/kvm.conf
 
 ## now start libvirtd with nesting enabled
 systemctl start libvirtd
@@ -79,10 +80,10 @@ echo 'net.core.netdev_max_backlog=16384' >>/etc/sysctl.conf
 # Disable TCP gradual speed increase 
 echo 'net.ipv4.tcp_slow_start_after_idle=0' >>/etc/sysctl.conf
 
-# Disable TCP selective acknowledgement and its permutations 
-echo 'net.ipv4.tcp_sack = 0' >>/etc/sysctl.conf
-echo 'net.ipv4.tcp_dsack = 0' >>/etc/sysctl.conf
-echo 'net.ipv4.tcp_fack = 0' >>/etc/sysctl.conf
+# Enable/disable TCP selective acknowledgement and its permutations 
+echo 'net.ipv4.tcp_sack = 1' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_dsack = 1' >>/etc/sysctl.conf
+echo 'net.ipv4.tcp_fack = 1' >>/etc/sysctl.conf
 
 ## The following settings came from:
 ## http://techblog.cloudperf.net/2016/05/2-million-packets-per-second-on-public.html
@@ -93,7 +94,10 @@ echo 'vm.dirty_background_ratio=5' >>/etc/sysctl.conf
 echo 'vm.dirty_expire_centisecs=12000' >>/etc/sysctl.conf
 echo 'vm.swappiness=0' >>/etc/sysctl.conf
 
-# numa tunables: Disable numa balancing feature
+# numa tunables: Enable or disable numa balancing feature
+# I've been disabling it, in theory this should help performance by keeping nested vm
+# processes from moving around, but I haven't proven it.
+
 echo 'kernel.numa_balancing=0' >>/etc/sysctl.conf
 
 # AWS recommended sysctl tweaks
