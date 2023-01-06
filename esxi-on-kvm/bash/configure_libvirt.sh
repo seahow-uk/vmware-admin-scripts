@@ -21,14 +21,37 @@ modprobe -r kvm
 modprobe kvm_intel nested=Y enable_apicv=Y ept=Y enlightened_vmcs=Y nested_early_check=Y
 
 # add for future boots
+
+# NOTE: I've gone back and forth on which of these options should and should not be set.
+# After extensive testing in 2022, I've concluded the following:
+# 
+# These two are ALWAYS required for nesting to work, regardless of ESXi version (6.7, 7.0, 80)
+# If you turn either of these off, the nested VMs inside ESXi will refuse to boot
+
 echo "options kvm_intel nested=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enlightened_vmcs=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel nested_early_check=Y" >>/etc/modprobe.d/kvm_intel.conf
-# echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
-# echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
-# echo "options modprobe kvm tdp_mmu=1" >>/etc/modprobe.d/kvm.conf
+
+# Nested VMs may or may not refuse to boot (depending on version of ESX, etc) if this is set to Y
+
+echo "options kvm_intel nested_early_check=N" >>/etc/modprobe.d/kvm_intel.conf
+
+# apicv doesn't break anything outright, but unless you're trying to pass through devices via
+# iommu/sr-iov, which we definitely are not, there's no need
+
+echo "options kvm_intel enable_apicv=N" >>/etc/modprobe.d/kvm_intel.conf
+
+# Setting this one to Y breaks ESXi nested VMs in some situations, but benefits Hyper-V nested VMs
+echo "options kvm_intel enlightened_vmcs=N" >>/etc/modprobe.d/kvm_intel.conf
+
+# I'm not sure on MSRS, I can't tell either way that it matters, but I recommend setting it to
+# ignore as it doesn't provide any detectable benefit and there is documentation out there from
+# VMware and others recommending these settings.  Reasons unclear.
+
+echo "options kvm ignore_msrs=1" >>/etc/modprobe.d/kvm.conf
+echo "options kvm report_ignored_msrs=0" >>/etc/modprobe.d/kvm.conf
+
+# This one is for two dimensional pages and can cause Win 10 or Server 2022 to crash randomly
+echo "options modprobe kvm tdp_mmu=0" >>/etc/modprobe.d/kvm.conf
 
 ## now start libvirtd with nesting enabled
 systemctl start libvirtd
