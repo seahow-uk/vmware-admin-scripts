@@ -1,9 +1,9 @@
 <domain type="kvm">
-  <name>NAMEPLACEHOLDER</name>
-  <memory unit="GiB">MEMPLACEHOLDER</memory>
-  <currentMemory unit="GiB">MEMPLACEHOLDER</currentMemory>
-  <vcpu placement="static">CPUPLACEHOLDER</vcpu>
-
+  <name>esxi1</name>
+  <uuid>28ecef8c-47c2-4d98-8201-96edc7525c8e</uuid>
+  <memory unit="KiB">29360128</memory>
+  <currentMemory unit="KiB">29360128</currentMemory>
+  <vcpu placement="static">4</vcpu>
   <sysinfo type="smbios">
     <bios>
       <entry name="vendor">Dell Inc.</entry>
@@ -46,7 +46,7 @@
     <vmport state="off"/>
   </features>
   <cpu mode="host-passthrough" check="none" migratable="on">
-    <topology sockets="1" dies="1" cores="CPUPLACEHOLDER" threads="1"/>
+    <topology sockets="1" dies="1" cores="4" threads="1"/>
   </cpu>
   <clock offset="utc">
     <timer name="pit" present="yes" tickpolicy="delay"/>
@@ -64,16 +64,40 @@
     <emulator>/usr/libexec/qemu-kvm</emulator>
     <disk type="file" device="cdrom">
       <driver name="qemu" type="raw"/>
-      <source file="ESXIROOTPLACEHOLDER/ISO/esxi/VSPHEREVERSIONPLACEHOLDER.iso"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/ISO/esxi/7.0.iso"/>
       <target dev="hdc" bus="ide"/>
       <readonly/>
       <address type="drive" controller="0" bus="1" target="0" unit="0"/>
     </disk>
     <disk type="file" device="disk">
       <driver name="qemu" type="raw"/>
-      <source file="ESXIROOTPLACEHOLDER/NAMEPLACEHOLDER/NAMEPLACEHOLDER-root.raw"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/esxi1/esxi1-root.raw"/>
       <target dev="sda" bus="sata"/>
       <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+    </disk>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/esxi1/esxi1-disk1.raw"/>
+      <target dev="sdb" bus="sata"/>
+      <address type="drive" controller="0" bus="0" target="0" unit="1"/>
+    </disk>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/esxi1/esxi1-disk2.raw"/>
+      <target dev="sdc" bus="sata"/>
+      <address type="drive" controller="0" bus="0" target="0" unit="2"/>
+    </disk>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/esxi1/esxi1-disk3.raw"/>
+      <target dev="sdd" bus="sata"/>
+      <address type="drive" controller="0" bus="0" target="0" unit="3"/>
+    </disk>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="/scripts/vmware-admin-scripts/esxi-on-kvm/esxi1/esxi1-disk4.raw"/>
+      <target dev="sde" bus="sata"/>
+      <address type="drive" controller="0" bus="0" target="0" unit="4"/>
     </disk>
     <controller type="usb" index="0" model="ich9-ehci1">
       <address type="pci" domain="0x0000" bus="0x00" slot="0x04" function="0x7"/>
@@ -106,66 +130,114 @@
       <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x1"/>
     </controller>
     <interface type="network">
-      <mac address="MACPLACEHOLDER1"/>
+      <mac address="da:ad:be:ef:f7:e8"/>
       <source network="ovs-net" portgroup="management"/>
-      <virtualport type="openvswitch"/>
-      <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic0"/>
-      <model type="VSSMODELPLACEHOLDER"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="6f3af1c0-fa85-46c0-a93d-31f1cd6018d8"/>
+      </virtualport>
+      <target dev="esxi1-vmnic0"/>
+      <model type="e1000e"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x01" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER2"/>
+      <mac address="da:ad:be:ef:ce:f0"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="5e48acb1-3a1e-42f2-8ead-294544990a3b"/>
+      </virtualport>
+      <target dev="esxi1-vmnic1"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic1"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x02" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER3"/>
+      <mac address="da:ad:be:ef:58:c0"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="7ad56ea1-d0c5-4df3-83a8-65e6f46de120"/>
+      </virtualport>
+      <target dev="esxi1-vmnic2"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic2"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x03" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER4"/>
+      <mac address="da:ad:be:ef:5b:9c"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="22c8e8e7-7bfa-42b7-860c-c6da84b3ed17"/>
+      </virtualport>
+      <target dev="esxi1-vmnic3"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic3"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x04" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER5"/>
+      <mac address="da:ad:be:ef:03:16"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="0a24dae2-5a63-4711-85b8-94512183d388"/>
+      </virtualport>
+      <target dev="esxi1-vmnic4"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic4"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x05" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER6"/>
+      <mac address="da:ad:be:ef:d9:74"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="86273cfd-8f90-42f1-a15d-21dda364e1fe"/>
+      </virtualport>
+      <target dev="esxi1-vmnic5"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic5"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x06" function="0x0"/>
     </interface>
     <interface type="network">
-      <mac address="MACPLACEHOLDER7"/>
+      <mac address="da:ad:be:ef:b0:9e"/>
       <source network="ovs-net" portgroup="traffic"/>
-      <virtualport type="openvswitch"/>
+      <virtualport type="openvswitch">
+        <parameters interfaceid="259385c4-c776-4028-8232-b68967c46155"/>
+      </virtualport>
+      <target dev="esxi1-vmnic6"/>
+      <model type="e1000e"/>
       <mtu size="9000"/>
-      <target dev="NAMEPLACEHOLDER-vmnic6"/>
-      <model type="DVSMODELPLACEHOLDER"/>
+      <coalesce>
+        <rx>
+          <frames max="64"/>
+        </rx>
+      </coalesce>
       <address type="pci" domain="0x0000" bus="0x01" slot="0x07" function="0x0"/>
     </interface>
     <console type="pty">
@@ -176,15 +248,18 @@
     <tpm model="tpm-crb">
       <backend type="emulator" version="2.0"/>
     </tpm>
-    <graphics type="vnc"/>
+    <graphics type="vnc" port="-1" autoport="yes">
+      <listen type="address"/>
+    </graphics>
+    <audio id="1" type="none"/>
     <video>
       <model type="virtio" heads="1" primary="yes"/>
       <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x0"/>
     </video>
+    <memballoon model="none"/>
     <rng model="virtio">
       <backend model="random">/dev/urandom</backend>
       <address type="pci" domain="0x0000" bus="0x00" slot="0x08" function="0x0"/>
     </rng>
-    <memballoon model="none"/>
   </devices>
 </domain>
