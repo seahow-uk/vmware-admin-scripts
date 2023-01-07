@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# NOTE: Jan 7, 2023:
+# I've just finished porting all of this to Centos 8 Stream and decoupling from an old build environment
+# I have tested with libvirt configured exactly like this for 6.7 and 7.0 - nested VMs definitely boot
+#
+# Remaining to be seen: will 8.0 nested work with this libvirt config?
+
 ## make sure permissions are right
 chmod -R 770 $ESXIROOT/*
 chown -R root:kvm $ESXIROOT/*
