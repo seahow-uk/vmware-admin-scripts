@@ -71,7 +71,6 @@
 	dnf install httpd -y
 	dnf install ipcalc -y
 	dnf install libnsl -y
-	dnf install libvirt-devel -y
 	dnf install mlocate -y
 	dnf install nfs-utils -y
 	dnf install polkit -y
@@ -80,7 +79,7 @@
 	dnf install unzip -y
 	dnf install wget -y
 	dnf install mod_ssl -y
-	dnf install sysfsutils -y
+	dnf install numactl -y
 
 ## turn on cockpit, which you can access at https://<hostip>:9090
 	systemctl enable --now cockpit.socket
@@ -88,7 +87,7 @@
 
 ## libvirt install via package groups 
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
-	dnf install virt* libguestfs* swtpm* libibverbs -y -q &>> /var/log/configure_l0_packages_3.log
+	dnf install virt* libguestfs* swtpm* libibverbs libvirt-devel sysfsutils -y -q &>> /var/log/configure_l0_packages_3.log
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv $ESXIROOT/config/exports /etc/exports
