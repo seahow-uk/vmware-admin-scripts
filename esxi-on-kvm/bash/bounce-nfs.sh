@@ -3,7 +3,6 @@
 #stop all the individual components
 systemctl stop nfs-server
 systemctl stop nfsdcld
-systemctl stop proc-fs-nfsd
 systemctl stop proc-fs-nfsd.mount
 systemctl stop var-lib-nfs-rpc_pipefs.mount
 systemctl stop nfs-client.target
