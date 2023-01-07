@@ -130,8 +130,11 @@
   ## Permissions tweaks for the aforementioned config files
     chown -R root:kvm $ESXIROOT 
     chmod -R 777 /bin/treesize
-	chmod -R 770 $ESXIROOT
-	chmod -R 777 $ESXIROOT/webserver
+
+  ## yes, not the greatest I know, but there are weird permission issues with qemu-kvm
+  ## in different versions.  You could ratchet this down to 770 as long as ownership
+  ## remained root:kvm, but that could break in a future kvm update.  YMMV
+	chmod -R 777 $ESXIROOT
 
   ## install python packages into the root 3.9 environment
 	pip3 install --upgrade pip
