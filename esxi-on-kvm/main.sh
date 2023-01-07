@@ -48,8 +48,8 @@ SSOPASSWORD=
 ##
 ## In total, the default will require the following physical resources on the server for the KVM domains
 ##
-## Memory: 152GB
-## Cores: 24
+## Memory: 144GB
+## Cores: 20 
 ## 
 ## [Due to the way I've got various services running on L0 you should leave a decent amount of cpu cores and ram free]
 ##
@@ -62,8 +62,8 @@ SSOPASSWORD=
 
 MEM=12
 CORE=2
-MGMTMEM=28
-MGMTCORE=4
+MGMTMEM=24
+MGMTCORE=2
 
 ## All that said, if you don't care as much about cost and need bigger/faster ESXi hosts, I would recommend
 ## an r6i.metal with 128 VCPU and 1024 GB memory.  They have even newer 3.5 GHz Intel Xeon 8375C (Ice Lake) cpus
