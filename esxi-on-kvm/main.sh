@@ -48,7 +48,7 @@ SSOPASSWORD=
 ##
 ## In total, the default will require the following physical resources on the server for the KVM domains
 ##
-## Memory: 144GB
+## Memory: 148GB
 ## Cores: 20 
 ## 
 ## [Due to the way I've got various services running on L0 you should leave a decent amount of cpu cores and ram free]
@@ -60,9 +60,9 @@ SSOPASSWORD=
 ## m5zn.metal is almost as cheap as c5n.metal at $3.96/hour or $2893.79/month (on demand)
 ##
 
-MEM=12
+MEM=14
 CORE=2
-MGMTMEM=24
+MGMTMEM=18
 MGMTCORE=2
 
 ## All that said, if you don't care as much about cost and need bigger/faster ESXi hosts, I would recommend
