@@ -25,18 +25,6 @@ ADUSER=
 HOSTPASSWORD=
 SSOPASSWORD=
 
-# here is an example:
-#
-#% DNSIPADDRESS1=10.0.0.111
-#% DNSIPADDRESS2=10.0.0.74
-#% VCSAISO=/scripts/vmware-admin-scripts/esxi-on-kvm/ISO/vcsa/VMware-VCSA-all-8.0.0-20920323.iso
-#% VSPHEREVERSION=8.0
-#% DNSDOMAIN=example.local
-#% ADPASSWORD=Aws2022@
-#% ADUSER=admin@EXAMPLE.LOCAL
-#% HOSTPASSWORD="VMware1!"
-#% SSOPASSWORD="Aws2022@"
-
 ## These variables tune the size of the ESXi hosts that get deployed
 ## The default represents the practical minimum.  
 ## In aggregate, there are 10 ESXi hosts, 2 of which

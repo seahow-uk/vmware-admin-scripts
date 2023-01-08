@@ -110,7 +110,7 @@
 	sed -i 's/.*DefaultLimitNOFILE=.*/DefaultLimitNOFILE=16384/g' /etc/systemd/system.conf
 
 # extract VCSA files
-    mount -o loop $VCSAISO /mnt/iso
+    mount -o loop $ESXIROOT/ISO/vcsa/$VCSAISO /mnt/iso
     mkdir -p $ESXIROOT/vcsa-extracted/$VSPHEREVERSION
     cp -rf /mnt/iso/* $ESXIROOT/vcsa-extracted/$VSPHEREVERSION
     umount /mnt/iso
