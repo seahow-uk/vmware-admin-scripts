@@ -7,6 +7,8 @@ NOTE: I realize it is obnoxious to have to separately download these ISOs from V
 ----
 ![image](images/kickstart-iso/vmvisor-isos.png)
 
+NOTE: You don't need all three like I have, just whichever one you want to use
+
 Known good ESXi vmvisor installer ISOs
 
 **6.7** = VMware-VMvisor-Installer-201912001-15160138.x86_64.iso
@@ -19,6 +21,8 @@ Known good ESXi vmvisor installer ISOs
 ----
 ![image](images/kickstart-iso/vcsa-isos.png)
 
+NOTE: You don't need all three like I have, just whichever one you want to use
+
 Known good VCSA ISOs
 
 **6.7** = VMware-VCSA-all-6.7.0-15132721.iso
@@ -29,7 +33,7 @@ Known good VCSA ISOs
   
     * Note: 7.0 is the pickiest of the bunch.  Make sure you use this build as earlier ones have odd SSL issues in the nested environment
 
-**3) Modify the ESXi vmvisor installer ISOs to make them do an unattended/kickstart install**
+**3) Modify the ESXi vmvisor installer ISO to make it do an unattended/kickstart install**
 ----
 
 *   Using a tool such as [UltraISO](https://www.ultraiso.com/), edit two files.  First is \BOOT.CFG and the second is \EFI\BOOT\BOOT.CFG.  
@@ -50,9 +54,11 @@ Known good VCSA ISOs
         ![image](images/kickstart-iso/8.0after.png)
 
 *   Save the files and name them something that clearly shows they are the modified ISOs.  
-    *   I use this convention:
+    *   I use the convention VERSIONNAME.iso in the bash/userdata-example.sh so you should probably stick with that:
 
         ![image](images/kickstart-iso/modifiedisos.png)
+
+        NOTE: You don't need all three like I have, just whichever one you want to use
 
 **4) Set up an S3 bucket**
 ----
@@ -66,6 +72,8 @@ Known good VCSA ISOs
 *  Upload the **modified ISOs** for ESXI 6.7, 7.0, and 8.0 into it
 
     ![image](images/kickstart-iso/s3esxi.png)
+
+    NOTE: You don't need all three like I have, just whichever one you want to use
 
 **5) Set up a VPC**
 ----
@@ -138,8 +146,10 @@ Known good VCSA ISOs
         *   This is the second IP address you got when you deployed AWS Managed AD
     *   **VCSAISO=**
         *   *example:  VCSAISO=VMware-VCSA-all-8.0.0-20920323.iso*
+        *   This is how you tell it what VCSA ISO to download from S3 and deploy into the nested environment
     *   **VSPHEREVERSION=**
         *   *example:  VSPHEREVERSION=8.0*
+        *   This is how you tell it what ESXi ISO to download from S3 and deploy into the nested environment
     *   **DNSDOMAIN=**
         *   *example:  DNSDOMAIN=example.local*
         *   This is your AD Domain name
