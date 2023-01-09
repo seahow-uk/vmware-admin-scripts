@@ -4,6 +4,9 @@
 	virsh net-undefine default
 	virsh net-destroy default
 
+    ## delete the ens files
+    rm -rfv /etc/sysconfig/network-scripts/ifcfg-ens*
+
     ## disable networkmanager AND enact workaround from https://github.com/systemd/systemd/issues/3374
     systemctl disable NetworkManager
     systemctl stop NetworkManager

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 ## this needs to run under a 3.6 venv
 source $ESXIROOT/dcli_venv/bin/activate
@@ -58,7 +58,7 @@ for ((i = 1; i <= 2; i++)); do
     sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell echo 'ethtool -K eth0 rx off' >> /sbin/ifup-local"
 
     echo "creating clusters within vcsa$i.$DNSDOMAIN..."
-    python3 ./python/configure_cluster.py -i $i -d $DNSDOMAIN -r $HOSTPASSWORD -p $SSOPASSWORD
+    python3 $ESXIROOT/python/configure_cluster.py -i $i -d $DNSDOMAIN -r $HOSTPASSWORD -p $SSOPASSWORD
 
     ## take the compute hosts out of maintenance mode
 

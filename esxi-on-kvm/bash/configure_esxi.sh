@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 ## this needs to run under a 3.6 venv
 source $ESXIROOT/dcli_venv/bin/activate

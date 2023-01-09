@@ -84,6 +84,10 @@ dnf install lshw-gui -y
 # install a GUI utility for NetworkManager.  
 dnf install network-manager-applet -y
 
+# install Flent (network testing utility)
+pip3 install flent
+
+
 # this forces the vnc server to restart after we add utilities.  for some weird reason, a temp file for xwindows gets stuck sometimes.
 systemctl stop vncserver@:11.service
 rm -rf  /tmp/.X11-unix/X1

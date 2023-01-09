@@ -207,6 +207,9 @@
   echo "create dvses..."
   $ESXIROOT/bash/configure_dvs.sh &>/var/log/configure_dvs.sh.log
 
+  echo "configure vmks and such..."
+  $ESXIROOT/bash/configure_esxi.sh &>/var/log/configure_esxi.sh.log
+
   echo "configure drs..."
   $ESXIROOT/bash/configure_drs.sh &>>/var/log/configure_drs.log
 
