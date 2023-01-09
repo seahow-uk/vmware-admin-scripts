@@ -45,7 +45,7 @@
     </kvm>
     <vmport state="off"/>
   </features>
-  <cpu mode="host-passthrough" check="none" migratable="on">
+  <cpu mode="host-model" check="partial">
     <topology sockets="1" dies="1" cores="CPUPLACEHOLDER" threads="1"/>
   </cpu>
   <clock offset="utc">
