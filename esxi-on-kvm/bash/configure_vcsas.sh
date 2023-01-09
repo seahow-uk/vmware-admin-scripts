@@ -42,8 +42,8 @@
     ## Deploy the vcsa appliances
     mkdir -p /var/log/vcsa1 /var/log/vcsa2 
 
-    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/JSON/vcsa1.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa1 > /dev/null 2>&1 &
-    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/JSON/vcsa2.json --accept-eula --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa2 > /dev/null 2>&1 &
+    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/JSON/vcsa1.json --accept-eula --acknowledge-ceip --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa1 > /dev/null 2>&1 &
+    $ESXIROOT/vcsa-extracted/$VSPHEREVERSION/vcsa-cli-installer/lin64/vcsa-deploy install $ESXIROOT/JSON/vcsa2.json --accept-eula --acknowledge-ceip --no-esx-ssl-verify --skip-ovftool-verification -v --log-dir=/var/log/vcsa2 > /dev/null 2>&1 &
   
     # now wait until those are complete
     wait

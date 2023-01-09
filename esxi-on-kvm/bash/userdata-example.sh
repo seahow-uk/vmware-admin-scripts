@@ -34,7 +34,7 @@ SSOPASSWORD="Aws2022@"
 
 ## You'll need to hack this script up a bit to change this
 
-ESXIROOT=/scripts/vmware-admin-scripts/esxi-on-kvm/
+ESXIROOT="/scripts/vmware-admin-scripts/esxi-on-kvm/"
 
 ## I hope you filled those out and prestaged the files or the rest of this won't work
 
@@ -75,15 +75,15 @@ usermod -g 10 ec2-user
 sed -i "s/%wheel/#wheel/g" /etc/sudoers
 sed -i "s/# #wheel/%wheel/g" /etc/sudoers
 
-sed -i "0,/DNSIPADDRESS1=/ s/DNSIPADDRESS1=$DNSIPADDRESS1/" $ESXIROOT/main.sh
-sed -i "0,/DNSIPADDRESS2=/ s/DNSIPADDRESS2=$DNSIPADDRESS2/" $ESXIROOT/main.sh
-sed -i "0,/VCSAISO=/ s/VCSAISO=$VCSAISO/" $ESXIROOT/main.sh
-sed -i "0,/VSPHEREVERSION=/ s/VSPHEREVERSION=$VSPHEREVERSION/" $ESXIROOT/main.sh
-sed -i "0,/DNSDOMAIN=/ s/DNSDOMAIN=$DNSDOMAIN/" $ESXIROOT/main.sh
-sed -i "0,/ADPASSWORD=/ s/ADPASSWORD=$ADPASSWORD/" $ESXIROOT/main.sh
-sed -i "0,/ADUSER=/ s/ADUSER=$ADUSER/" $ESXIROOT/main.sh
-sed -i "0,/HOSTPASSWORD=/ s/HOSTPASSWORD=$HOSTPASSWORD/" $ESXIROOT/main.sh
-sed -i "0,/SSOPASSWORD=/ s/SSOPASSWORD=$SSOPASSWORD/" $ESXIROOT/main.sh
+sed -i "0,/DNSIPADDRESS1=/ s/DNSIPADDRESS1=/DNSIPADDRESS1=$DNSIPADDRESS1/" $ESXIROOT/main.sh
+sed -i "0,/DNSIPADDRESS2=/ s/DNSIPADDRESS2=/DNSIPADDRESS2=$DNSIPADDRESS2/" $ESXIROOT/main.sh
+sed -i "0,/VCSAISO=/ s/VCSAISO=/VCSAISO=$VCSAISO/" $ESXIROOT/main.sh
+sed -i "0,/VSPHEREVERSION=/ s/VSPHEREVERSION=/VSPHEREVERSION=$VSPHEREVERSION/" $ESXIROOT/main.sh
+sed -i "0,/DNSDOMAIN=/ s/DNSDOMAIN=/DNSDOMAIN=$DNSDOMAIN/" $ESXIROOT/main.sh
+sed -i "0,/ADPASSWORD=/ s/ADPASSWORD=/ADPASSWORD=$ADPASSWORD/" $ESXIROOT/main.sh
+sed -i "0,/ADUSER=/ s/ADUSER=/ADUSER=$ADUSER/" $ESXIROOT/main.sh
+sed -i "0,/HOSTPASSWORD=/ s/HOSTPASSWORD=/HOSTPASSWORD=$HOSTPASSWORD/" $ESXIROOT/main.sh
+sed -i "0,/SSOPASSWORD=/ s/SSOPASSWORD=/SSOPASSWORD=$SSOPASSWORD/" $ESXIROOT/main.sh
 
 echo "$ADPASSWORD" | realm join -U admin --client-software=sssd example.local  &>> /var/log/join_l0_to_ad.log
 
