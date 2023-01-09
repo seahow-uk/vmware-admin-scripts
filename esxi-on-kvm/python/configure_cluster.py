@@ -61,7 +61,7 @@ def main():
     args = setup_args()
 
     vcsaaddr = "vcsa" + str(args.index) + "." + args.domain
-    vcsauser = "$SSOACCOUNT@lab" + str(args.index) + ".local"
+    vcsauser = "administrator@lab" + str(args.index) + ".local"
     datacentername = "datacenter-" + str(args.index)
     computeclustername = "compute-cluster-" + str(args.index)
     managementclustername = "management-cluster-" + str(args.index)
