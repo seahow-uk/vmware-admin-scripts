@@ -40,7 +40,7 @@
     <acpi/>
     <apic/>
   </features>
-  <cpu mode="host-passthrough" check="none">
+  <cpu mode="host-model" check="full">
     <topology sockets="1" dies="1" cores="CPUPLACEHOLDER" threads="1"/>
   </cpu>
 
