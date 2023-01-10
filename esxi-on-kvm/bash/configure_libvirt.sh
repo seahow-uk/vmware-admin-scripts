@@ -25,7 +25,7 @@ modprobe -r kvm
 ## load now
 modprobe kvm_intel nested=Y
 modprobe kvm_intel ept=Y 
-modprobe kvm_intel enable_apicv=N
+modprobe kvm_intel enable_apicv=Y
 modprobe kvm_intel enable_shadow_vcms=Y
 
 modprobe kvm ignore_msrs=1
@@ -44,7 +44,7 @@ echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # These seem to help in some situations, but I haven't tested every permuation
 
-echo "options kvm_intel enable_apicv=N" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_shadow_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # I'm not sure on MSRS, I can't tell either way that it matters, but I recommend setting it to
