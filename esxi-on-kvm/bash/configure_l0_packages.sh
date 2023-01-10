@@ -19,6 +19,10 @@
 ## configure cron
 	cat $ESXIROOT/config/crontabnew | crontab -
 
+## set new boot loader configuration
+## this currently includes enabling intel_iommu which requires a reboot
+	rm -f /etc/default/grub && mv $ESXIROOT/config/newgrub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg
+
 ## create directory structures
 	mkdir -p /mnt/iso
 	mkdir -p /var/www/html
