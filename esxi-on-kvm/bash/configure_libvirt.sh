@@ -27,7 +27,6 @@ modprobe kvm_intel nested=1
 modprobe kvm_intel ept=Y 
 modprobe kvm_intel enable_apicv=Y
 modprobe kvm_intel enable_shadow_vcms=Y
-modprobe kvm_intel enlightened_vcms=Y
 
 modprobe kvm ignore_msrs=1
 modprobe kvm tdp_mmu=0
@@ -43,11 +42,10 @@ modprobe kvm tdp_mmu=0
 echo "options kvm_intel nested=1" > /etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
 
-# These seem to help in some situations
+# These seem to help in some situations, but I haven't tested every permuation
 
 echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_shadow_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
-echo "options kvm_intel enlightened_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # I'm not sure on MSRS, I can't tell either way that it matters, but I recommend setting it to
 # ignore as it doesn't provide any detectable benefit and there is documentation out there from
