@@ -23,9 +23,9 @@ modprobe -r kvm
 ## note:  AMD uses 0 and 1 for these options while Intel uses Y and N
 
 ## load now
-modprobe kvm_intel nested=1
+modprobe kvm_intel nested=Y
 modprobe kvm_intel ept=Y 
-modprobe kvm_intel enable_apicv=Y
+modprobe kvm_intel enable_apicv=N
 modprobe kvm_intel enable_shadow_vcms=Y
 
 modprobe kvm ignore_msrs=1
@@ -39,12 +39,12 @@ modprobe kvm tdp_mmu=0
 # These two are ALWAYS required for nesting to work, regardless of ESXi version (6.7, 7.0, 80)
 # If you turn either of these off, the nested VMs inside ESXi will refuse to boot flat out
 
-echo "options kvm_intel nested=1" > /etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested=Y" > /etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # These seem to help in some situations, but I haven't tested every permuation
 
-echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=N" >>/etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel enable_shadow_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # I'm not sure on MSRS, I can't tell either way that it matters, but I recommend setting it to
