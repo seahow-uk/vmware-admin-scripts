@@ -91,7 +91,9 @@
 
 ## libvirt install via package groups 
 	dnf groupinstall "Virtualization Host" --with-optional -y -q &>> /var/log/configure_l0_packages_2.log
-	dnf install virt* libguestfs* swtpm* libibverbs libvirt-devel sysfsutils -y -q &>> /var/log/configure_l0_packages_3.log
+	dnf install virt* libguestfs* swtpm* libibverbs libvirt* sysfsutils -y -q &>> /var/log/configure_l0_packages_3.log
+	groupmems -g wheel -a libvirtdbus
+	groupmems -g wheel -a qemu
 
 ## Shuffle config files needed for Kickstart, etc
 	mv -fv $ESXIROOT/config/exports /etc/exports

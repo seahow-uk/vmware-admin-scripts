@@ -23,8 +23,14 @@ modprobe -r kvm
 ## note:  AMD uses 0 and 1 for these options while Intel uses Y and N
 
 ## load now
-modprobe kvm_intel nested=Y enable_apicv=N ept=Y enlightened_vmcs=N nested_early_check=N
-modprobe kvm ignore_msrs=Y, tdp_mmu=N, report report_ignored_msrs=N
+modprobe kvm_intel nested=1
+modprobe kvm_intel ept=Y 
+modprobe kvm_intel enable_apicv=Y
+modprobe kvm_intel enable_shadow_vcms=Y
+modprobe kvm_intel enlightened_vcms=Y
+
+modprobe kvm ignore_msrs=1
+modprobe kvm tdp_mmu=0
 
 # add for future boots
 
@@ -34,30 +40,23 @@ modprobe kvm ignore_msrs=Y, tdp_mmu=N, report report_ignored_msrs=N
 # These two are ALWAYS required for nesting to work, regardless of ESXi version (6.7, 7.0, 80)
 # If you turn either of these off, the nested VMs inside ESXi will refuse to boot flat out
 
-echo "options kvm_intel nested=Y" > /etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel nested=1" > /etc/modprobe.d/kvm_intel.conf
 echo "options kvm_intel ept=Y" >>/etc/modprobe.d/kvm_intel.conf
 
-# Nested VMs may or may not refuse to boot (depending on version of ESX, etc) if this is set to Y
+# These seem to help in some situations
 
-echo "options kvm_intel nested_early_check=N" >>/etc/modprobe.d/kvm_intel.conf
-
-# apicv doesn't break anything outright, but unless you're trying to pass through devices via
-# iommu/sr-iov, which we definitely are not, there's no need
-
-echo "options kvm_intel enable_apicv=N" >>/etc/modprobe.d/kvm_intel.conf
-
-# Setting this one to Y breaks ESXi nested VMs in some situations, but benefits Hyper-V nested VMs
-echo "options kvm_intel enlightened_vmcs=N" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_apicv=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enable_shadow_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
+echo "options kvm_intel enlightened_vcms=Y" >>/etc/modprobe.d/kvm_intel.conf
 
 # I'm not sure on MSRS, I can't tell either way that it matters, but I recommend setting it to
 # ignore as it doesn't provide any detectable benefit and there is documentation out there from
 # VMware and others recommending these settings.  Reasons unclear.
 
-echo "options kvm ignore_msrs=Y" > /etc/modprobe.d/kvm.conf
-echo "options kvm report_ignored_msrs=N" >>/etc/modprobe.d/kvm.conf
+echo "options kvm ignore_msrs=1" > /etc/modprobe.d/kvm.conf
 
 # This one is for two dimensional pages and can cause Win 10 or Server 2022 to crash randomly
-echo "options modprobe kvm tdp_mmu=N" >>/etc/modprobe.d/kvm.conf
+echo "options modprobe kvm tdp_mmu=0" >>/etc/modprobe.d/kvm.conf
 
 ## now start libvirtd with nesting enabled
 systemctl start libvirtd
