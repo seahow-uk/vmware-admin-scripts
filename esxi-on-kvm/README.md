@@ -158,6 +158,7 @@ Known good VCSA ISOs
 
 **9) Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prepare the L0 host**
 ----
+ *  [bash/userdata-example.sh](bash/userdata-example.sh)
 
  *  Make sure to fill out the S3BUCKET, S3PREFIX, ADPASSWORD, etc variables at the top appropriately
     </br>
