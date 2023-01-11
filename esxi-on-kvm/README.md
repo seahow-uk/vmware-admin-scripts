@@ -137,7 +137,7 @@ Known good VCSA ISOs
     </br>
     ![image](images/dhcp-options.png)
 
-**6) Deploy an Windows instance into your VPC to act as a jump host**
+**6) Deploy a Windows instance into your VPC to act as a jump host**
 ----
 
 *  Put it on one of the public subnets and allow 3389 in from the internet
@@ -339,7 +339,7 @@ Known good VCSA ISOs
        ![image](images/using/vcls-1.png)  
 
    * SSH to the vcsa and do "shell service-control --restart vmware-vpxd-svcs" [or just bounce the vcsa]
-   * Now edit the VCLS VM's VMX files set 
+   * Now edit the VCLS VM's VMX files and set 
      * FeatMask.vm.cpuid.MWAIT = "Val:0"
 
        ![image](images/using/vcls-2.png)  
