@@ -10,8 +10,7 @@
 # ./bash/configure_vcsas.sh 
 # ./bash/configure_cluster.sh 
 # ./bash/configure_dvs.sh 
-# ./bash/configure_drs.sh 
-# ./bash/configure_ha.sh 
+
     $ESXIROOT/bash/build.sh &>>/var/log/build.sh.log
 
 ## extended tweaks for the esxi hosts, vcsas, etc
