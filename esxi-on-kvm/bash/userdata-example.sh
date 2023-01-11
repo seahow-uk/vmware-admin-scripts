@@ -27,7 +27,7 @@ ADUSER=
 # ADPASSWORD=Aws2022@
 # ADUSER=admin@EXAMPLE.LOCAL
 
-## You can modify these variables if you want, but the defaults work fine and I haven't exhaustively tested changing these
+## You can also modify the following variables if you want, but the defaults work fine and I haven't exhaustively tested changing these
 
 HOSTPASSWORD="VMware1!"
 SSOPASSWORD="Aws2022@"
