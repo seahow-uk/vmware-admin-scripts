@@ -62,6 +62,7 @@ source $ESXIROOT/dcli_venv/bin/activate
   done
 
 
+
 ## leave the 3.6 venv
 deactivate
 
