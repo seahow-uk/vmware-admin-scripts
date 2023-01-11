@@ -23,4 +23,7 @@
     $ESXIROOT/bash/configure_workload_vms.sh &>>/var/log/configure_workload_vms.sh.log
 
 ## deploy any custom ovfs like netapp, commvault, veeam, generic windows templates
-    $ESXIROOT/bash/configure_custom_ovfs.sh &>>/var/log/configure_custom_ovfs.sh.log
+    # $ESXIROOT/bash/configure_custom_ovfs.sh &>>/var/log/configure_custom_ovfs.sh.log
+#
+#  NOTE: this is disabled because you need to have those OVAs prestaged on your S3 bucket which requires more stuff I can't distribute.
+#  If you really want to get this part automated contact me at darmok.and.jalad@tanagra.uk so I can walk you through it

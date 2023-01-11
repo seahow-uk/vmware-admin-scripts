@@ -155,97 +155,96 @@ def main():
             for host in entity.host:
 
                 tries = 3
+                succeeded = 0
                 for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "Management (VLAN 20) [compute-dvs]")
-                        print("moving vmk0 on:", host.name)
-                        migrate_vmk(host, target_portgroup, compute_dvswitch_object, "vmk0")
-                        time.sleep(5)
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "Management (VLAN 20) [compute-dvs]")
+                            print("moving vmk0 on:", host.name)
+                            migrate_vmk(host, target_portgroup, compute_dvswitch_object, "vmk0")
+                            time.sleep(5)
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
+
+                tries = 3
+                succeeded = 0
+                for i in range(tries):
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "VSAN (VLAN 60) [compute-dvs]")
+                            print("creating vmk1 on:", host.name)
+                            create_vmk(host, target_portgroup, compute_dvswitch_object, "vsan")
+                            time.sleep(5)
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
+
+                tries = 3
+                succeeded = 0
+                for i in range(tries):
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "ISCSI 1 (VLAN 70) [compute-dvs]")
+                            print("creating vmk2 on:", host.name)
+                            create_vmk(host, target_portgroup, compute_dvswitch_object, "iscsi")
+                            time.sleep(5)
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
+
+                tries = 3
+                succeeded = 0
+                for i in range(tries):
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "ISCSI 2 (VLAN 80) [compute-dvs]")
+                            print("creating vmk3 on:", host.name)
+                            create_vmk(host, target_portgroup, compute_dvswitch_object, "iscsi")
+                            time.sleep(5)
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
 
 
                 tries = 3
+                succeeded = 0
                 for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "VSAN (VLAN 60) [compute-dvs]")
-                        print("creating vmk1 on:", host.name)
-                        create_vmk(host, target_portgroup, compute_dvswitch_object, "vsan")
-                        time.sleep(5)
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break
-
-                tries = 3
-                for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "ISCSI 1 (VLAN 70) [compute-dvs]")
-                        print("creating vmk2 on:", host.name)
-                        create_vmk(host, target_portgroup, compute_dvswitch_object, "iscsi")
-                        time.sleep(5)
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break
-
-                tries = 3
-                for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "ISCSI 2 (VLAN 80) [compute-dvs]")
-                        print("creating vmk3 on:", host.name)
-                        create_vmk(host, target_portgroup, compute_dvswitch_object, "iscsi")
-                        time.sleep(5)
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break
-
-                tries = 3
-                for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "vMotion (VLAN 50) [compute-dvs]")
-                        print("creating vmk4 on:", host.name)
-                        create_vmk(host, target_portgroup, compute_dvswitch_object, "vmotion")
-                        time.sleep(5)
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "vMotion (VLAN 50) [compute-dvs]")
+                            print("creating vmk4 on:", host.name)
+                            create_vmk(host, target_portgroup, compute_dvswitch_object, "vmotion")
+                            time.sleep(5)
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
 
         if entity == management_cluster_moref:
             for host in entity.host:
                 tries = 3
                 for i in range(tries):
-                    try:
-                        target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "Management (VLAN 20) [management-dvs]")
-                        print("moving vmk0 on:", host.name)
-                        migrate_vmk(host, target_portgroup, management_dvswitch_object, "vmk0")
-                        time.sleep(5)   
-                    except KeyError as e:
-                        if i < tries - 1: # i is zero indexed
-                            time.sleep(30)
-                            continue
-                        else:
-                            raise
-                    break               
+                    print("try #" + str(i))
+                    if succeeded == 0:
+                        try:
+                            target_portgroup = get_obj(content, [vim.DistributedVirtualPortgroup], "Management (VLAN 20) [management-dvs]")
+                            print("moving vmk0 on:", host.name)
+                            migrate_vmk(host, target_portgroup, management_dvswitch_object, "vmk0")
+                            time.sleep(5)  
+                            succeeded = 1
+                        except Exception as e:
+                            print(e)
+                            time.sleep(60)
 
     print ("done and done!")
 
@@ -294,6 +293,7 @@ def create_dvSwitch(si, network_folder, cluster, dvswitchname):
     dvs_config_spec = vim.VmwareDistributedVirtualSwitch.ConfigSpec()
     dvs_config_spec.name = dvswitchname
     dvs_config_spec.maxMtu = 9000
+    ##dvs_config_spec.networkResourceManagementEnabled = True
     dvs_config_spec.uplinkPortPolicy = vim.DistributedVirtualSwitch.NameArrayUplinkPortPolicy()
 
     hosts = cluster.host
