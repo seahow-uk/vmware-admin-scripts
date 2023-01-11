@@ -69,6 +69,12 @@ mkdir -p $ESXIROOT/ISO/vcsa
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
 
+# Turn off source-dest-check
+aws s3 cp s3://ec2metadata/ec2-metadata /usr/bin
+chmod 777 /usr/bin/ec2-metadata
+INSTANCEID=$(ec2-metadata -i | awk '{print $2}')
+aws ec2 modify-instance-attribute --instance-id=$INSTANCEID --no-source-dest-check
+
 useradd ec2-user 
 usermod -G 10 ec2-user
 usermod -g 10 ec2-user

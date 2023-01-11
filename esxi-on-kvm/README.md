@@ -166,11 +166,12 @@ Known good VCSA ISOs
     *  join the L0 to your Active Directory Domain
     *  inject the variables you set at the top into ./main.sh
     *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
+    *  disable source-dest-check for the instance's networking
 
 **10) Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it**
 ----
 
- *  First, disable the source/dest check (under networking)
+ *  Disable the source/dest check (under networking) *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
 
      ![image](images/sourcedest.png)
 
@@ -201,6 +202,8 @@ Known good VCSA ISOs
   *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build.
 
      ![image](images/screenshots/desktop.png)
+
+  *  NOTE: It is possible to skip having a Windows jump host by putting your L0 on a public subnet and allowing TCP 5911 inbound.  You can do everything from the L0 desktop.  The reason I don't recommend this by default is most people don't want their L0 right on the internet like that.
 
 Tips
 ----
