@@ -210,12 +210,6 @@
   echo "configure vmks and such..."
   $ESXIROOT/bash/configure_esxi.sh &>/var/log/configure_esxi.sh.log
 
-  echo "configure drs..."
-  $ESXIROOT/bash/configure_drs.sh &>>/var/log/configure_drs.log
-
-  echo "configure ha..."
-  $ESXIROOT/bash/configure_ha.sh &>>/var/log/configure_ha.log
-
   sed -i '105,$ d' /etc/dhcp/dhcpd.conf
 
 exit 0

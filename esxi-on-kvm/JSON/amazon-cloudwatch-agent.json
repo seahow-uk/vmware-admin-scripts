@@ -129,6 +129,18 @@
                         "timezone": "Local"
                     },
                     {
+                        "file_path": "/var/log/vcsa1.state",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/vcsa1.state",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/vcsa2.state",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/vcsa2.state",
+                        "timezone": "Local"
+                    },
+                    {
                         "file_path": "/var/log/configure_l0_desktop.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/configure_l0_desktop.sh.log",
