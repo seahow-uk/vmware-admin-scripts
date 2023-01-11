@@ -43,30 +43,30 @@ Known good VCSA ISOs
 ----
 
 *   Using a tool such as [UltraISO](https://www.ultraiso.com/), edit two files.  First is \BOOT.CFG and the second is \EFI\BOOT\BOOT.CFG.  
-    </br>
-    </br>
+
+
     ![image](images/kickstart-iso/boot.png)   
-    </br>
-    </br>
+
+
     ![image](images/kickstart-iso/efiboot.png)   
 
 *   Both files are identical, and you need to make the same change to both files in all versions of the vmvisor ISO before uploading it to S3.
     * Change this line:
     * kernelopt=runweasel cdromBoot   
-    </br>
-    </br>
+
+
         ![image](images/kickstart-iso/8.0before.png)
         
     * To look like this:
     * kernelopt=cdromBoot runweasel ks=http://192.168.20.1/KS.CFG
-    </br>
-    </br>
+
+
         ![image](images/kickstart-iso/8.0after.png)
 
 *   Save the files and name them something that clearly shows they are the modified ISOs.  
     *   I use the convention VERSIONNAME.iso in the bash/userdata-example.sh so you should probably stick with that:
-    </br>
-    </br>
+
+
         ![image](images/kickstart-iso/modifiedisos.png)
 
         NOTE: You don't need all three like I have, just whichever one you want to use
