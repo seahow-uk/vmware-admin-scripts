@@ -13,6 +13,7 @@
 #### -> Two clusters of 5 ESXi hosts each are created, and both have DVSes with multiple port groups on the VLANs set up
 #### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+#### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) or $2.49/hr (reserved) - great for an afternoon of labs.
 
 <br/>
 <br/>
