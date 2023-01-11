@@ -1,8 +1,10 @@
-# **ESXi on KVM**
+# **Nested vSphere on AWS EC2 Baremetal**
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
-<br/>
+[![image](images/using/overall-small.png)](images/using/overall.png)
+
+(click to enlarge)
 
 ### -> OpenvSwitch is used to simulate a real networking environment with VLANs and routing inside the L0
 ### -> Centos 8 Stream is used as the L0 Operating System
@@ -13,6 +15,8 @@
 
 <br/>
 <br/>
+
+
 
 # **Deployment Steps**
 
