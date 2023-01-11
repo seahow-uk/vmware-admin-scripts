@@ -201,7 +201,7 @@ Known good VCSA ISOs
 **12) From your Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
-  *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build.
+  *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0 running on TCP/5911.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build for example.
 
      ![image](images/screenshots/desktop.png)
 
