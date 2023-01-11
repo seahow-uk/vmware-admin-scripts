@@ -165,7 +165,7 @@ Known good VCSA ISOs
         *   *example:  SSOPASSWORD=AWS2022@*
         *   Password for administrator@lab1.local and administrator@lab2.local on the VCSAs
   
- *  **This userdata script will **
+ *  **This userdata script will**
   
     *  download this git repo to the L0
     *  download the ISOs for the VCSA and ESXi installers to the L0
@@ -174,7 +174,7 @@ Known good VCSA ISOs
     *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
     *  disable source-dest-check for the instance's networking
 
- *  NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.
+ *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
 
 **10) Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it**
 ----
