@@ -325,7 +325,7 @@ Known good VCSA ISOs
 
   * [bash/configure_cluster.sh](bash/configure_cluster.sh) has a section towards the end that disables VCLS on both clusters in both vcenters.
 
-  * I added this because the vcls control VMs have a weird dependency on a cpuid flag called MONITOR that I can't figure out how to make KVM pass through correctly.  It would also be possible to add some logic to modify the .vmx files of the VCLS control VMs to take that ECX mask out, but because they are named dynamically I haven't had time to add that.  
+  * I added this because the vcls control VMs have a weird dependency on a cpuid flag called MWAIT that I can't figure out how to make KVM pass through correctly.  It would also be possible to add some logic to modify the .vmx files of the VCLS control VMs to take that ECX mask out, but because they are named dynamically I haven't had time to add that.  
 
   * Downside: Turning off vcls means you cant use DRS (see [this article for more](https://www.yellow-bricks.com/2020/10/09/vmware-vsphere-clustering-services-vcls-considerations-questions-and-answers/))
 
