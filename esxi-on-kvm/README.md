@@ -276,7 +276,7 @@ Known good VCSA ISOs
 
 # **Diagrams**
 
-Click each diagram to see the full size version
+*Click each diagram to see the full size version*
 
 **1) Networking overview**
 ----
