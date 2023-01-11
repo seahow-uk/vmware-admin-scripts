@@ -318,3 +318,30 @@ Known good VCSA ISOs
     
     [![image](images/networking/esxi-on-kvm-VSAN-small.png)](images/networking/esxi-on-kvm-VSAN.png)
 
+# **Errata**
+
+**1) VCLS is disabled by default**
+----
+
+  * [bash/configure_cluster.sh](bash/configure_cluster.sh) has a section towards the end that disables VCLS on both clusters in both vcenters.
+
+  * I added this because the vcls control VMs have a weird dependency on a cpuid flag called MONITOR that I can't figure out how to make KVM pass through correctly.  It would also be possible to add some logic to modify the .vmx files of the VCLS control VMs to take that ECX mask out, but because they are named dynamically I haven't had time to add that.  
+
+  * Downside: Turning off vcls means you cant use DRS (see [this article for more](https://www.yellow-bricks.com/2020/10/09/vmware-vsphere-clustering-services-vcls-considerations-questions-and-answers/))
+
+  * Upside: Your logs won't be full of failed attempts for the VCLS control VMs to boot up
+
+  * Workaround:  If you want to use DRS
+   * first change these two values to true in the vCenter's advanced config:
+     * config.vcls.clusters.domain-c8.enabled
+     * config.vcls.clusters.domain-c10.enabled
+  
+       ![image](images/using/vcls-1.png)  
+
+   * SSH to the vcsa and do "shell service-control --restart vmware-vpxd-svcs" [or just bounce the vcsa]
+   * Now edit the VCLS VM's VMX files set 
+     * FeatMask.vm.cpuid.MWAIT = "Val:0"
+
+       ![image](images/using/vcls-2.png)  
+
+  * NOTE: This only affects 7.0 and 8.0.  6.7 doesn't use VCLS.
