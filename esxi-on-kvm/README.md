@@ -7,7 +7,7 @@
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
 
-**1) Download the latest ESXi ISO for either 6.7, 7.0 or 8.0 VMware or the vExpert site**
+**1) Download the latest ESXi ISO for either 6.7, 7.0 or 8.0 from VMware or the vExpert site**
 ----
 
 ![image](images/kickstart-iso/vmvisor-isos.png)
