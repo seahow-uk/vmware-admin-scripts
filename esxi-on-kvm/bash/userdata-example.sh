@@ -2,8 +2,8 @@
 ##
 ## You have to fill out the following variables with an S3 Bucket/Prefix that you have
 ## pre-staged with ISOs for the VCSA and customized ESXI isos.  The ADPASSWORD is whatever
-## you specified as the admin password when you deployed AD  See https://github.com/seahow-uk 
-## for more information
+## you specified as the admin password when you deployed AD  
+## See https://github.com/seahow-uk/vmware-admin-scripts/esxi-on-kvm/ for more information
 
 S3BUCKET=
 S3PREFIX=
@@ -105,7 +105,7 @@ sed -i "0,/HOSTPASSWORD=/ s/HOSTPASSWORD=/HOSTPASSWORD=$HOSTPASSWORD/" $ESXIROOT
 sed -i "0,/SSOPASSWORD=/ s/SSOPASSWORD=/SSOPASSWORD=$SSOPASSWORD/" $ESXIROOT/main.sh
 
 # This joins your L0 to Active Directory
-echo "$ADPASSWORD" | realm join -U admin --client-software=sssd example.local  &>> /var/log/join_l0_to_ad.log
+echo "$ADPASSWORD" | realm join -U admin --client-software=sssd $DNSDOMAIN  &>> /var/log/join_l0_to_ad.log
 
 # Kick off main.sh which builds everything but stops short of actually deploying the nested VMware environment.
 
