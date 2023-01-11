@@ -78,10 +78,10 @@ aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
 
 # Turn off source-dest-check
-aws s3 cp s3://ec2metadata/ec2-metadata /usr/bin
-chmod 777 /usr/bin/ec2-metadata
-INSTANCEID=$(ec2-metadata -i | awk '{print $2}')
-aws ec2 modify-instance-attribute --instance-id=$INSTANCEID --no-source-dest-check
+EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed 's/[a-z]$//'`"
+INSTANCEID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+aws ec2 modify-instance-attribute --instance-id=$INSTANCEID --no-source-dest-check --region=$EC2_REGION
 
 # This is needed for SSM's Connection Manager feature to work
 useradd ec2-user 
