@@ -133,10 +133,10 @@ Known good VCSA ISOs
     What these variables mean:
 
     *   **S3BUCKET=**
-        *   *example:  S3BUCKET=mybucket*
+        *   *example:  S3BUCKET=mys3bucketname*
         *   Don't include the https:// or s3:// or any of that.  Just the base bucket name
     *   **S3PREFIX=**
-        *   *example:  S3PREFIX=myprefix*
+        *   *example:  S3PREFIX=seahow/ISOs*
         *   Don't include the "/" on either side
     *   **DNSIPADDRESS1=**
         *   *example:  DNSIPADDRESS1=10.0.0.111*
@@ -158,7 +158,13 @@ Known good VCSA ISOs
     *   **ADUSER=**
         *   *example:  ADUSER=admin@EXAMPLE.LOCAL*
         *   NOTE: The domain name needs to be in all caps.  Oddity of realmsd.
-
+    *   **HOSTPASSWORD=**
+        *   *example:  HOSTPASSWORD=VMware1!*
+        *   The password to set for root on the ESXi hosts themselves
+    *   **SSOPASSWORD=**
+        *   *example:  SSOPASSWORD=AWS2022@*
+        *   Password for administrator@lab1.local and administrator@lab2.local on the VCSAs
+  
  *  This userdata script will 
   
     *  download this git repo to the L0
