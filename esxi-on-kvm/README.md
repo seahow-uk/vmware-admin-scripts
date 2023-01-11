@@ -1,5 +1,5 @@
-**Deployment Steps**
-----
+# **Deployment Steps**
+
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
 
@@ -21,8 +21,6 @@ NOTE: You don't need all three like I have, just whichever one you want to use
 **2) Download the latest VCSA ISO for either 6.7, 7.0, or 8.0 from VMware or the vExpert site**
 ----
 
-</br>
-</br>
 ![image](images/kickstart-iso/vcsa-isos.png)
 
 NOTE: You don't need all three like I have, just whichever one you want to use
@@ -221,7 +219,9 @@ Known good VCSA ISOs
 
       **NOTE: This assumes you used the example userdata script to deploy the L0.  If you did not, you will need to manually run ./main.sh BEFORE ./nested.sh**
 
-**12) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
+# **Optional items / tips**
+----
+**1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
   *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0 running on TCP/5911.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build for example.
@@ -231,7 +231,7 @@ Known good VCSA ISOs
 
   *  NOTE: It is possible to skip having a Windows jump host by putting your L0 on a public subnet and allowing TCP 5911 inbound.  You can do everything from the L0 desktop.  The reason I don't recommend this by default is most people don't want their L0 right on the internet like that.
 
-**13) From your Windows Jump Host, mount the CIFS shares on your L0**
+**2) From your Windows Jump Host, mount the CIFS shares on your L0**
 ----
 
 
@@ -254,14 +254,19 @@ Known good VCSA ISOs
 
      ![image](images/using/l0shares.png)   
 
-Tips
-----
-1.  **If you want to redeploy the nested environment without having to redeploy the entire instance:**
+  *  For example, if you look under **\\\L0IP\scripts\VMs\esxi-hostlogs** you can find things like the vmkernel log from all of your ESXi hosts
+    </br>
+    </br>
 
-    *  bash/flush.sh
-  
-       *  This will remove all 10 ESXi VMs from KVM
-  
-    *  bash/build.sh
-  
-       *  This will recreate them plus install the VCSAs, nested VMs, configure DVSes, etc
+     ![image](images/using/vmkernel.png)   
+
+**3) If you want to redeploy the nested environment without having to redeploy the entire instance**
+----
+
+*  bash/flush.sh
+
+    *  This will remove all 10 ESXi VMs from KVM
+
+*  bash/build.sh
+
+    *  This will recreate them plus install the VCSAs, nested VMs, configure DVSes, etc
