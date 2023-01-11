@@ -165,7 +165,7 @@ Known good VCSA ISOs
         *   *example:  SSOPASSWORD=AWS2022@*
         *   Password for administrator@lab1.local and administrator@lab2.local on the VCSAs
   
- *  This userdata script will 
+ *  **This userdata script will **
   
     *  download this git repo to the L0
     *  download the ISOs for the VCSA and ESXi installers to the L0
