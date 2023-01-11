@@ -141,7 +141,7 @@
                         "timezone": "Local"
                     },
                     {
-                        "file_path": "/var/log/configure_l0_desktop.log",
+                        "file_path": "/var/log/configure_l0_desktop.sh.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/configure_l0_desktop.sh.log",
                         "timezone": "Local"
@@ -207,12 +207,161 @@
                         "timezone": "Local"
                     },   
                     {
+                        "file_path": "/var/log/openvswitch/ovs-vswitchd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/openvswitch/ovs-vswitchd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/openvswitch/ovsdb-server.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/openvswitch/ovsdb-server.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi1.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi1.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi2.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi2.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi3.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi3.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi4.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi4.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi5.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi5.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi6.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi6.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi7.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi7.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi8.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi8.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi9.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi9.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/libvirt/qemu/esxi10.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/libvirt/qemu/esxi10.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/vmkernel.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/vmkernel.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/get_ovas.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/get_ovas.sh.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/httpd/access_log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/httpd/access_log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/var/log/httpd/error_log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/httpd/error_log",
+                        "timezone": "Local"
+                    },   
+                    {
                         "file_path": "/var/log/insertdnsrecords.sh.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/insertdnsrecords.sh.log",
                         "timezone": "Local"
                     },
-
                     {
                         "file_path": "/var/log/secure",
                         "log_group_name": "/{instance_id}",
@@ -232,7 +381,7 @@
                         "timezone": "Local"
                     },
                     {
-                        "file_path": "/var/log/cloud-init-output.sh.log",
+                        "file_path": "/var/log/cloud-init-output.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/cloud-init-output.log",
                         "timezone": "Local"
@@ -244,21 +393,45 @@
                         "timezone": "Local"
                     },
                     {
-                        "file_path": "/var/log/configure_ovs.sh.log",
+                        "file_path": "/var/log/configure_cluster.sh.log",
                         "log_group_name": "/{instance_id}",
-                        "log_stream_name": "/{instance_id}/var/log/configure_ovs.sh.log",
+                        "log_stream_name": "/{instance_id}/var/log/configure_cluster.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/configure_vcsas.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_vcsas.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/configure_workload_vms.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_workload_vms.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/configure_esxi.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_esxi.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/configure_dvs.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/configure_dvs.sh.log",
+                        "timezone": "Local"
+                    },
+                    {
+                        "file_path": "/var/log/build.sh.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/var/log/build.sh.log",
                         "timezone": "Local"
                     },
                     {
                         "file_path": "/var/lib/cloud/data/status.json",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/lib/cloud/data/status.json",
-                        "timezone": "Local"
-                    },
-                    {
-                        "file_path": "/run/cloud-init/cloud-init-generator.log",
-                        "log_group_name": "/{instance_id}",
-                        "log_stream_name": "/{instance_id}/run/cloud-init/cloud-init-generator.log",
                         "timezone": "Local"
                     },
                     {
