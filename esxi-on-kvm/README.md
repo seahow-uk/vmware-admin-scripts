@@ -2,6 +2,12 @@
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
+### OpenvSwitch is used to simulate a real networking environment with VLANs and routing inside the L0
+### Centos 8 Stream is used as the L0 Operating System
+### QEMU-KVM is used for the L1 Hypervisor
+### ESXi 6.7, 7.0 or 8.0 can be used for the L2 Hypervisor
+
+
 # **Deployment Steps**
 
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
