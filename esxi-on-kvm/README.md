@@ -5,20 +5,24 @@ NOTE: I realize it is obnoxious to have to separately download these ISOs from V
 
 **1) Download the latest ESXi ISO for either 6.7, 7.0 or 8.0 VMware or the vExpert site**
 ----
+
 ![image](images/kickstart-iso/vmvisor-isos.png)
 
 NOTE: You don't need all three like I have, just whichever one you want to use
 
-Known good ESXi vmvisor installer ISOs
+*   Known good ESXi vmvisor installer ISOs
 
-**6.7** = VMware-VMvisor-Installer-201912001-15160138.x86_64.iso
+    **6.7** = VMware-VMvisor-Installer-201912001-15160138.x86_64.iso
 
-**7.0** = VMware-VMvisor-Installer-7.0U3g-20328353.x86_64.iso
+    **7.0** = VMware-VMvisor-Installer-7.0U3g-20328353.x86_64.iso
 
-**8.0** = VMware-VMvisor-Installer-8.0-20513097.x86_64.iso
+    **8.0** = VMware-VMvisor-Installer-8.0-20513097.x86_64.iso
         
 **2) Download the latest VCSA ISO for either 6.7, 7.0, or 8.0 from VMware or the vExpert site**
 ----
+
+</br>
+</br>
 ![image](images/kickstart-iso/vcsa-isos.png)
 
 NOTE: You don't need all three like I have, just whichever one you want to use
@@ -37,25 +41,30 @@ Known good VCSA ISOs
 ----
 
 *   Using a tool such as [UltraISO](https://www.ultraiso.com/), edit two files.  First is \BOOT.CFG and the second is \EFI\BOOT\BOOT.CFG.  
-
+    </br>
+    </br>
     ![image](images/kickstart-iso/boot.png)   
-
+    </br>
+    </br>
     ![image](images/kickstart-iso/efiboot.png)   
 
 *   Both files are identical, and you need to make the same change to both files in all versions of the vmvisor ISO before uploading it to S3.
     * Change this line:
     * kernelopt=runweasel cdromBoot   
-
+    </br>
+    </br>
         ![image](images/kickstart-iso/8.0before.png)
         
     * To look like this:
     * kernelopt=cdromBoot runweasel ks=http://192.168.20.1/KS.CFG
-
+    </br>
+    </br>
         ![image](images/kickstart-iso/8.0after.png)
 
 *   Save the files and name them something that clearly shows they are the modified ISOs.  
     *   I use the convention VERSIONNAME.iso in the bash/userdata-example.sh so you should probably stick with that:
-
+    </br>
+    </br>
         ![image](images/kickstart-iso/modifiedisos.png)
 
         NOTE: You don't need all three like I have, just whichever one you want to use
@@ -64,13 +73,15 @@ Known good VCSA ISOs
 ----
 
 *  Upload the VCSA ISOs for 6.7, 7.0, and 8.0 into it
-
+    </br>
+    </br>
     ![image](images/kickstart-iso/s3vcsa.png)
 
     NOTE: You don't need all three like I have, just whichever one you are going to deploy
 
 *  Upload the **modified ISOs** for ESXI 6.7, 7.0, and 8.0 into it
-
+    </br>
+    </br>
     ![image](images/kickstart-iso/s3esxi.png)
 
     NOTE: You don't need all three like I have, just whichever one you want to use
@@ -100,7 +111,8 @@ Known good VCSA ISOs
 *  Note: The script uses admin@example.local by default.  This means you cant use Simple AD, it has to be the full Managed AD ... well, unless you want to hack the scripts
 
 *  This also means you would be best served setting the DHCP options up for your VPC to point to these for DNS, not the default AWS DNS
-
+    </br>
+    </br>
     ![image](images/dhcp-options.png)
 
 **6) Deploy an Windows instance into your VPC to act as a jump host**
@@ -118,7 +130,8 @@ Known good VCSA ISOs
 ----
 
  *  Use the official Centos 8 Stream AMI from AWS
-
+    </br>
+    </br>
      ![image](images/ami.png)
 
  *  Put it on one of the private subnets
@@ -127,7 +140,8 @@ Known good VCSA ISOs
 ----
 
  *  Make sure to fill out the S3BUCKET, S3PREFIX, ADPASSWORD, etc variables at the top appropriately
-
+    </br>
+    </br>
      ![image](images/userdata.png)
 
     What these variables mean:
@@ -170,9 +184,10 @@ Known good VCSA ISOs
     *  download this git repo to the L0
     *  download the ISOs for the VCSA and ESXi installers to the L0
     *  join the L0 to your Active Directory Domain
+    *  install AWS SSM and Cloudwatch agents
     *  inject the variables you set at the top into ./main.sh
-    *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
     *  disable source-dest-check for the instance's networking
+    *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
 
  *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
 
@@ -180,11 +195,13 @@ Known good VCSA ISOs
 ----
 
  *  Disable the source/dest check (under networking) *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
-
+    </br>
+    </br>
      ![image](images/sourcedest.png)
 
  *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance
-
+    </br>
+    </br>
      ![image](images/routes.png)
 
 **11) From your Jump Host, SSH into your EC2 baremetal instance**
@@ -204,14 +221,38 @@ Known good VCSA ISOs
 
       **NOTE: This assumes you used the example userdata script to deploy the L0.  If you did not, you will need to manually run ./main.sh BEFORE ./nested.sh**
 
-**12) From your Jump Host, VNC to the desktop of your EC2 baremetal instance**
+**12) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
   *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0 running on TCP/5911.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build for example.
-
+    </br>
+    </br>
      ![image](images/screenshots/desktop.png)
 
   *  NOTE: It is possible to skip having a Windows jump host by putting your L0 on a public subnet and allowing TCP 5911 inbound.  You can do everything from the L0 desktop.  The reason I don't recommend this by default is most people don't want their L0 right on the internet like that.
+
+**13) From your Windows Jump Host, mount the CIFS shares on your L0**
+----
+
+
+  *  Log in as localhost\root with a password of $ADPASSWORD (whatever you set that to)
+    </br>
+    </br>
+     ![image](images/using/entercreds.png)
+
+  *  Samba exposes 4 shares 
+     *  etc
+        *  /etc directory on the L0
+     *  html
+        *  $ESXIROOT/webserver directory on the L0
+     *  logs
+        *  /var/log directory on the L0
+     *  scripts
+        *  $ESXIROOT on the L0
+    </br>
+    </br>
+
+     ![image](images/using/l0shares.png)   
 
 Tips
 ----
