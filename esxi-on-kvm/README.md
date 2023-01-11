@@ -1,4 +1,4 @@
-# **Nested vSphere on AWS EC2 Baremetal**
+# **vSphere on AWS EC2 Baremetal without VMC**
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
