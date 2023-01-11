@@ -2,6 +2,8 @@
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
+#### maintained by: Sean Howard - darmok.and.jalad@tanagra.uk
+
 [![image](images/using/overall-small.png)](images/using/overall.png)
 
 (click to enlarge)
