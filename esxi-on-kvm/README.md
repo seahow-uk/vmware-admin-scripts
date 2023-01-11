@@ -331,17 +331,19 @@ Known good VCSA ISOs
 
   * Upside: Your logs won't be full of failed attempts for the VCLS control VMs to boot up
 
-  * Workaround:  If you want to use DRS
-   * first change these two values to true in the vCenter's advanced config:
-     * config.vcls.clusters.domain-c8.enabled
-     * config.vcls.clusters.domain-c10.enabled
-  
-       ![image](images/using/vcls-1.png)  
+  * Workaround:  If you want to use DRS:
+     * first change these two values to true in the vCenter's advanced config:
+       * config.vcls.clusters.domain-c8.enabled
+       * config.vcls.clusters.domain-c10.enabled
+    
+         ![image](images/using/vcls-1.png)  
 
-   * SSH to the vcsa and do "shell service-control --restart vmware-vpxd-svcs" [or just bounce the vcsa]
-   * Now edit the VCLS VM's VMX files and set 
-     * FeatMask.vm.cpuid.MWAIT = "Val:0"
+     * SSH to the vcsa and do "shell service-control --restart vmware-vpxd-svcs" [or just bounce the vcsa]
+     * Now edit the VCLS VM's VMX files and set 
+       * FeatMask.vm.cpuid.MWAIT = "Val:0"
 
-       ![image](images/using/vcls-2.png)  
+         ![image](images/using/vcls-2.png)  
+
+     * Wait a few minutes and the VCLS control VMs will power up on their own
 
   * NOTE: This only affects 7.0 and 8.0.  6.7 doesn't use VCLS.
