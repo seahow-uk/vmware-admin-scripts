@@ -229,12 +229,6 @@ Known good VCSA ISOs
 
   *  cd /scripts/vmware-admin-scripts/esxi-on-kvm
 
-  *  vi ./main.sh
-
-      Edit the variables for the DNS IP Address 1 and 2, plus any others which are relevant to you
-
-     ![image](images/main.sh.png)
-
   *  Now kick off the build of the nested environment
 
       ./nested.sh
