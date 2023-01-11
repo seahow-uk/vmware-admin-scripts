@@ -219,8 +219,9 @@ Known good VCSA ISOs
 
       **NOTE: This assumes you used the example userdata script to deploy the L0.  If you did not, you will need to manually run ./main.sh BEFORE ./nested.sh**
 
+</br>
+
 # **Optional items / tips**
-----
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
@@ -270,3 +271,31 @@ Known good VCSA ISOs
 *  bash/build.sh
 
     *  This will recreate them plus install the VCSAs, nested VMs, configure DVSes, etc
+
+</br>
+
+# **Diagrams**
+
+Click each diagram to see the full size version
+
+**1) Networking overview**
+----
+
+  * Logical overview of networking inside a VPC
+    
+    [![image](images/networking/network-overview-small.png)](images/networking/network-overview.png)
+
+**2) iSCSI datastores on the second cluster within a NetApp appliance**
+----
+
+  * If I need to demonstrate a SAN for some reason, I typically deploy a netapp virtual appliance into the second cluster and mount its volumes over iSCSI from the first cluster.
+    
+    [![image](images/networking/esxi-on-kvm-iSCSI-small.png)](images/networking/esxi-on-kvm-iSCSI.png)
+
+**3) VSAN logical**
+----
+
+  * Each ESXi host deploys with 4x unused local SATA disks that can be used to build a VSAN cluster post-deployment
+    
+    [![image](images/networking/esxi-on-kvm-VSAN-small.png)](images/networking/esxi-on-kvm-VSAN.png)
+
