@@ -12,7 +12,7 @@
 #### -> Your choice of vSphere 6.7, 7.0 or 8.0 can be used for the L2 Hypervisor and VCSAs
 #### -> Two clusters of 5 ESXi hosts each are created, and both have DVSes with multiple port groups on the VLANs set up
 #### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
-### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+#### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 
 <br/>
 <br/>
