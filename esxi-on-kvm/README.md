@@ -1,6 +1,6 @@
 # **ESXi on KVM**
 
-## This is a set of scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
+## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
 # **Deployment Steps**
 
