@@ -285,7 +285,7 @@ Click each diagram to see the full size version
     
     [![image](images/networking/network-overview-small.png)](images/networking/network-overview.png)
 
-**2) iSCSI datastores on the second cluster within a NetApp appliance**
+**2) iSCSI logical**
 ----
 
   * If I need to demonstrate a SAN for some reason, I typically deploy a netapp virtual appliance into the second cluster and mount its volumes over iSCSI from the first cluster.
