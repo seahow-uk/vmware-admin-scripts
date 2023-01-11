@@ -318,6 +318,50 @@ Known good VCSA ISOs
     
     [![image](images/networking/esxi-on-kvm-VSAN-small.png)](images/networking/esxi-on-kvm-VSAN.png)
 
+</br>
+
+# **Logs of interest if you have deployment issues**
+
+  * **These log files are created when the EC2 userdata script runs:**
+  
+    * /var/log/cloud-init.log
+    * /var/log/cloud-init-output.log
+    * /var/log/join_l0_to_ad.log
+    </br>
+    If a deployment fails, the first thing to check is if cloud-init.log shows SUCCESS at the bottom
+
+  * **These log files are created when $ESXIROOT/main.sh runs (in this order):**
+
+    * /var/log/configure_l0_env.sh.log
+    * /var/log/configure_l0_packages.sh.log
+    * /var/log/configure_l0_packages_1.log
+    * /var/log/configure_l0_packages_2.log
+    * /var/log/configure_l0_packages_3.log
+    * /var/log/configure_l0_packages_4.log
+    * /var/log/configure_l0_packages_5.log
+    * /var/log/configure_l0_packages_6.log
+    * /var/log/configure_l0_desktop.sh.log
+    * /var/log/configure_libvirt.sh.log
+    * /var/log/configure_ovs.sh.log
+    * /var/log/insertdnsrecords.sh.log
+
+  * **These log files are created when $ESXIROOT/nested.sh runs (in this order):**
+  
+    * /var/log/build.sh.log
+    * /var/log/configure_vcsas.sh.log
+    * /var/log/configure_cluster.sh.log
+    * /var/log/configure_dvs.sh.log
+    * /var/log/configure_esxi.sh.log
+    * /var/log/get_ovas.sh.log
+    * /var/log/configure_workload_vms.sh.log
+
+  * **NOTE:** One of the things the sample userdata script does is set up AWS Cloudwatch to ingest these and many other logs into a Log Stream named after the Instance Id.
+
+    ![image](images/using/cloudwatch.png)
+
+
+</br>
+
 # **Errata**
 
 **1) VCLS is disabled by default**
