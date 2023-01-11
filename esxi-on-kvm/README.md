@@ -227,7 +227,7 @@ Known good VCSA ISOs
 **11) From your Jump Host, SSH into your EC2 baremetal instance**
 ----
 
-  *  cd /scripts/vmware-admin-scripts/esxi-on-kvm
+  *  cd $ESXIROOT
 
   *  Now kick off the build of the nested environment
 
