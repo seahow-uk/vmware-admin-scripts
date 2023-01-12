@@ -17,7 +17,7 @@
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 #### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
 #### -> Several Bitnami appliances are deployed by bash/configure_workload_vms.sh into the ESXi hosts as examples
-#### -> CPU/RAM storage of L2 VMs is good, likely close to non-nested.  Network throughput, however, is constrained.
+#### -> CPU/RAM performance of L2 VMs is good, likely close to non-nested.  Network throughput, however, is constrained.
 
 <br/>
 <br/>
