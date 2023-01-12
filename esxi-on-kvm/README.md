@@ -16,6 +16,8 @@
 #### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 #### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
+#### -> Several Bitnami appliances are deployed by bash/configure_workload_vms.sh into the ESXi hosts as examples
+#### -> CPU/RAM storage of L2 VMs is good, likely close to non-nested.  Network throughput, however, is constrained.
 
 <br/>
 <br/>
@@ -157,6 +159,10 @@ Known good VCSA ISOs
      ![image](images/ami.png)
 
  *  Put it on one of the private subnets
+
+ *  EBS volume - I normally use a 2000 GiB GP3 volume.  
+  
+    *  You could probably drop this to as low as 500 GiB if you don't plan to do VSAN or thick provision many L2 VMs.  I have not tested to find the low bound.
 
 **9) Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prepare the L0 host**
 ----
