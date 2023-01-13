@@ -396,9 +396,9 @@ Known good VCSA ISOs
 ----
 
   * For some reason, the CPU flag MWAIT (aka MONITOR) refuses to pass through KVM.  
-  * 
+  
   * **Problem:** The VCLS control VMs insist on that flag being there for no reason I can divine.  
-  * 
+  
   * **Impact:** DRS is not going to work in 7.0 or 8.0 unless you go into the VMX file of all VCLS control VMs and set the Feature Mask for MWAIT to zero by hand.
   
   * **Workaround:**  If you want to use DRS:
