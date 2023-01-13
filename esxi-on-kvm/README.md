@@ -392,31 +392,23 @@ Known good VCSA ISOs
 [Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
 
-**1) VCLS is disabled by default**
+**1) VCLS control VMs won't boot**
 ----
 
-  * [bash/configure_cluster.sh](bash/configure_cluster.sh) has a section towards the end that disables VCLS on both clusters in both vcenters.
-
-  * I added this because the vcls control VMs have a weird dependency on a cpuid flag called MWAIT that I can't figure out how to make KVM pass through correctly.  It would also be possible to add some logic to modify the .vmx files of the VCLS control VMs to take that ECX mask out, but because they are named dynamically I haven't had time to add that.  
-
-  * **Downside:** Turning off vcls means you cant use DRS (see [this article for more](https://www.yellow-bricks.com/2020/10/09/vmware-vsphere-clustering-services-vcls-considerations-questions-and-answers/))
-
-  * **Upside:** Your logs won't be full of failed attempts for the VCLS control VMs to boot up
-
+  * For some reason, the CPU flag MWAIT (aka MONITOR) refuses to pass through KVM.  
+  * 
+  * **Problem:** The VCLS control VMs insist on that flag being there for no reason I can divine.  
+  * 
+  * **Impact:** DRS is not going to work in 7.0 or 8.0 unless you go into the VMX file of all VCLS control VMs and set the Feature Mask for MWAIT to zero by hand.
+  
   * **Workaround:**  If you want to use DRS:
-     * first change these two values to true in the vCenter's advanced config:
-       * config.vcls.clusters.domain-c8.enabled
-       * config.vcls.clusters.domain-c10.enabled
-    
-         ![image](images/using/vcls-1.png)  
-
-     * SSH to the vcsa and do "shell service-control --restart vmware-vpxd-svcs" [or just bounce the vcsa]
-     * Now edit the VCLS VM's VMX files and set 
+     * Edit the VCLS VM's VMX files and set 
        * FeatMask.vm.cpuid.MWAIT = "Val:0"
 
          ![image](images/using/vcls-2.png)  
 
-     * Wait a few minutes and the VCLS control VMs will power up on their own
+     * Save the VMX file, then wait a few minutes.  That VCLS control VM will power up on its own.
+       * If it doesn't, connect to the ESXi host that has it directly and force it to power on (happens 1:10 times for some reason)
 
   * **NOTE:** This only affects 7.0 and 8.0.
 

@@ -99,18 +99,18 @@ for ((i = 1; i <= 2; i++)); do
     let c3=c3+5
     let c4=c4+5
 
-    # deactivate vcls on the vcenter for both clusters whose morefs will be domain-c8 and domain-c10
-    # I'm doing this because the vcls control VMs have a weird dependency on a cpuid flag called MONITOR that I can't figure out how to make KVM pass through correctly.
-    # Turning off vcls means you cant use DRS in vsphere 7.x or 8.x 
-    #
-    # For more details: https://www.yellow-bricks.com/2020/10/09/vmware-vsphere-clustering-services-vcls-considerations-questions-and-answers/
-    # If you don't turn off vcls with this command it doesn't hurt anything but your log will be full of boot failures
-    #
+    # # deactivate vcls on the vcenter for both clusters whose morefs will be domain-c8 and domain-c10
+    # # I'm doing this because the vcls control VMs have a weird dependency on a cpuid flag called MONITOR that I can't figure out how to make KVM pass through correctly.
+    # # Turning off vcls means you cant use DRS in vsphere 7.x or 8.x 
+    # #
+    # # For more details: https://www.yellow-bricks.com/2020/10/09/vmware-vsphere-clustering-services-vcls-considerations-questions-and-answers/
+    # # If you don't turn off vcls with this command it doesn't hurt anything but your log will be full of boot failures
+    # #
 
-    if [ "$VSPHEREVERSION" != "6.7" ]; then
-        sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell sed -i 's/<\/task>/<\/task><vcls><clusters><domain-c10><enabled>false<\/enabled><\/domain-c10><domain-c8><enabled>false<\/enabled><\/domain-c8><\/clusters><\/vcls>/g' /etc/vmware-vpx/vpxd.cfg"
-        sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell service-control --restart vmware-vpxd-svcs"
-    fi
+    # if [ "$VSPHEREVERSION" != "6.7" ]; then
+    #     sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell sed -i ""s/<\/task>/<\/task><vcls><clusters><domain-c10><enabled>false<\/enabled><\/domain-c10><domain-c8><enabled>false<\/enabled><\/domain-c8><\/clusters><\/vcls>/g"" /etc/vmware-vpx/vpxd.cfg"
+    #     sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell service-control --restart vmware-vpxd-svcs"
+    # fi
 
 done
 
