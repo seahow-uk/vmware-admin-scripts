@@ -222,7 +222,7 @@ Known good VCSA ISOs
 
  *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
 
-**10) Once the EC2 baremetal instance is deployed, you need to make a couple of modifications to it**
+**10) Post-deployment network adjustments to support the nested OpenvSwitch**
 ----
 
  *  Disable the source/dest check (under networking) *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
