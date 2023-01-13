@@ -1,5 +1,11 @@
 #!/bin/bash
 
+	  mkdir -p $ESXIROOT/OVA/odoo
+  	mkdir -p $ESXIROOT/OVA/resourcespace
+    mkdir -p $ESXIROOT/OVA/suitecrm
+    mkdir -p $ESXIROOT/OVA/mysql
+    mkdir -p $ESXIROOT/OVA/wordpress
+
 ## download WordPress virtual appliance
 
   wget https://bitnami.com/redirect/to/1160995/bitnami-wordpress-5.5.1-1-linux-debian-10-x86_64.ova -O $ESXIROOT/OVA/wordpress/bitnami-wordpress-5.5.1-1-linux-debian-10-x86_64.ova

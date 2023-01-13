@@ -38,7 +38,7 @@
 	mkdir -p $ESXIROOT/VMs/esxi-hostlogs
     mkdir -p $ESXIROOT/VMs/vcsa-backups
 	mkdir -p $ESXIROOT/OVA/odoo
-  	mkdir -p $ESXIROOT/OVA/resourcespsace
+  	mkdir -p $ESXIROOT/OVA/resourcespace
     mkdir -p $ESXIROOT/OVA/suitecrm
     mkdir -p $ESXIROOT/OVA/mysql
     mkdir -p $ESXIROOT/OVA/wordpress
