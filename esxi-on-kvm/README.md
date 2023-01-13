@@ -2,7 +2,8 @@
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
-#### maintained by: Sean Howard - darmok.and.jalad@tanagra.uk
+|by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#Deployment)|[Optional/Tips](#Tips)|[Troubleshooting](#Logs)|
+|--|--|--|--|--|
 
 ![image](images/using/overall-small.png)
 
@@ -22,7 +23,7 @@
 </br>
 
 
-# **Deployment Steps**
+# **Deployment Steps**<a name="Deployment"></a>
 
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
@@ -244,7 +245,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Optional items / tips**
+# **Optional items / tips**<a name="Tips"></a>
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
@@ -297,7 +298,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Diagrams**
+# **Diagrams**<a name="Diagrams"></a>
 
 *Click each diagram to see the full size version*
 
@@ -337,7 +338,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Logs of interest if you have deployment issues**
+# **Logs of interest if you have deployment issues**<a name="Logs"></a>
 
   * **These log files are created when the EC2 userdata script runs:**
   
@@ -379,7 +380,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Errata**
+# **Errata**<a name="Errata"></a>
 
 **1) VCLS is disabled by default**
 ----
