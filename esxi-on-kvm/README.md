@@ -5,9 +5,9 @@
 by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Using](#using-the-nested-environment)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
 |--|--|--|--|--|--|--|
 
-![image](images/using/overall-small.png)
 
-</br>
+
+
 
 ![image](images/L0-L1-L2.png)
 #### -> Centos 8.x Stream is used as the L0 Operating System, from the AWS official AMI
@@ -22,6 +22,8 @@ by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment]
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 </br>
 
+![image](images/using/overall-small.png)
+</br>
 
 # **Deployment Steps** 
 [Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
