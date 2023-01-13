@@ -9,17 +9,16 @@
 </br>
 
 ![image](images/L0-L1-L2.png)
-#### -> Centos 8 Stream is used as the L0 Operating System
-#### -> QEMU-KVM is used for the L1 Hypervisor
-#### -> Your choice of vSphere 6.7, 7.0 or 8.0 can be used for the L2 Hypervisor and VCSAs
-#### -> Two clusters of 5 ESXi hosts each are created, and both have DVSes with multiple port groups on the VLANs set up
-#### -> OpenvSwitch is used to simulate a real networking environment with VLANs and routing inside the L0
-#### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
-#### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+#### -> Centos 8.x Stream is used as the L0 Operating System, from the AWS official AMI
+#### -> QEMU-KVM 6.x is used for the L1 Hypervisor, using libvirtd + OpenvSwitch for nested VLANs/routing
+#### -> Your choice of vSphere 6.7, 7.0 or 8.0 is installed into QEMU-KVM VMs to act as the L2 Hypervisors
+#### -> 2x clusters of 5x ESXi hosts each are created, each cluster has its own vCenter Server Appliance
+#### -> NFS exports on the L0 act as the default datastores for the L2 VMs, but VSAN and iSCSI can be enabled optionally
 #### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
 #### -> Several Bitnami appliances (mySQL, etc) are deployed into the ESXi hosts as example L2 VMs
 #### -> CPU performance on the L2 VMs is great, but as there are 10x ESXi hosts, those VMs are all <= 2 VCPU each.
 #### -> ESXi hosts use 6x e1000s as pnics.  Any individual flow leaving an L1 ESXi VM is therefore limited to 1Gbps.
+#### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 </br>
 
 
@@ -309,6 +308,19 @@ Known good VCSA ISOs
     
     [![image](images/networking/network-overview-small.png)](images/networking/network-overview.png)
 
+  * Note that there are 7 pnics on each ESXi host 
+    * The first one, vmnic0, is untagged on VLAN 20
+      * This pnic is only used while the environment is being built
+    * All others, vmnic1-vmnic6, are tagged for all VLANs
+      * VLAN 20 = Management VMkernel IPs, vCenter Server Appliances (192.168.20.0/24)
+      * VLAN 30 = Application VMs (192.168.30.0/24)
+      * VLAN 40 = Database VMs (192.168.40.0/24)
+      * VLAN 50 = vMotion VMkernel (192.168.50.0/24)
+      * VLAN 60 = VSAN VMkernel (192.168.60.0/24)
+      * VLAN 70 = iSCSI VMkernel (192.168.70.0/24)
+    * Each VLAN uses .1 as its gateway, which is a virtual port inside ovs-br0 (similar to a Cisco SVI)
+      * No firewall rules or routing restrictions are applied on ovs-br0, everything can route freely
+  
 **2) iSCSI logical**
 ----
 
