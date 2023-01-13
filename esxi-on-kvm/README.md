@@ -23,7 +23,8 @@
 </br>
 
 
-# **Deployment Steps**
+# **Deployment Steps** 
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
@@ -246,6 +247,7 @@ Known good VCSA ISOs
 </br>
 
 # **Optional items / tips**
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
@@ -299,6 +301,7 @@ Known good VCSA ISOs
 </br>
 
 # **Diagrams**
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
 *Click each diagram to see the full size version*
 
@@ -339,6 +342,7 @@ Known good VCSA ISOs
 </br>
 
 # **Logs of interest if you have deployment issues**
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
   * **These log files are created when the EC2 userdata script runs:**
   
@@ -381,6 +385,7 @@ Known good VCSA ISOs
 </br>
 
 # **Errata**
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
 **1) VCLS is disabled by default**
 ----
