@@ -108,8 +108,9 @@ for ((i = 1; i <= 2; i++)); do
     # #
 
     # if [ "$VSPHEREVERSION" != "6.7" ]; then
-    #     sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell sed -i ""s/<\/task>/<\/task><vcls><clusters><domain-c10><enabled>false<\/enabled><\/domain-c10><domain-c8><enabled>false<\/enabled><\/domain-c8><\/clusters><\/vcls>/g"" /etc/vmware-vpx/vpxd.cfg"
-    #     sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell service-control --restart vmware-vpxd-svcs"
+        #    MYCOMMAND="s\\\|\\\</task\\\>\\\|\\\</task\\\>\\\<vcls\\\>\\\<clusters\\\>\\\<domain-c10\\\>\\\<enabled\\\>False\\\</enabled\\\>\\\</domain-c10\\\>\\\<domain-c8\\\>\\\<enabled\\\>False\\\</enabled\\\>\\\</domain-c8\\\>\\\</clusters\\\>\\\</vcls\\\>\\\|g"
+        #    sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell sed -i '${MYCOMMAND}' /etc/vmware-vpx/vpxd.cfg"
+        #    sshpass -p "$HOSTPASSWORD" ssh "$VCSAHOST" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "shell reboot"
     # fi
 
 done

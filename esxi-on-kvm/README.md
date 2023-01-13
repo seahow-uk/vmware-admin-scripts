@@ -400,18 +400,21 @@ Known good VCSA ISOs
   
   * **Problem:** The VCLS control VMs insist on that flag being there for no reason I can divine.  
   
-  * **Impact:** DRS is not going to work in 7.0 or 8.0 unless you go into the VMX file of all VCLS control VMs and set the Feature Mask for MWAIT to zero by hand.
+  * **Impact:** DRS is not going to work in 7.0 or 8.0 unless you go into the VMX file of all VCLS control VMs and set the Feature Mask for MWAIT to zero by hand.  If you don't need DRS, you can just ignore the errors.
   
-  * **Workaround:**  If you want to use DRS:
-     * Edit the VCLS VM's VMX files and set 
-       * FeatMask.vm.cpuid.MWAIT = "Val:0"
+  * **Workaround 1:**  If you want to use DRS:
+    * Edit the VCLS VM's VMX files and set 
+      * FeatMask.vm.cpuid.MWAIT = "Val:0"
 
-         ![image](images/using/vcls-2.png)  
+        ![image](images/using/vcls-2.png)  
 
-     * Save the VMX file, then wait a few minutes.  That VCLS control VM will power up on its own.
-       * If it doesn't, connect to the ESXi host that has it directly and force it to power on (happens 1:10 times for some reason)
+    * Save the VMX file, then wait a few minutes.  That VCLS control VM will power up on its own.
+    * If it doesn't, connect to the ESXi host that has it directly and force it to power on (happens 1:10 times for some reason)
 
-  * **NOTE:** This only affects 7.0 and 8.0.
+  * **Workaround 2:**  If you don't care about DRS but want to stop the VCLS boot failures from spamming the logs
+    * Take a look at [this article on yellow-bricks](https://www.yellow-bricks.com/2020/10/27/demo-time-how-to-delete-the-vcls-vms/) to disable VCLS completely
+
+  **NOTE:** This only affects 7.0 and 8.0.
 
 </br>
 
