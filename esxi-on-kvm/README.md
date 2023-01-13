@@ -4,7 +4,7 @@
 
 #### maintained by: Sean Howard - darmok.and.jalad@tanagra.uk
 
-[![image](images/using/overall-small.png)](images/using/overall.png)
+![image](images/using/overall-small.png)
 
 (click to enlarge)
 
@@ -16,13 +16,12 @@
 #### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 #### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
-#### -> Several Bitnami appliances are deployed by bash/configure_workload_vms.sh into the ESXi hosts as examples
-#### -> CPU/RAM performance of L2 VMs is good, likely close to non-nested.  Network throughput, however, is constrained.
+#### -> Several Bitnami appliances (mySQL, etc) are deployed into the ESXi hosts as example L2 VMs
+#### -> CPU performance on the L2 VMs is great, but as there are 10x ESXi hosts, those VMs are all <= 2 VCPU each.
+#### -> ESXi hosts use 6x e1000s as pnics.  Any individual flow leaving an L1 ESXi VM is therefore limited to 1Gbps.
+</br>
 
-<br/>
-<br/>
-
-
+![image](images/L0-L1-L2.png)
 
 # **Deployment Steps**
 
