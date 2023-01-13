@@ -6,13 +6,14 @@
 
 ![image](images/using/overall-small.png)
 
-(click to enlarge)
+</br>
 
-#### -> OpenvSwitch is used to simulate a real networking environment with VLANs and routing inside the L0
+![image](images/L0-L1-L2.png)
 #### -> Centos 8 Stream is used as the L0 Operating System
 #### -> QEMU-KVM is used for the L1 Hypervisor
 #### -> Your choice of vSphere 6.7, 7.0 or 8.0 can be used for the L2 Hypervisor and VCSAs
 #### -> Two clusters of 5 ESXi hosts each are created, and both have DVSes with multiple port groups on the VLANs set up
+#### -> OpenvSwitch is used to simulate a real networking environment with VLANs and routing inside the L0
 #### -> NFS exports on the L0 act as the default datastores for L2 VMs, but VSAN and iSCSI can be enabled optionally
 #### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 #### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
@@ -21,7 +22,6 @@
 #### -> ESXi hosts use 6x e1000s as pnics.  Any individual flow leaving an L1 ESXi VM is therefore limited to 1Gbps.
 </br>
 
-![image](images/L0-L1-L2.png)
 
 # **Deployment Steps**
 
