@@ -2,8 +2,8 @@
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
-|by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#Deployment)|[Optional/Tips](#Tips)|[Troubleshooting](#Logs)|
-|--|--|--|--|--|
+|by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
+|--|--|--|--|--|--|
 
 ![image](images/using/overall-small.png)
 
@@ -23,7 +23,7 @@
 </br>
 
 
-# **Deployment Steps**<a name="Deployment"></a>
+# **Deployment Steps**
 
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
@@ -245,7 +245,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Optional items / tips**<a name="Tips"></a>
+# **Optional items / tips**
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
@@ -298,7 +298,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Diagrams**<a name="Diagrams"></a>
+# **Diagrams**
 
 *Click each diagram to see the full size version*
 
@@ -338,7 +338,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Logs of interest if you have deployment issues**<a name="Logs"></a>
+# **Logs of interest if you have deployment issues**
 
   * **These log files are created when the EC2 userdata script runs:**
   
@@ -380,7 +380,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Errata**<a name="Errata"></a>
+# **Errata**
 
 **1) VCLS is disabled by default**
 ----
