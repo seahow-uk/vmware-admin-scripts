@@ -1,6 +1,6 @@
 # **vSphere on AWS EC2 Baremetal without VMC**
 
-## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
+## Scripts to deploy a nested VMware environment onto an AWS EC2 .metal instance
 
 by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Using](#using-the-nested-environment)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
 |--|--|--|--|--|--|--|
