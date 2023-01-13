@@ -244,7 +244,8 @@ Known good VCSA ISOs
 
       ./nested.sh
 
-      **NOTE: This assumes you used the example userdata script to deploy the L0.  If you did not, you will need to manually run ./main.sh BEFORE ./nested.sh**
+      **NOTE: This assumes you used the example userdata script to deploy the L0**
+        *   If you did not, you will need to manually edit and run ./main.sh BEFORE ./nested.sh
 
 </br>
 
