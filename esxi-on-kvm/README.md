@@ -2,6 +2,8 @@
 
 ## Scripts to deploy a nested VMware environment onto an AWS EC2 .metal instance
 
+#### Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+
 by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Using](#using-the-nested-environment)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
 |--|--|--|--|--|--|--|
 
@@ -14,12 +16,11 @@ by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment]
 #### -> QEMU-KVM 6.x is used for the L1 Hypervisor, using libvirtd + OpenvSwitch for nested VLANs/routing
 #### -> Your choice of vSphere 6.7, 7.0 or 8.0 is installed into QEMU-KVM VMs to act as the L2 Hypervisors
 #### -> 2x clusters of 5x ESXi hosts each are created, each cluster has its own vCenter Server Appliance
-#### -> NFS exports on the L0 act as the default datastores for the L2 VMs, but VSAN and iSCSI can be enabled optionally
-#### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
 #### -> Several Bitnami appliances (mySQL, etc) are deployed into the ESXi hosts as example L2 VMs
-#### -> CPU performance on the L2 VMs is great, but as there are 10x ESXi hosts, those VMs are all <= 2 VCPU each.
-#### -> ESXi hosts use 6x e1000s as pnics.  Any individual flow leaving an L1 ESXi VM is therefore limited to 1Gbps.
-#### -> Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+#### -> CPU performance on the L2 VMs is great, but as there are 10x ESXi hosts, those VMs are small (<= 2 VCPU each)
+#### -> NFS exports on the L0 act as the default datastores for the L2 VMs, but VSAN and iSCSI can be enabled optionally
+#### -> ESXi hosts use 6x e1000s as pnics.  Any individual flow leaving an L1 ESXi VM is therefore limited to 1Gbps
+#### -> Designed to run on an m5zn.metal, which is $3.96/hr (on-demand) - great to deploy for an afternoon of labs then terminate
 </br>
 
 ![image](images/using/overall-small.png)
