@@ -2,8 +2,8 @@
 
 ## Scripts which will deploy a nested VMware environment onto an AWS EC2 baremetal server
 
-|by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
-|--|--|--|--|--|--|
+by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Using](#using-the-nested-environment)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
+|--|--|--|--|--|--|--|
 
 ![image](images/using/overall-small.png)
 
@@ -248,6 +248,7 @@ Known good VCSA ISOs
 
 # **Optional items / tips**
 [Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
@@ -387,6 +388,7 @@ Known good VCSA ISOs
 # **Errata**
 [Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
+
 **1) VCLS is disabled by default**
 ----
 
@@ -414,3 +416,34 @@ Known good VCSA ISOs
      * Wait a few minutes and the VCLS control VMs will power up on their own
 
   * **NOTE:** This only affects 7.0 and 8.0.
+
+</br>
+
+# **Using the Nested Environment**
+[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+</br>
+
+   ![image](images/using/login-sso.png)
+
+  * log in as administrator@lab1.local (vCSA #1)
+  * log in as administrator@lab2.local (vCSA #2)
+
+</br>
+
+   ![image](images/using/vcenter-first-login.png)
+
+  * esxi1-5 are lab1.local
+  * esxi6-10 are lab2.local
+
+</br>
+
+   ![image](images/using/dvs-first-login.png)
+  
+  * Each management and compute cluster has its own Distributed Virtual Switch
+
+</br>
+
+   ![image](images/using/local-disks.png)
+
+  * Blue = Unused local disks on each ESXi host - these can be used to form a VSAN cluster
+  * Red = Local datastore - don't mess with, this is where the vCSA keeps its files
