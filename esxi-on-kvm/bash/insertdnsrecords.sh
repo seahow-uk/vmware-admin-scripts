@@ -54,6 +54,7 @@ echo -e "zone $DNSDOMAIN.\nupdate add mssql-01a.$DNSDOMAIN 86400 A 192.168.40.23
 echo -e "zone $DNSDOMAIN.\nupdate add vtl-01a.$DNSDOMAIN 86400 A 192.168.20.250\n\nsend" | nsupdate -g
 echo -e "zone $DNSDOMAIN.\nupdate add fas2040-01a.$DNSDOMAIN 86400 A 192.168.20.80\n\nsend" | nsupdate -g
 echo -e "zone $DNSDOMAIN.\nupdate add vnx-01a.$DNSDOMAIN 86400 A 192.168.20.225\n\nsend" | nsupdate -g
+echo -e "zone $DNSDOMAIN.\nupdate add vnx-01a.$DNSDOMAIN 86400 A 192.168.20.225\n\nsend" | nsupdate -g
 
 # add PTR record to ad dns (only vcsa REALLY needs this)
 echo -e "add 236.20.168.192.in-addr.arpa. 86400 PTR veeam-01a.$DNSDOMAIN.\nsend" | nsupdate -g

@@ -42,6 +42,7 @@
     mkdir -p $ESXIROOT/OVA/suitecrm
     mkdir -p $ESXIROOT/OVA/mysql
     mkdir -p $ESXIROOT/OVA/wordpress
+	mkdir -p $ESXIROOT/OVA/lampstack
 	mkdir -p $ESXIROOT/data/esxi-screenshots/kvm-config
 	mkdir -p $ESXIROOT/data/esxi-screenshots/postboot
 	mkdir -p $ESXIROOT/data/esxi-screenshots/postbuild

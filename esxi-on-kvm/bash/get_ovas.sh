@@ -5,6 +5,7 @@
     mkdir -p $ESXIROOT/OVA/suitecrm
     mkdir -p $ESXIROOT/OVA/mysql
     mkdir -p $ESXIROOT/OVA/wordpress
+    mkdir -p $ESXIROOT/OVA/lampstack
 
 ## download WordPress virtual appliance
 
@@ -25,5 +26,9 @@
 ## download resourcespace virtual appliance
 
   wget https://bitnami.com/redirect/to/1129319/bitnami-resourcespace-9.3.15737-0-linux-debian-10-x86_64.ova -O $ESXIROOT/OVA/resourcespace/bitnami-resourcespace-9.3.15737-0-linux-debian-10-x86_64.ova
+
+## download LAMP virtual appliance
+
+  wget https://bitnami.com/redirect/to/2261033/bitnami-lampstack-8.2.1-1-r01-linux-vm-debian-11-x86_64-nami.ova -O $ESXIROOT/OVA/lampstack/bitnami-lampstack-8.2.1-1-r01-linux-vm-debian-11-x86_64-nami.ova
 
 exit 0
