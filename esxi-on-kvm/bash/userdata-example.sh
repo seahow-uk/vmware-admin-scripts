@@ -77,11 +77,28 @@ mkdir -p $ESXIROOT/ISO/vcsa
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
 aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
 
-# Turn off source-dest-check
+# Get needed information from instance metadata
 EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
 EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed 's/[a-z]$//'`"
-INSTANCEID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
-aws ec2 modify-instance-attribute --instance-id=$INSTANCEID --no-source-dest-check --region=$EC2_REGION
+EC2_INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+EC2_MAC_LIST=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs`
+EC2_MAC_ID=${EC2_MAC_LIST:0:17}
+EC2_PRIMARY_ENI_ID=`aws ec2 describe-network-interfaces --region $EC2_REGION --filters Name=mac-address,Values=${EC2_MAC_ID} --query "NetworkInterfaces[0].NetworkInterfaceId" --output text`
+EC2_VPC_ID=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/${EC2_MAC_ID}/vpc-id`
+EC2_ROUTE_TABLE_ARRAY=`aws ec2 describe-route-tables --filters "Name=vpc-id,Values=${EC2_VPC_ID}" --query "RouteTables[].Associations[].RouteTableId" --region=${EC2_REGION} |jq -r .[] |sort|uniq`
+
+# Turn off source-dest-check on the first ENI of this instance (eth0)
+aws ec2 modify-network-interface-attribute --network-interface-id $EC2_PRIMARY_ENI_ID --source-dest-check "{\"Value\": false}" --region $EC2_REGION
+
+# Loop over all route tables in this VPC
+for EC2_ROUTE_TABLE_ID in $EC2_ROUTE_TABLE_ARRAY
+do
+    # first remove any existing route for 192.168.0.0/16
+    aws ec2 delete-route --route-table-id $EC2_ROUTE_TABLE_ID --destination-cidr-block 192.168.0.0/16 --region $EC2_REGION
+
+    # add a route for 192.168.0.0/16 to the primary ENI ID for this routing table
+    aws ec2 create-route --route-table-id $EC2_ROUTE_TABLE_ID --destination-cidr-block 192.168.0.0/16 --network-interface-id $EC2_PRIMARY_ENI_ID --region $EC2_REGION
+done
 
 # This is needed for SSM's Connection Manager feature to work
 useradd ec2-user 

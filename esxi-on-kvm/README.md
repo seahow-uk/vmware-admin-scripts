@@ -2,14 +2,11 @@
 
 ## Scripts to deploy a nested VMware environment onto an AWS EC2 .metal instance
 
-#### Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+### Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
 
-by: Sean Howard - darmok.and.jalad@tanagra.uk|[Diagrams](#Diagrams)|[Deployment](#deployment-steps)|[Optional](#optional-items--tips)|[Using](#using-the-nested-environment)|[Troubleshooting](#Logs-of-interest-if-you-have-deployment-issues)|[Errata](#errata)
-|--|--|--|--|--|--|--|
+Sean Howard - *darmok.and.jalad@tanagra.uk*
 
-
-
-
+Navigation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [**Diagrams**](#Diagrams)&nbsp;&nbsp;&nbsp;[**Deploy**](#deployment-steps)&nbsp;&nbsp;&nbsp;[**Options**](#optional-items--tips)&nbsp;&nbsp;&nbsp;[**Using**](#using-the-nested-environment)&nbsp;&nbsp;&nbsp;[**Logs**](#Logs-of-interest-if-you-have-deployment-issues)&nbsp;&nbsp;&nbsp;[**Errata**](#errata)
 
 ![image](images/L0-L1-L2.png)
 #### -> Centos 8.x Stream is used as the L0 Operating System, from the AWS official AMI
@@ -116,11 +113,15 @@ Known good VCSA ISOs
 **5) Set up a VPC**
 ----
 
-*  Give it two private and two public subnets (minimum)
+*  Give it two private and two public subnets - DO NOT USE 192.168.X.X CIDR BLOCKS
 
     *   The two privates are needed because you will be deploying AWS Managed Active Directory, and that requires two domain controllers on different subnets
 
     *   The public subnets are needed for your NAT gateway and jump host
+
+    *   You must ensure your VPC's CIDR block is not 192.168.x  That is because 192.168.0.0/16 is used for the nested network inside the L0
+
+        * 172.x and 10.x are fine
 
 *   Deploy at least one NAT Gateway
 
@@ -218,7 +219,8 @@ Known good VCSA ISOs
     *  join the L0 to your Active Directory Domain
     *  install AWS SSM and Cloudwatch agents
     *  inject the variables you set at the top into ./main.sh
-    *  disable source-dest-check for the instance's networking
+    *  disable source-dest-check for the first/primary ENI on the instance (in case you have more than one)
+    *  replace/inject routes for 192.168.0.0/16 to the primary ENI on this instance for *all* routing tables in this VPC
     *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
 
  *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
@@ -226,12 +228,14 @@ Known good VCSA ISOs
 **10) Post-deployment network adjustments to support the nested OpenvSwitch**
 ----
 
- *  Disable the source/dest check (under networking) *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
+ *  Disable the source/dest check (under networking) 
+    *  *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
     </br>
     </br>
      ![image](images/sourcedest.png)
 
- *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance
+ *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance 
+    *  *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
     </br>
     </br>
      ![image](images/routes.png)
