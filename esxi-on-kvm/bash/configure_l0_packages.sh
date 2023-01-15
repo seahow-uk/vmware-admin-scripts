@@ -176,7 +176,7 @@
 	deactivate
 
   ## install esxcli
-	chmod 700 $ESXCLIFILE
+	chmod 700 $ESXIROOT/$ESXCLIFILE
 	$ESXIROOT/expect/installesxcli.sh
 
   ## this section installs needed prereqs plus OVS
