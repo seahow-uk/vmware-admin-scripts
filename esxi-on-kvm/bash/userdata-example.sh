@@ -50,7 +50,7 @@ dnf update -y
 
 # install the packages we're going to need prior to running main.shn
 dnf install python39 -y
-dnf install wget git awscli krb5-workstation sssd realmd samba curl -y
+dnf install wget git awscli krb5-workstation sssd realmd samba curl jq -y
 
 # install the AWS SSM agent
 dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
