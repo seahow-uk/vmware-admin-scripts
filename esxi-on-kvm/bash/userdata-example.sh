@@ -34,7 +34,7 @@ SSOPASSWORD="Aws2022@"
 
 ## You'll need to hack the scripts to change this so I'd just leave it alone for now
 
-ESXIROOT="/scripts/vmware-admin-scripts/esxi-on-kvm/"
+ESXIROOT="/scripts/vmware-admin-scripts/esxi-on-kvm"
 
 ## I hope you filled those out and prestaged the files or the rest of this won't work
 
@@ -108,7 +108,7 @@ sed -i "s/%wheel/#wheel/g" /etc/sudoers
 sed -i "s/# #wheel/%wheel/g" /etc/sudoers
 
 # This sets the root password on L0 to match your ADPASSWORD variable so you can mount the CIFS shares Samba exposes from your jump host
-$ESXIROOT/expect/installesxcli.sh
+$ESXIROOT/expect/setpassroot.sh
 
 # This pushes all the variables above into main.sh
 sed -i "0,/DNSIPADDRESS1=/ s/DNSIPADDRESS1=/DNSIPADDRESS1=$DNSIPADDRESS1/" $ESXIROOT/main.sh
