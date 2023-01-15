@@ -125,6 +125,8 @@ Known good VCSA ISOs
 
 *   Deploy at least one NAT Gateway
 
+    *   Needed so the L0 and VMs inside it can get updates from DNF/YUM repos on the internet
+
 *   Create two Routing Tables, one for the public and one for the private subnets
 
     *   Set the Private routing table to use the NAT Gateway as the route for 0.0.0.0/0
