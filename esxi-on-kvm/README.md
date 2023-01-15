@@ -110,16 +110,16 @@ Known good VCSA ISOs
 
     NOTE: You don't need all three like I have, just whichever one you want to use
 
-**5) Set up a VPC**
+**5) Set up a VPC - DO NOT USE 192.168.X.X CIDR BLOCK**
 ----
 
-*  Give it two private and two public subnets - DO NOT USE 192.168.X.X CIDR BLOCKS
+*  Give it two private and two public subnets
 
     *   The two privates are needed because you will be deploying AWS Managed Active Directory, and that requires two domain controllers on different subnets
 
     *   The public subnets are needed for your NAT gateway and jump host
 
-    *   You must ensure your VPC's CIDR block is not 192.168.x  That is because 192.168.0.0/16 is used for the nested network inside the L0
+    *   You must ensure your VPC's CIDR block is not 192.168.x because 192.168.0.0/16 is used for the nested network inside the L0
 
         * 172.x and 10.x are fine
 
