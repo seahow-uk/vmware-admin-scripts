@@ -92,6 +92,7 @@
     ## turn on network services
 
     systemctl enable nfs-server
+    systemctl enable nfsdcld
     systemctl enable rpcbind
     systemctl enable httpd
     systemctl enable dhcpd
@@ -105,6 +106,7 @@
     systemctl start dhcpd
     systemctl start smb
     systemctl start nmb
+    systemctl start nfsdcld
 
     ## diagnostic info in case dhcpd startup fails (it is strangely fragile)
     #systemctl status dhcpd.service
