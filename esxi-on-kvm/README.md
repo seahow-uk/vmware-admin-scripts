@@ -6,7 +6,7 @@
 
 Sean Howard - *darmok.and.jalad@tanagra.uk*
 
-Navigation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [**Diagrams**](#Diagrams)&nbsp;&nbsp;&nbsp;[**Deploy**](#deployment-steps)&nbsp;&nbsp;&nbsp;[**Options**](#optional-items--tips)&nbsp;&nbsp;&nbsp;[**Using**](#using-the-nested-environment)&nbsp;&nbsp;&nbsp;[**Logs**](#Logs-of-interest-if-you-have-deployment-issues)&nbsp;&nbsp;&nbsp;[**Errata**](#errata)
+[**[Diagrams]**](#diagrams)&nbsp;&nbsp;&nbsp; [**[Deploy]**](#deployment-steps)&nbsp;&nbsp;&nbsp; [**[Options]**](#optional-items--tips)&nbsp;&nbsp;&nbsp; [**[Using]**](#using-the-nested-environment)&nbsp;&nbsp;&nbsp; [**[Logs]**](#logs) &nbsp;&nbsp;&nbsp; [**[Errata]**](#errata)
 
 ![image](images/L0-L1-L2.png)
 #### -> Centos 8.x Stream is used as the L0 Operating System, from the AWS official AMI
@@ -356,7 +356,7 @@ Known good VCSA ISOs
 
 </br>
 
-# **Logs of interest if you have deployment issues**
+# **Logs**
 [Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
 
   * **These log files are created when the EC2 userdata script runs:**
