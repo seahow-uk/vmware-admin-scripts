@@ -232,14 +232,12 @@ Known good VCSA ISOs
 
  *  Disable the source/dest check (under networking) 
     *  *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
-    </br>
-    </br>
+      </br>
      ![image](images/sourcedest.png)
 
  *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance 
     *  *[NOTE: Not necessary if you used the bash/userdata-example.sh from Step 9]*
-    </br>
-    </br>
+      </br>
      ![image](images/routes.png)
 
 **11) From your Jump Host, SSH into your EC2 baremetal instance**
