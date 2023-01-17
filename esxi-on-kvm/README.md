@@ -24,7 +24,7 @@ Sean Howard - *darmok.and.jalad@tanagra.uk*
 </br>
 
 # **Deployment Steps** 
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 
 NOTE: I realize it is obnoxious to have to separately download these ISOs from VMware, but it would be illegal for me to distribute them myself.  
 
@@ -261,7 +261,7 @@ Known good VCSA ISOs
 </br>
 
 # **Optional items / tips**
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
@@ -316,7 +316,7 @@ Known good VCSA ISOs
 </br>
 
 # **Diagrams**
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 
 *Click each diagram to see the full size version*
 
@@ -357,7 +357,7 @@ Known good VCSA ISOs
 </br>
 
 # **Logs**
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 
   * **These log files are created when the EC2 userdata script runs:**
   
@@ -400,7 +400,7 @@ Known good VCSA ISOs
 </br>
 
 # **Errata**
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 
 
 **1) VCLS control VMs won't boot**
@@ -429,7 +429,7 @@ Known good VCSA ISOs
 </br>
 
 # **Using the Nested Environment**
-[Back to Top](#vSphere-on-AWS-EC2-Baremetal-without-VMC)
+[**[Back to Top]**](#vsphere-on-aws-ec2-baremetal-without-vmc)
 </br>
 
    ![image](images/using/login-sso.png)
