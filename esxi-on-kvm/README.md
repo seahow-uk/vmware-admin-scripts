@@ -64,13 +64,9 @@ Known good VCSA ISOs
 **3) Modify the ESXi vmvisor installer ISO to make it do an unattended/kickstart install**
 ----
 
-*   Using a tool such as [UltraISO](https://www.ultraiso.com/), edit two files.  First is \BOOT.CFG and the second is \EFI\BOOT\BOOT.CFG.  
+*   Using a tool such as [UltraISO](https://www.ultraiso.com/), edit two files.  First is \BOOT.CFG and the second is \EFI\BOOT\BOOT.CFG.</br>(**click on each image to zoom**)  
 
-
-    ![image](images/kickstart-iso/boot.png)   
-
-
-    ![image](images/kickstart-iso/efiboot.png)   
+    [![image](images/kickstart-iso/bootsmall.png)](images/kickstart-iso/boot.png) [![image](images/kickstart-iso/efibootsmall.png)](images/kickstart-iso/efiboot.png) 
 
 *   Both files are identical, and you need to make the same change to both files in all versions of the vmvisor ISO before uploading it to S3.
     * Change this line:
@@ -96,22 +92,24 @@ Known good VCSA ISOs
 **4) Set up an S3 bucket**
 ----
 
-*  Upload the VCSA ISOs for 6.7, 7.0, and 8.0 into it
-    </br>
-    </br>
-    ![image](images/kickstart-iso/s3vcsa.png)
+*  Upload the VCSA ISOs for 6.7, 7.0, and 8.0 into it</br>(**click on image to zoom**)
+
+    [![image](images/kickstart-iso/s3vcsasmall.png)](images/kickstart-iso/s3vcsa.png)
 
     NOTE: You don't need all three like I have, just whichever one you are going to deploy
 
-*  Upload the **modified ISOs** for ESXI 6.7, 7.0, and 8.0 into it
-    </br>
-    </br>
-    ![image](images/kickstart-iso/s3esxi.png)
+*  Upload the **modified ISOs** for ESXI 6.7, 7.0, and 8.0 into it</br>(**click on image to zoom**)
+
+    [![image](images/kickstart-iso/s3esxismall.png)](images/kickstart-iso/s3esxi.png)
 
     NOTE: You don't need all three like I have, just whichever one you want to use
 
 **5) Set up a VPC - DO NOT USE 192.168.X.X CIDR BLOCK**
 ----
+
+*  Example of using "**VPC and more**" creation option</br>(**click on each image to zoom**)
+  
+    [![image](images/vpc/vpc-1small.png)](images/vpc/vpc-1.png) [![image](images/vpc/vpc-2small.png)](images/vpc/vpc-2.png) [![image](images/vpc/vpc-3small.png)](images/vpc/vpc-3.png) [![image](images/vpc/vpc-4small.png)](images/vpc/vpc-4.png) 
 
 *  Give it two private and two public subnets
 
@@ -137,10 +135,15 @@ Known good VCSA ISOs
    
 **6) Deploy an AWS Managed Active Directory instance into your VPC**
 ----
+*  **Note 1:** Of course, you could set up your own Active Directory on a couple of small EC2 instances.  Just make sure it has **two domain controller IPs** if you do that.
 
-*  Note: The script uses admin@example.local by default.  This means you cant use Simple AD, it has to be the full Managed AD ... well, unless you want to hack the scripts
+*  **Note 2:** The scripts use **admin@example.local** and it is hardcoded in a couple spots for now.  This means you *cant use AWS Simple AD*, it has to be the Standard Managed AD.
 
-*  This also means you would be best served setting the DHCP options up for your VPC to point to these for DNS, not the default AWS DNS
+*  Example of creating an AWS Managed Active Directory instance in your VPC</br>(**click on each image to zoom**)
+  
+    [![image](images/ad/ad-2small.png)](images/ad/ad-2.png) [![image](images/ad/ad-3small.png)](images/ad/ad-3.png) [![image](images/ad/ad-4small.png)](images/ad/ad-4.png) [![image](images/ad/ad-5small.png)](images/ad/ad-5.png)
+
+*  This also means you need to set the DHCP options your VPC to point to these for DNS, not the default AWS DNS
     </br>
     </br>
     ![image](images/dhcp-options.png)
@@ -159,10 +162,9 @@ Known good VCSA ISOs
 **8) Deploy an m5zn.metal to your VPC to be the L0 host**
 ----
 
- *  Use the official Centos 8 Stream AMI from AWS
-    </br>
-    </br>
-     ![image](images/ami.png)
+ *  Use the official Centos 8 Stream AMI from AWS</br>(**click on image to zoom**)
+  
+     [![image](images/amismall.png)](images/ami.png)
 
  *  Put it on one of the private subnets
 
@@ -174,10 +176,9 @@ Known good VCSA ISOs
 ----
  *  [bash/userdata-example.sh](bash/userdata-example.sh)
 
- *  Make sure to fill out the S3BUCKET, S3PREFIX, ADPASSWORD, etc variables at the top appropriately
-    </br>
-    </br>
-     ![image](images/userdata.png)
+ *  **NOTE:** Make sure to fill out the S3BUCKET, S3PREFIX, ADPASSWORD, etc variables at the top appropriately.</br>(**click on image to zoom**)
+
+     [![image](images/userdatasmall.png)](images/userdata.png)
 
     What these variables mean:
 
@@ -230,21 +231,19 @@ Known good VCSA ISOs
 **10) Post-deployment network adjustments to support the nested OpenvSwitch**
 ----
 
- *  Disable the source/dest check (under networking) 
-    </br>
-    </br>
-    **NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
-    </br>
-    </br>
-    ![image](images/sourcedest.png)
+ *  Disable the source/dest check (under networking)</br>(**click on image to zoom**)
 
- *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance 
-    </br>
-    </br>
-    **[NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
-    </br>
-    </br>
-    ![image](images/routes.png)
+    [![image](images/sourcedestsmall.png)](images/sourcedest.png)
+
+    **NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
+
+ *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance</br>(**click on image to zoom**)
+
+    [![image](images/routessmall.png)](images/routes.png) 
+
+    **NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
+
+
 
 **11) From your Jump Host, SSH into your EC2 baremetal instance**
 ----
@@ -266,10 +265,9 @@ Known good VCSA ISOs
 **1) From your Windows Jump Host, VNC to the desktop of your EC2 baremetal instance**
 ----
 
-  *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0 running on TCP/5911.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build for example.
-    </br>
-    </br>
-     ![image](images/screenshots/desktop.png)
+  *  One of the scripts ./main.sh runs installs a GNOME desktop and VNC server onto the L0 running on TCP/5911.  This is helpful for troubleshooting, as you can watch the ESXi host consoles while they build for example.</br>(**click on each image to zoom**)
+
+     [![image](images/screenshots/desktopsmall.png)](images/screenshots/desktop.png) [![image](images/screenshots/11-45-56small.png)](images/screenshots/11-45-56.png) [![image](images/screenshots/11-41-07small.png)](images/screenshots/11-41-07.png)
 
   *  NOTE: It is possible to skip having a Windows jump host by putting your L0 on a public subnet and allowing TCP 5911 inbound.  You can do everything from the L0 desktop.  The reason I don't recommend this by default is most people don't want their L0 right on the internet like that.
 
@@ -392,9 +390,9 @@ Known good VCSA ISOs
     * /var/log/get_ovas.sh.log
     * /var/log/configure_workload_vms.sh.log
 
-  * **NOTE:** One of the things the sample userdata script does is set up AWS Cloudwatch to ingest these and many other logs into a Log Stream named after the Instance Id.
+  * **Sample Userdata script sends these logs to Cloudwatch**</br>(**click on image to zoom**)
 
-    ![image](images/using/cloudwatch.png)
+      [![image](images/using/cloudwatchsmall.png)](images/using/cloudwatch.png)
 
 
 </br>
