@@ -70,12 +70,16 @@ rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm
 cp esxi-on-kvm/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
 
+# Install s5cmd, which is much faster than s3cmd
+wget -q https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz
+tar -xf ./s5cmd_2.0.0_Linux-64bit.tar.gz
+mv ./s5cmd /usr/bin
 
 # Download the VMware bits from your S3 bucket
 mkdir -p $ESXIROOT/ISO/esxi
 mkdir -p $ESXIROOT/ISO/vcsa
-aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
-aws s3 cp s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
+s5cmd cp -c 50 s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
+s5cmd cp -c 50 s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
 
 # Get needed information from instance metadata
 EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
