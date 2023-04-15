@@ -1,6 +1,3 @@
-# Known good AMIs include: 
-# CentOS-Stream-ec2-8 (x86_64) for HVM Instances - which has Product code "marketplace:9svc856m58q4n42iz9he7imlb"
-
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "CentOS-Stream-ec2-8 (x86_64) for HVM - L0 w/KVM"
 Metadata:
