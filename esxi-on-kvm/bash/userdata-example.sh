@@ -24,13 +24,13 @@ ADUSER=
 # VCSAISO=vcsa-8.0.iso
 # VSPHEREVERSION=8.0
 # DNSDOMAIN=example.local
-# ADPASSWORD=Aws2022@
+# ADPASSWORD=Aws2023@
 # ADUSER=admin@EXAMPLE.LOCAL
 
 ## You can also modify the following variables if you want, but the defaults work fine and I haven't exhaustively tested changing these
 
 HOSTPASSWORD="VMware1!"
-SSOPASSWORD="Aws2022@"
+SSOPASSWORD="Aws2023@"
 
 ## You'll need to hack the scripts to change this so I'd just leave it alone for now
 
@@ -67,7 +67,7 @@ chmod -R 770 *
 # Install the AWS Cloudwatch agent and configure it using the file under ./JSON
 wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm 
 rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm 
-cp esxi-on-kvm/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
 
 # Install s5cmd, which is much faster than s3cmd
