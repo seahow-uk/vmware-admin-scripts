@@ -339,6 +339,126 @@
                         "timezone": "Local"
                     },   
                     {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/rhttpproxy.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/rhttpproxy.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi1.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi2.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi3.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi4.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi5.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi6.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi7.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi8.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi9.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
+                        "file_path": "/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/hostd.log",
+                        "log_group_name": "/{instance_id}",
+                        "log_stream_name": "/{instance_id}/scripts/vmware-admin-scripts/esxi-on-kvm/VMs/esxi-hostlogs/esxi10.example.local/hostd.log",
+                        "timezone": "Local"
+                    },   
+                    {
                         "file_path": "/var/log/get_ovas.sh.log",
                         "log_group_name": "/{instance_id}",
                         "log_stream_name": "/{instance_id}/var/log/get_ovas.sh.log",
