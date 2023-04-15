@@ -1,0 +1,391 @@
+# Known good AMIs include: 
+# CentOS-Stream-ec2-8 (x86_64) for HVM Instances - which has Product code "marketplace:9svc856m58q4n42iz9he7imlb"
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CentOS-Stream-ec2-8 (x86_64) for HVM - L0 w/KVM"
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: Prerequisites
+      Parameters:
+      - KeyName 
+      - SecurityGroup
+      - Subnet
+      - InstanceProfile
+    - Label:
+        default: Active Directory
+      Parameters:
+      - ADDirectoryName
+      - ADDnsIpAddresses1
+      - ADDnsIpAddresses2
+      - JoinAccount
+      - JoinAccountPassword
+    - Label:
+        default: Instance Settings
+      Parameters:    
+      - InstanceType
+    - Label:
+        default: EBS Volume
+      Parameters:        
+      - EBSDataVolumeSize
+      - EBSDataVolumeType
+      - EBSDataVolumeIOPS
+    - Label:
+        default: VMware Parameters
+      Parameters:        
+      - VCSAISO
+      - VSPHEREVERSION
+      - HOSTPASSWORD
+      - SSOPASSWORD
+    - Label:
+        default: Content Parameters
+      Parameters:
+      - S3BUCKET
+      - S3PREFIX     
+    ParameterLabels:
+      KeyName:
+        default: "EC2 Keypair Name"
+      InstanceType:
+        default: "EC2 Instance Type"
+      EBSDataVolumeSize:
+        default: "Size in GB for the EBS Volume that will be attached as D: and meant for MDF files"
+      EBSDataVolumeIOPS:
+        default: "IOPS for Win2019 Data File Volume (D:) - only relevant if the volume type is io1, io2 or gp3"
+      EBSDataVolumeType:
+        default: "EBS Volume Type for Win2019 Data File Volume (D:)"
+      ADDirectoryName:
+        default: "AD Domain name"
+      ADDnsIpAddresses1:
+        default: "AD Domain Controller / DNS IP 1"
+      ADDnsIpAddresses2:
+        default: "AD Domain Controller / DNS IP 2"
+      SecurityGroup:
+        default: "Security Group for this instance"
+      Subnet:
+        default: "Subnet for this instance (this is also how AZ placement is determined)"
+      InstanceProfile:
+        default: "Instance Profile name of an IAM role with SSM and Cloudwatch agent permissions"
+      VCSAISO:
+        default: "Just the ISO name, no path"
+      VSPHEREVERSION:
+        default: "8.0, 7.0, or 6.7"
+      HOSTPASSWORD:
+        default: "Password for root on the esxi hosts"
+      SSOPASSWORD:
+        default: "Password for administrator@lab1.local and administrator@lab2.local"
+      S3BUCKET:
+        default: "Just the bucket name, no https:// or s3://"
+      S3PREFIX:
+        default: "Just the prefix name, no slashes"
+Parameters:
+  Subnet:
+    Type: AWS::EC2::Subnet::Id
+    Description: "Select from the drop-down"
+    ConstraintDescription: Choose the subnet this instance will live on
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: "Select from the drop-down"
+    ConstraintDescription: Pick an SG for this instance
+  KeyName:
+    Description: "Select from the drop-down"
+    Type: "AWS::EC2::KeyPair::KeyName"
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  InstanceType:
+    Description: "Select from the drop-down [Note: Prices include Windows Datacenter 2019 + SQL Std 2019 Licensing costs]"
+    Type: String
+    Default: "m5zn.metal   | $1250/mo  | 48 VCPU | Intel Xeon Platinum 8252 | 192 GiB RAM"
+    AllowedValues:
+    - "m5zn.metal   | $1250/mo  | 48 VCPU | Intel Xeon Platinum 8252 | 192 GiB RAM"
+    ConstraintDescription: must be a valid EC2 instance type.
+  InstanceProfile:
+    Type: String
+    Description: "Instance Profile with permissions to SSM, Cloudwatch, EC2 and Managed AD services"
+    Default: "admin-instance-role"
+  ADDirectoryName:
+    Type: String
+    Description: "DNS domain corresponding to your Managed AD Instance"
+    Default: "example.local"
+  ADDnsIpAddresses1:
+    Type: String
+    Description: "Example: 192.168.10.10"
+  ADDnsIpAddresses2:
+    Type: String
+    Description: "Example: 192.168.10.11"
+  EBSDataVolumeSize:
+    Type: Number
+    Description: "Size in GB for the EBS Volume that will be attached as D: and meant for MDF files"
+    Default: 1000
+    MaxValue: 10000
+    MinValue: 500
+  EBSDataVolumeIOPS:
+    Type: Number
+    Description: "IOPS for Win2019 Data File Volume (D:) - only relevant if the volume type is io1, io2 or gp3"
+    Default: 4000
+    MaxValue: 30000
+    MinValue: 1000
+  EBSDataVolumeType:
+    Description: "gp2 | gp3 | sc1 | st1 | io1 | io2"
+    Type: String
+    Default: "gp3"
+    AllowedValues:
+    - "sc1"
+    - "st1"
+    - "gp2"
+    - "gp3"
+    - "io1"
+    - "io2"
+    ConstraintDescription: must be a valid EBS volume type
+  JoinAccount:
+    Description: "More information - https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_join_privileges.html"
+    Type: String
+    Default: "admin@EXAMPLE.LOCAL"
+  JoinAccountPassword:
+    Description: Password for the AD joiner account
+    Type: String
+    NoEcho: "True"
+    Default: "Aws2023@"
+  VCSAISO:
+    Description: "ISO file to install VCSA from"
+    Type: String
+    Default: "vcsa-8.0.iso"
+  VSPHEREVERSION: 
+    Description: "Version of Vsphere"
+    Type: String
+    Default: "8.0"
+  HOSTPASSWORD:
+    Description: "local root password"
+    Type: String
+    Default: "VMware1!"
+  SSOPASSWORD:
+    Description: "SSO domain password"
+    Type: String
+    Default: "Aws2023@"
+  S3BUCKET:
+    Description: "S3 bucket where your ISOs are"
+    Type: String
+  S3PREFIX:
+    Description: "Prefix within said bucket with your ISOs"
+    Type: String
+Mappings:
+  AMIRegionMap:
+    ap-northeast-1:
+      AMIID: ami-0270524b69d8dc369
+    ap-northeast-2:
+      AMIID: ami-0a0cd2f78e9ef322a
+    ap-northeast-3:
+      AMIID: ami-07ced76e49fa0bcfe
+    ap-south-1:
+      AMIID: ami-05f467b6810d6db3f
+    ap-southeast-1:
+      AMIID: ami-09bca320521273916
+    ap-southeast-2:
+      AMIID: ami-0e48fcabde2c23bbf
+    ca-central-1:
+      AMIID: ami-01225e417a8102bd9
+    eu-central-1:
+      AMIID: ami-06833e5c67e7c34fa
+    eu-north-1:
+      AMIID: ami-00d59f3f066e00dc9
+    eu-west-1:
+      AMIID: ami-0f43e505404dec19c
+    eu-west-2:
+      AMIID: ami-0e640dab77ce924f7
+    eu-west-3:
+      AMIID: ami-03db087c0ec0c86b1
+    us-east-1:
+      AMIID: ami-0cdb8266fcd5d3d63
+    us-east-2:
+      AMIID: ami-013f9ee48907190f5
+    us-west-1:
+      AMIID: ami-0789ea4ecdab43447
+    us-west-2:
+      AMIID: ami-031e6a417aae9b9f6
+Conditions: 
+  HasIopsData:
+    Fn::Or:
+    - Fn::Equals:
+      - io1
+      - Ref: EBSDataVolumeType
+    - Fn::Equals:
+      - io2
+      - Ref: EBSDataVolumeType
+    - Fn::Equals:
+      - gp3
+      - Ref: EBSDataVolumeType
+Resources:
+  CentosServerInstanceLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: 
+        Fn::Join:
+        - ""
+        - - "/"
+          - Ref: AWS::StackName
+          - "/"
+          - Ref: WindowsComputerName
+      RetentionInDays: 7
+  CentosServerInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize:
+              Ref: EBSDataVolumeSize
+            VolumeType: 
+              Ref: EBSDataVolumeType
+            Iops: 
+              !If [HasIopsData, !Ref EBSDataVolumeIOPS, !Ref "AWS::NoValue"]
+            DeleteOnTermination: true
+      ImageId: 
+        Fn::FindInMap
+        - AMIRegionMap
+        - Ref: AWS::Region
+        - AMIID
+      IamInstanceProfile: 
+        Ref: InstanceProfile
+      InstanceType:
+        Fn::Select:
+        - 0
+        - Fn::Split:
+          - " "
+          - Fn::Select:
+            - 0
+            - Fn::Split:
+              - "|"
+              - Ref: InstanceType
+      Monitoring: 'True'
+      EbsOptimized: 'True'
+      SecurityGroupIds:
+      - Ref: SecurityGroup
+      KeyName:
+        Ref: KeyName
+      SubnetId:
+        Ref: Subnet     
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+
+          S3BUCKET=${S3BUCKET}
+          S3PREFIX=${S3PREFIX}
+          DNSIPADDRESS1=${ADDnsIpAddresses1}
+          DNSIPADDRESS2=${ADDnsIpAddresses2}
+          VCSAISO=${VCSAISO}
+          VSPHEREVERSION=${VSPHEREVERSION}
+          DNSDOMAIN=${ADDirectoryName}
+          ADPASSWORD=${JoinAccountPassword}
+          ADUSER=${JoinAccount}
+          HOSTPASSWORD=${HOSTPASSWORD}
+          SSOPASSWORD=${SSOPASSWORD}
+
+          ## You'll need to hack the scripts to change this so I'd just leave it alone for now
+
+          ESXIROOT="/scripts/vmware-admin-scripts/esxi-on-kvm"
+
+          ## I hope you filled those out and prestaged the files or the rest of this won't work
+
+          # Enable the appropriate repos and level set with a clean and update
+          dnf config-manager --enable ha
+          dnf config-manager --enable powertools
+          dnf config-manager --enable nfv
+          dnf config-manager --enable extras
+          dnf clean all 
+          rm -rfv /var/cache/dnf
+          dnf distro-sync -y
+          dnf update -y
+
+          # install the packages we're going to need prior to running main.shn
+          dnf install python39 -y
+          dnf install wget git awscli krb5-workstation sssd realmd samba curl jq expect -y
+
+          # install the AWS SSM agent
+          dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+          systemctl enable amazon-ssm-agent
+          systemctl start amazon-ssm-agent
+
+          # Clone the git repo with all the scripts needed to build everything
+          mkdir -p /scripts
+          cd /scripts
+          git clone https://github.com/seahow-uk/vmware-admin-scripts.git
+          cd vmware-admin-scripts
+          chmod -R 770 *
+
+          # Install the AWS Cloudwatch agent and configure it using the file under ./JSON
+          wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm 
+          rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm 
+          cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+          /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+
+          # Install s5cmd, which is much faster than s3cmd
+          wget -q https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz
+          tar -xf ./s5cmd_2.0.0_Linux-64bit.tar.gz
+          mv ./s5cmd /usr/bin
+
+          # Download the VMware bits from your S3 bucket
+          mkdir -p $ESXIROOT/ISO/esxi
+          mkdir -p $ESXIROOT/ISO/vcsa
+          s5cmd cp -c 50 s3://$S3BUCKET/$S3PREFIX/$VCSAISO $ESXIROOT/ISO/vcsa/$VCSAISO
+          s5cmd cp -c 50 s3://$S3BUCKET/$S3PREFIX/$VSPHEREVERSION.iso $ESXIROOT/ISO/esxi/$VSPHEREVERSION.iso
+
+          # Get needed information from instance metadata
+          EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+          EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed 's/[a-z]$//'`"
+          EC2_INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+          EC2_MAC_LIST=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs`
+          EC2_MAC_ID=${EC2_MAC_LIST:0:17}
+          EC2_PRIMARY_ENI_ID=`aws ec2 describe-network-interfaces --region $EC2_REGION --filters Name=mac-address,Values=${EC2_MAC_ID} --query "NetworkInterfaces[0].NetworkInterfaceId" --output text`
+          EC2_VPC_ID=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/${EC2_MAC_ID}/vpc-id`
+          EC2_ROUTE_TABLE_ARRAY=`aws ec2 describe-route-tables --filters "Name=vpc-id,Values=${EC2_VPC_ID}" --query "RouteTables[].Associations[].RouteTableId" --region=${EC2_REGION} |jq -r .[] |sort|uniq`
+
+          # Turn off source-dest-check on the first ENI of this instance (eth0)
+          aws ec2 modify-network-interface-attribute --network-interface-id $EC2_PRIMARY_ENI_ID --source-dest-check "{\"Value\": false}" --region $EC2_REGION
+
+          # Loop over all route tables in this VPC
+          for EC2_ROUTE_TABLE_ID in $EC2_ROUTE_TABLE_ARRAY
+          do
+              # first remove any existing route for 192.168.0.0/16
+              aws ec2 delete-route --route-table-id $EC2_ROUTE_TABLE_ID --destination-cidr-block 192.168.0.0/16 --region $EC2_REGION
+
+              # add a route for 192.168.0.0/16 to the primary ENI ID for this routing table
+              aws ec2 create-route --route-table-id $EC2_ROUTE_TABLE_ID --destination-cidr-block 192.168.0.0/16 --network-interface-id $EC2_PRIMARY_ENI_ID --region $EC2_REGION
+          done
+
+          # This is needed for SSM's Connection Manager feature to work
+          useradd ec2-user 
+          usermod -G 10 ec2-user
+          usermod -g 10 ec2-user
+          sed -i "s/%wheel/#wheel/g" /etc/sudoers
+          sed -i "s/# #wheel/%wheel/g" /etc/sudoers
+
+          # This sets the root password on L0 to match your ADPASSWORD variable so you can mount the CIFS shares Samba exposes from your jump host
+          $ESXIROOT/expect/setpassroot.sh
+
+          # This pushes all the variables above into main.sh
+          sed -i "0,/DNSIPADDRESS1=/ s/DNSIPADDRESS1=/DNSIPADDRESS1=$DNSIPADDRESS1/" $ESXIROOT/main.sh
+          sed -i "0,/DNSIPADDRESS2=/ s/DNSIPADDRESS2=/DNSIPADDRESS2=$DNSIPADDRESS2/" $ESXIROOT/main.sh
+          sed -i "0,/VCSAISO=/ s/VCSAISO=/VCSAISO=$VCSAISO/" $ESXIROOT/main.sh
+          sed -i "0,/VSPHEREVERSION=/ s/VSPHEREVERSION=/VSPHEREVERSION=$VSPHEREVERSION/" $ESXIROOT/main.sh
+          sed -i "0,/DNSDOMAIN=/ s/DNSDOMAIN=/DNSDOMAIN=$DNSDOMAIN/" $ESXIROOT/main.sh
+          sed -i "0,/ADPASSWORD=/ s/ADPASSWORD=/ADPASSWORD=$ADPASSWORD/" $ESXIROOT/main.sh
+          sed -i "0,/ADUSER=/ s/ADUSER=/ADUSER=$ADUSER/" $ESXIROOT/main.sh
+          sed -i "0,/HOSTPASSWORD=/ s/HOSTPASSWORD=/HOSTPASSWORD=$HOSTPASSWORD/" $ESXIROOT/main.sh
+          sed -i "0,/SSOPASSWORD=/ s/SSOPASSWORD=/SSOPASSWORD=$SSOPASSWORD/" $ESXIROOT/main.sh
+
+          # This joins your L0 to Active Directory
+          echo "$ADPASSWORD" | realm join -U admin --client-software=sssd $DNSDOMAIN  &>> /var/log/join_l0_to_ad.log
+
+          # This sets up the L0 and L1 environments (Centos, KVM, OVS) with the nested network routing and such
+
+          cd $ESXIROOT
+          ./main.sh
+
+          # For some reason, it loses the right directory context during main.sh need to track down why
+
+          # This makes the script wait 1 minute for everything to simmer down before installing the VMware pieces
+          sleep 1m
+
+          # This actually creates the L1 VMs and installs ESX into them.  It also sets up the VCSAs, DVSes, and so on
+
+          cd $ESXIROOT
+          ./nested.sh
