@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
     ## destroy the virbr0 libvirt creates by default
 	virsh net-undefine default

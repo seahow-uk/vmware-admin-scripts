@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+. $ESXIROOT/bash/configure_l0_env.sh
+
 ## this needs to run under the special dcli 3.6 venv
 ## because the python script needs the vsphere automation sdk
 source $ESXIROOT/dcli_venv/bin/activate

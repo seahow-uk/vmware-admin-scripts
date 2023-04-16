@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
 # build our global variables
     STARTHOST=1

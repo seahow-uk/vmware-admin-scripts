@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
 # NOTE: Jan 7, 2023:
 # I've just finished porting all of this to Centos 8 Stream and decoupling from an old build environment

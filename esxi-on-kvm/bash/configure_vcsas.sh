@@ -1,6 +1,8 @@
 #!/bin/bash -x
 
-    VCSAJSONSOURCE=$ESXIROOT/JSON/vcsa-install-$VSPHEREVERSION.json
+. $ESXIROOT/bash/configure_l0_env.sh
+
+VCSAJSONSOURCE=$ESXIROOT/JSON/vcsa-install-$VSPHEREVERSION.json
 
 ## Stage 1: deploy vcsas - one to each of n number hosts
 

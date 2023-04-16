@@ -2,7 +2,7 @@
 
 export ESXIROOT="$PWD"
 
-  . $ESXIROOT/bash/configure_l0_env.sh
+. $ESXIROOT/bash/configure_l0_env.sh
 
 # build base vmware environment
 

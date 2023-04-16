@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+. $ESXIROOT/bash/configure_l0_env.sh
+
   ## variables
   STARTHOST=1
   ENDHOST=$ESXHOSTCOUNT

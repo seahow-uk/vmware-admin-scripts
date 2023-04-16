@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+. $ESXIROOT/bash/configure_l0_env.sh
+
 ## turn off selinux
 	setenforce 0
 	sed -i "s/enforcing/disabled/g" /etc/selinux/config
@@ -150,7 +152,7 @@
 
   ## create a 3.6 virtual environment because dcli won't function under python 3.9
   ## this venv is also used when calling python scripts that need the pyvmomi/vsphere automation stuff
-  
+
    	mkdir -p $ESXIROOT/dcli_venv
 	virtualenv $ESXIROOT/dcli_venv -p /usr/bin/python3.6 --download
 	source $ESXIROOT/dcli_venv/bin/activate

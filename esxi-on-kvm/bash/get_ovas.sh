@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
 	  mkdir -p $ESXIROOT/OVA/odoo
   	mkdir -p $ESXIROOT/OVA/resourcespace

@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+. $ESXIROOT/bash/configure_l0_env.sh
+
 ## the idea of this script is to have cron run it periodically to post the most current state of the nested vmware environment to a file under /var/log
 ## for troubleshooting purposes.  I like to have cloudwatch pick it up every 5 minutes so I can easily see things about the vmware environment without having to actually log in and look
 

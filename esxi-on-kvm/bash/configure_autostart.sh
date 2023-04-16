@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
 ## enable autostart on all hosts (do it last so it catches the installed vms)
   for ((i = 1; i <= 10; i++)); do

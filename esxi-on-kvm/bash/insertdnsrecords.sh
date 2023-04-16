@@ -1,4 +1,6 @@
-#!/bin/bash 
+#!/bin/bash -x
+
+. $ESXIROOT/bash/configure_l0_env.sh
 
 ETH0IP=`ifconfig ovs-uplink | awk '/inet / {print $2}'`
 THIRDOCTET="$(cut -d'.' -f3 <<< $ETH0IP)"
