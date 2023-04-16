@@ -183,5 +183,13 @@
 	dnf install net-tools -y
 	dnf install openvswitch -y 
 	dnf install os-net-config -y
-	
+
+  ## don't ask me why, but the cloudwatch agent config gets reset to default somewhere in here
+  ## therefore, I'm going to force it to reload the one we actually want AND recopy the json to 
+  ## the staging spot just in case it tries to regenerate the TOML again later on
+
+  cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+  /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+  cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+
 exit 0
