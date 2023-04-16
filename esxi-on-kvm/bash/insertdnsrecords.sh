@@ -14,7 +14,7 @@ echo "$ADPASSWORD" | kinit $ADUSER
 echo -e "update delete L0.$DNSDOMAIN\n\nsend" | nsupdate -g
 
 ## inject L0.$DNSDOMAIN A record
-echo -e "zone $DNSDOMAIN.\nupdate add L0.$DNSDOMAIN 86400 A 192.168.$THIRDOCTET.$FOURTHOCTET\n\nsend" | nsupdate -g
+echo -e "zone $DNSDOMAIN.\nupdate add L0.$DNSDOMAIN 86400 A $ETH0IP\n\nsend" | nsupdate -g
 
 for ((i=1; i<=$ESXHOSTCOUNT; i++))
 do
