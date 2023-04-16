@@ -1,8 +1,10 @@
 #!/bin/bash -x
 
-echo "My ESXIROOT is: $ESXIROOT"
+echo "My ESXIROOT before configure_l0_env is: $ESXIROOT"
 
-  . $ESXIROOT/bash/configure_l0_env.sh
+  . bash/configure_l0_env.sh
+
+echo "My ESXIROOT after configure_l0_env is: $ESXIROOT"
 
 # build base vmware environment
 
