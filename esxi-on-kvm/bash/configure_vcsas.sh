@@ -33,7 +33,7 @@ VCSAJSONSOURCE=$ESXIROOT/JSON/vcsa-install-$VSPHEREVERSION.json
 
         ## take the relevant hosts out of maintenance mode
         echo "taking esxi$esxindex out of maintenance mode..."
-        esxcli --server="esxi$esxindex.$DNSDOMAIN" --username="root" --password="$HOSTPASSWORD" --thumbprint="$MY_THUMBPRINT" system maintenanceMode set --enable false
+        sshpass -p "$HOSTPASSWORD" ssh "esxi$esxindex.$DNSDOMAIN" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "esxcli system maintenanceMode set --enable false"
 
         let vcsaoctet=vcsaoctet+$IPSPERLAB ## 10 ips per lab so vcsas will live at 192.168.10,20,30,40,50
         let esxindex=esxindex+$HOSTSPERLAB ## 5 hosts per lab
