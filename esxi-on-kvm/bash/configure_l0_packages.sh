@@ -156,6 +156,10 @@
 
 	pip3 install --upgrade pip
 	pip3 install argparse
+	# Not sure what the deal is here, but you have to upgrade to the newest so that pip3
+	# can find 62.0.0 which you need to keep it pinned at per https://github.com/vmware/vsphere-automation-sdk-python#quick-start-guide
+	pip3 install --upgrade setuptools
+	pip3 install --upgrade setuptools==62.0.0
 	pip3 install setuptools-git
 	pip3 install normalizer
 	pip3 install suds-jurko
