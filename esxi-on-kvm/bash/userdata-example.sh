@@ -128,12 +128,17 @@ sed -i "0,/SSOPASSWORD=/ s/SSOPASSWORD=/SSOPASSWORD=$SSOPASSWORD/" $ESXIROOT/mai
 # This joins your L0 to Active Directory
 echo "$ADPASSWORD" | realm join -U admin --client-software=sssd $DNSDOMAIN  &>> /var/log/join_l0_to_ad.log
 
-# Kick off main.sh which builds everything but stops short of actually deploying the nested VMware environment.
+# This sets up the L0 and L1 environments (Centos, KVM, OVS) with the nested network routing and such
 
 cd $ESXIROOT
 ./main.sh
 
-# Once the host is done building and running everything under main.sh (easily 20 minutes), you need to SSH in and run
-# $ESXIROOT/nested.sh to build the VMware environment.  Now you *could* add that here at the end right after main.sh
-# but you will need to somehow make sure the route tables are pointing to this L0's ENI for 192.168.0.0/16 by the time
-# that occurs.
+# For some reason, it loses the right directory context during main.sh need to track down why
+
+# This makes the script wait 1 minute for everything to simmer down before installing the VMware pieces
+sleep 1m
+
+# This actually creates the L1 VMs and installs ESX into them.  It also sets up the VCSAs, DVSes, and so on
+
+cd $ESXIROOT
+./nested.sh
