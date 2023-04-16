@@ -172,7 +172,7 @@ Known good VCSA ISOs
   
     *  You could probably drop this to as low as 500 GiB if you don't plan to do VSAN or thick provision many L2 VMs.  I have not tested to find the low bound.
 
-**9) Under bash/userdata-example.sh there is something you can cut and paste into the user data section that will prepare the L0 host**
+**9) [bash/userdata-example.sh](bash/userdata-example.sh) is quite useful to avoid steps 10 and beyond**
 ----
  *  [bash/userdata-example.sh](bash/userdata-example.sh)
 
@@ -227,7 +227,10 @@ Known good VCSA ISOs
     *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
 
  *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
- *  *NOTE 2: I've added a CFN template - [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) - that you can use in Service Catalog for one-click deployment*
+
+**9b) Check out [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) for an even easier method**
+----
+ *  I've added a CFN template - [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) - that you can use in Service Catalog for one-click deployment
 
 **10) Post-deployment network adjustments to support the nested OpenvSwitch**
 ----
