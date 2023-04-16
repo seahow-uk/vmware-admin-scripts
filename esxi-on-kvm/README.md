@@ -227,6 +227,7 @@ Known good VCSA ISOs
     *  Run ./main.sh which prepares everything right up to the point before you start actually deploying ESX/VCSA/etc
 
  *  *NOTE: I recommend you create a Launch Template that contains this userdata script pre-filled out.  Makes redeployment of L0 from scratch a lot easier.*
+ *  *NOTE 2: I've added a CFN template - [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) - that you can use in Service Catalog for one-click deployment*
 
 **10) Post-deployment network adjustments to support the nested OpenvSwitch**
 ----
@@ -235,27 +236,27 @@ Known good VCSA ISOs
 
     [![image](images/sourcedestsmall.png)](images/sourcedest.png)
 
-    **NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
+    **NOTE:** *Not necessary if you used the [bash/userdata-example.sh](bash/userdata-example.sh) or [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) from Step 9*
 
  *  Second, add a route for 192.168.0.0/16 that points to whatever ENI maps to eth0 of your EC2 instance</br>(**click on image to zoom**)
 
     [![image](images/routessmall.png)](images/routes.png) 
 
-    **NOTE:** *Not necessary if you used the bash/userdata-example.sh from Step 9*
-
+    **NOTE:** *Not necessary if you used the [bash/userdata-example.sh](bash/userdata-example.sh) or [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) from Step 9*
 
 
 **11) From your Jump Host, SSH into your EC2 baremetal instance**
 ----
 
-  *  cd $ESXIROOT
+  *  First initiate the build of the L0/L1 environment
 
-  *  Now kick off the build of the nested environment
+      $ESXIROOT/main.sh
 
-      ./nested.sh
+  *  Now kick off the build of the nested vsphere environment
 
-      **NOTE: This assumes you used the example userdata script to deploy the L0**
-        *   If you did not, you will need to manually edit and run ./main.sh BEFORE ./nested.sh
+      $ESXIROOT/nested.sh
+
+  **NOTE:** *Not necessary if you used the [bash/userdata-example.sh](bash/userdata-example.sh) or [cloudformation/deploy_l0.yaml](cloudformation/deploy_l0.yaml) from Step 9*
 
 </br>
 
