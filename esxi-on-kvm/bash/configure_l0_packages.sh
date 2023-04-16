@@ -178,10 +178,6 @@
 	
 	deactivate
 
-  ## install esxcli
-	chmod 700 $ESXIROOT/$ESXCLIFILE
-	$ESXIROOT/expect/installesxcli.sh
-
   ## this section installs needed prereqs plus OVS
 	dnf install net-tools -y
 	dnf install openvswitch -y 
