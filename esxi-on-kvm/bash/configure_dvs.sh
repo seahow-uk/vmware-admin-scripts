@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
-## this needs to run under a 3.6 venv
+## this needs to run under the special dcli 3.6 venv
+## because the python script needs the vsphere automation sdk
 source $ESXIROOT/dcli_venv/bin/activate
 
 for ((i = 1; i <= 2; i++)); do

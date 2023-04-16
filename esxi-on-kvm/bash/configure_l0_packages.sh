@@ -146,20 +146,17 @@
   ## install python packages into the root 3.9 environment
 	pip3 install --upgrade pip
 	pip3 install virtualenv
-	pip3 install setuptools
 	pip3 install setuptools-git
 
   ## create a 3.6 virtual environment because dcli won't function under python 3.9
+  ## this venv is also used when calling python scripts that need the pyvmomi/vsphere automation stuff
+  
    	mkdir -p $ESXIROOT/dcli_venv
 	virtualenv $ESXIROOT/dcli_venv -p /usr/bin/python3.6 --download
 	source $ESXIROOT/dcli_venv/bin/activate
 
 	pip3 install --upgrade pip
 	pip3 install argparse
-	# Not sure what the deal is here, but you have to upgrade to the newest so that pip3
-	# can find 62.0.0 which you need to keep it pinned at per https://github.com/vmware/vsphere-automation-sdk-python#quick-start-guide
-	pip3 install --upgrade setuptools
-	pip3 install --upgrade setuptools==62.0.0
 	pip3 install setuptools-git
 	pip3 install normalizer
 	pip3 install suds-jurko

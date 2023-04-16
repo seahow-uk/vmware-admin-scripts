@@ -1,6 +1,7 @@
 #!/bin/bash
 
-## this needs to run under a 3.6 venv
+## this needs to run under the special dcli 3.6 venv
+## because the python script needs the vsphere automation sdk
 source $ESXIROOT/dcli_venv/bin/activate
 
 # move nics 1 and 2 to their respective iscsi VLANs on the netapp, which is on vcsa 2 thus i=2

@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
-## this needs to run under a 3.6 venv
+## this needs to run under the special dcli 3.6 venv
+## because dcli is directly run here
 source $ESXIROOT/dcli_venv/bin/activate
 
 let m1=1
