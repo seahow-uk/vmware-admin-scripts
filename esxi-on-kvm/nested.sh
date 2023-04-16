@@ -1,4 +1,6 @@
-  #!/bin/bash -x
+#!/bin/bash -x
+
+echo "My ESXIROOT is: $ESXIROOT"
 
   . $ESXIROOT/bash/configure_l0_env.sh
 
