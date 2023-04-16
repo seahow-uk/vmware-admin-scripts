@@ -2,7 +2,7 @@
 
 ## Scripts to deploy a nested VMware environment onto an AWS EC2 .metal instance
 
-### Includes userdata script so you can make this a one-click deployment in EC2 with a Launch Template
+### Includes [userdata script](bash/userdata-example.sh) and [cloudformation template](cloudformation/deploy_l0.yaml) for one-click deployment
 
 Sean Howard - *darmok.and.jalad@tanagra.uk*
 
