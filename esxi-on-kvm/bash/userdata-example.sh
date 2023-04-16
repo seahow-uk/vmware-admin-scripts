@@ -69,6 +69,7 @@ wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amaz
 rpm -Uvh --quiet ./amazon-cloudwatch-agent.rpm 
 cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+cp $ESXIROOT/JSON/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 
 # Install s5cmd, which is much faster than s3cmd
 wget -q https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz
