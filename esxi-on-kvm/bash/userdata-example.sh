@@ -140,6 +140,6 @@ cd $ESXIROOT
 sleep 1m
 
 # This actually creates the L1 VMs and installs ESX into them.  It also sets up the VCSAs, DVSes, and so on
-
-cd $ESXIROOT
-./nested.sh
+# This must be run manually from an interactive prompt for now.  There is some weird context issue when run from here
+#cd $ESXIROOT
+#./nested.sh
