@@ -351,3 +351,4 @@ MigrationBackup/
 
 esxi-on-kvm/cloudformation/deploy_l0_hidden.yml
 esxi-on-kvm/cloudformation/deploy_l0_hidden.yaml
+esxi-on-kvm/linecount.txt
