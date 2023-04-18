@@ -8,6 +8,7 @@
     mkdir -p $ESXIROOT/OVA/mysql
     mkdir -p $ESXIROOT/OVA/wordpress
     mkdir -p $ESXIROOT/OVA/lampstack
+    mkdir -p $ESXIROOT/ISO/windows
 
 ## download WordPress virtual appliance
 
@@ -32,5 +33,10 @@
 ## download LAMP virtual appliance
 
   wget https://bitnami.com/redirect/to/2261033/bitnami-lampstack-8.2.1-1-r01-linux-vm-debian-11-x86_64-nami.ova -O $ESXIROOT/OVA/lampstack/bitnami-lampstack-8.2.1-1-r01-linux-vm-debian-11-x86_64-nami.ova
+
+## download Windows ISO
+
+  cd $ESXIROOT/ISO/windows
+  wget https://go.microsoft.com/fwlink/p/?LinkID=2195174 --trust-server-names
 
 exit 0

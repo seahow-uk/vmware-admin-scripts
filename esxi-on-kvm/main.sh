@@ -49,9 +49,9 @@ SSOPASSWORD=
 ##
 
 MEM=16
-CORE=2
+CORE=4
 MGMTMEM=18
-MGMTCORE=2
+MGMTCORE=4
 
 ## All that said, if you don't care as much about cost and need bigger/faster ESXi hosts, I would recommend
 ## an r6i.metal with 128 VCPU and 1024 GB memory.  They have even newer 3.5 GHz Intel Xeon 8375C (Ice Lake) cpus

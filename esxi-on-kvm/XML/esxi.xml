@@ -40,11 +40,7 @@
     <acpi/>
     <apic/>
   </features>
-  <cpu mode="host-model" check="partial">
-    <topology sockets="1" dies="1" cores="2" threads="1"/>
-    <feature policy="force" name="monitor"/>
-    <feature policy="force" name="vmx"/>
-  </cpu>
+  <cpu mode="host-passthrough" check="partial" migratable="on"/>
   <clock offset="utc">
     <timer name="pit" present="yes" tickpolicy="delay"/>
     <timer name="rtc" present="yes" tickpolicy="catchup"/>
