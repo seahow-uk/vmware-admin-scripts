@@ -14,7 +14,7 @@
               "some comments"
           ],
           "thin_disk_mode": true,
-          "deployment_option": "tiny",
+          "deployment_option": "small",
           "name": "VCSAFQDNPLACEHOLDER"
       },
       "network": {
